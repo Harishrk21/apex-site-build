@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 200 15% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 200 15% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 15% 20%;
+
+    /* Primary Green - Herbalife brand color */
+    --primary: 153 68% 33%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Soft Leaf Green for backgrounds and accents */
+    --secondary: 149 50% 58%;
+    --secondary-foreground: 200 15% 20%;
+
+    /* Warm Sand Beige for section backgrounds */
+    --muted: 30 50% 94%;
+    --muted-foreground: 180 10% 50%;
+
+    /* Deep Teal for footer and premium sections */
+    --accent: 177 69% 18%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 149 30% 85%;
+    --input: 149 30% 85%;
+    --ring: 153 68% 33%;
+
+    --radius: 0.75rem;
+    
+    /* Custom wellness colors */
+    --wellness-green: 153 68% 33%;
+    --wellness-soft-green: 149 50% 58%;
+    --wellness-beige: 30 50% 94%;
+    --wellness-teal: 177 69% 18%;
+    --wellness-text: 200 15% 20%;
+    --wellness-gray: 180 10% 50%;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 177 69% 18%;
+    --foreground: 0 0% 98%;
+
+    --card: 180 30% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 180 30% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 149 50% 58%;
+    --primary-foreground: 200 15% 20%;
+
+    --secondary: 153 68% 33%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 180 20% 25%;
+    --muted-foreground: 180 10% 70%;
+
+    --accent: 153 68% 33%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 180 20% 25%;
+    --input: 180 20% 25%;
+    --ring: 149 50% 58%;
+    
+    --wellness-green: 149 50% 58%;
+    --wellness-soft-green: 153 68% 33%;
+    --wellness-beige: 180 20% 25%;
+    --wellness-teal: 180 30% 12%;
+    --wellness-text: 0 0% 98%;
+    --wellness-gray: 180 10% 70%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+  }
+}
+
+@layer utilities {
+  .gradient-wellness {
+    background: linear-gradient(135deg, hsl(var(--wellness-green)), hsl(var(--wellness-soft-green)));
+  }
+  
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(var(--wellness-green)) 0%, hsl(var(--wellness-soft-green)) 100%);
+  }
+  
+  .shadow-wellness {
+    box-shadow: 0 10px 30px -10px hsl(var(--wellness-soft-green) / 0.35);
+  }
+  
+  .shadow-wellness-lg {
+    box-shadow: 0 20px 50px -15px hsl(var(--wellness-soft-green) / 0.4);
+  }
+}
