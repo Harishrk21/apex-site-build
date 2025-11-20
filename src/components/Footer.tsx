@@ -58,12 +58,12 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start space-x-2">
                 <MapPin size={18} className="mt-1 flex-shrink-0" />
-                <span className="text-accent-foreground/80">Kolathur, Chennai, Tamil Nadu</span>
+                <span className="text-accent-foreground/80">No.22, subramaniyapuram , 1st street , Kolathur, Chennai 600099, Tamil Nadu, India</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Phone size={18} />
-                <a href="tel:+919876543210" className="hover:text-secondary transition-colors">
-                  +91 98765 43210
+                <a href="tel:+91+91 98849 88988" className="hover:text-secondary transition-colors">
+                  +91 98849 88988
                 </a>
               </li>
               <li className="flex items-center space-x-2">

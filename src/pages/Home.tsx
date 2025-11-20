@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Heart, Users, Target, Star, Phone, MessageCircle, MapPin, Award, TrendingUp, Shield, ChevronLeft, ChevronRight, Check, Sparkles, Zap, Calendar, ClipboardCheck, Menu, X } from 'lucide-react';
-
+import heros from '/heros.png';
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentTransform, setCurrentTransform] = useState(0);
@@ -20,7 +20,6 @@ const Home = () => {
       title: "Weight Loss",
       benefit: "Sustainable transformation",
       image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop",
-      color: "from-green-600 to-emerald-700",
       duration: "12 weeks",
       icon: "🎯"
     },
@@ -28,7 +27,6 @@ const Home = () => {
       title: "Weight Gain",
       benefit: "Healthy muscle building",
       image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=1000&fit=crop",
-      color: "from-orange-500 to-red-600",
       duration: "16 weeks",
       icon: "💪"
     },
@@ -36,7 +34,6 @@ const Home = () => {
       title: "21-Day Challenge",
       benefit: "Quick start program",
       image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=1000&fit=crop",
-      color: "from-purple-600 to-pink-600",
       duration: "3 weeks",
       icon: "⚡"
     },
@@ -44,7 +41,6 @@ const Home = () => {
       title: "Skin Wellness",
       benefit: "Radiance from within",
       image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=1000&fit=crop",
-      color: "from-pink-500 to-rose-600",
       duration: "8 weeks",
       icon: "✨"
     }
@@ -87,21 +83,21 @@ const Home = () => {
       name: "Formula 1 Shake",
       description: "Nutritious meal replacement with balanced nutrition",
       price: "₹2,500",
-      image: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=500&h=500&fit=crop"
+      image: "https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-1247-in.png:pdp-w875h783?fmt=webp-alpha"
     },
     {
       id: 2,
       name: "Protein Powder",
       description: "Build & maintain lean muscle mass",
       price: "₹3,200",
-      image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=500&h=500&fit=crop"
+      image: "https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-1233-in.png:pdp-w875h783?fmt=webp-alpha"
     },
     {
       id: 3,
       name: "Herbal Tea",
       description: "Boost metabolism naturally",
       price: "₹1,800",
-      image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&h=500&fit=crop"
+      image: "https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-1295-in.png:pdp-w875h783?fmt=webp-alpha"
     }
   ];
 
@@ -113,12 +109,11 @@ const Home = () => {
 
   return (
     <div className="bg-white overflow-hidden">
-      {/* Navbar Placeholder - Add margin to prevent content overlap */}
+      {/* Navbar Placeholder */}
       <div className="h-16 md:h-20"></div>
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-600 via-emerald-700 to-teal-800 overflow-hidden">
-        {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute w-64 h-64 bg-green-400/20 rounded-full blur-3xl -top-32 -left-32 animate-pulse"></div>
           <div className="absolute w-64 h-64 bg-orange-400/20 rounded-full blur-3xl -bottom-32 -right-32 animate-pulse" style={{animationDelay: '1s'}}></div>
@@ -127,7 +122,6 @@ const Home = () => {
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* Left Content */}
             <div className="text-white space-y-5 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 px-3 py-1.5 rounded-full">
                 <Shield className="w-3.5 h-3.5 text-green-300" />
@@ -145,18 +139,16 @@ const Home = () => {
                 Transform your health with personalized Herbalife nutrition plans, expert coaching, and science-backed wellness programs.
               </p>
 
-              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <a href="consultation" className="group bg-white text-green-700 hover:bg-green-50 px-6 py-2.5 rounded-full font-bold text-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2">
+                <a href="/consultation" className="group bg-white text-green-700 hover:bg-green-50 px-6 py-2.5 rounded-full font-bold text-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2">
                   Start Free Consultation
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <a href="programs" className="bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 text-center">
+                <a href="/programs" className="bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300 text-center">
                   View Programs
                 </a>
               </div>
 
-              {/* Stats */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-4">
                 {stats.map((stat, idx) => (
                   <div key={idx} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-3 hover:bg-white/15 transition-all">
@@ -169,22 +161,20 @@ const Home = () => {
                 ))}
               </div>
 
-              <p className="text-xs text-gray-300 italic pt-1">
-                * Individual results may vary
+              <p className="text-xl text-gray-350  pt-1">
+                 Individual results may vary
               </p>
             </div>
 
-            {/* Right Content - Hero Image */}
             <div className="relative mt-6 lg:mt-0">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/5] max-w-sm mx-auto lg:max-w-md">
                 <img
-                  src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop"
-                  alt="Wellness transformation"
+                  src={heros}
+                  alt="Herbalife wellness transformation"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
                 
-                {/* Floating Cards */}
                 <div className="absolute top-4 left-4 bg-white rounded-xl p-3 shadow-xl">
                   <div className="flex items-center gap-2">
                     <div className="bg-green-100 rounded-full p-1.5">
@@ -229,30 +219,27 @@ const Home = () => {
                 icon: <Phone className="w-6 h-6" />,
                 step: "01",
                 title: "Free Consultation",
-                desc: "Share your goals and challenges with our certified coach in a friendly, no-pressure call.",
-                color: "green"
+                desc: "Share your goals and challenges with our certified coach in a friendly, no-pressure call."
               },
               {
                 icon: <ClipboardCheck className="w-6 h-6" />,
                 step: "02",
                 title: "Custom Plan",
-                desc: "Receive your personalized nutrition and wellness plan tailored to your lifestyle.",
-                color: "orange"
+                desc: "Receive your personalized nutrition and wellness plan tailored to your lifestyle."
               },
               {
                 icon: <Zap className="w-6 h-6" />,
                 step: "03",
                 title: "Transform & Thrive",
-                desc: "Follow your plan with ongoing support and celebrate your transformation.",
-                color: "emerald"
+                desc: "Follow your plan with ongoing support and celebrate your transformation."
               }
             ].map((item, idx) => (
               <div key={idx} className="relative">
                 <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 group h-full">
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-${item.color}-100 text-${item.color}-600 mb-4 group-hover:scale-110 transition-transform`}>
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-green-100 text-green-600 mb-4 group-hover:scale-110 transition-transform">
                     {item.icon}
                   </div>
-                  <div className={`inline-block text-${item.color}-600 font-bold text-xs mb-2`}>STEP {item.step}</div>
+                  <div className="inline-block text-green-600 font-bold text-xs mb-2">STEP {item.step}</div>
                   <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                 </div>
@@ -267,35 +254,45 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Programs */}
-      <section id="programs" className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Programs Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Wellness Programs</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Comprehensive Wellness Programs</h2>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto">Scientifically designed programs for every wellness goal</p>
+            <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Our Programs</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">
+              Comprehensive Wellness Programs
+            </h2>
+            <p className="text-base text-gray-600 max-w-2xl mx-auto">
+              Scientifically designed programs for every wellness goal
+            </p>
           </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {programs.map((program, idx) => (
-              <div key={idx} className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
-                <div className="relative aspect-[3/4]">
-                  <img src={program.image} alt={program.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${program.color} opacity-80`}></div>
-                </div>
-                
-                <div className="absolute inset-0 p-5 flex flex-col justify-end text-white">
-                  <div className="transform transition-all duration-300 group-hover:-translate-y-2">
-                    <div className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full text-xs font-semibold mb-2">
-                      <span className="text-base">{program.icon}</span>
-                      <span>{program.duration}</span>
-                    </div>
-                    <h3 className="text-xl font-bold mb-1">{program.title}</h3>
-                    <p className="text-xs opacity-90 mb-3">{program.benefit}</p>
-                    <button className="inline-flex items-center gap-1.5 bg-white text-gray-900 px-4 py-1.5 rounded-full font-semibold text-xs hover:gap-2 transition-all">
-                      Learn More <ArrowRight className="w-3 h-3" />
-                    </button>
+              <div key={idx} className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+                <div className="relative aspect-[4/5] overflow-hidden">
+                  <img 
+                    src={program.image} 
+                    alt={program.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent"></div>
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-2">
+                    <span className="text-2xl">{program.icon}</span>
+                    <span className="text-xs font-bold text-gray-700">{program.duration}</span>
                   </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <h3 className="text-xl font-bold text-white mb-1">{program.title}</h3>
+                    <p className="text-sm text-gray-200">{program.benefit}</p>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <a 
+                    href="/contact" 
+                    className="block w-full text-center bg-green-600 hover:bg-green-700 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all duration-300"
+                  >
+                    Learn More
+                  </a>
                 </div>
               </div>
             ))}
@@ -317,24 +314,21 @@ const Home = () => {
               {
                 icon: <Target className="w-8 h-8" />,
                 title: "Personalized Approach",
-                desc: "Every plan is custom-built for your unique metabolism and lifestyle.",
-                gradient: "from-green-500 to-emerald-600"
+                desc: "Every plan is custom-built for your unique metabolism and lifestyle."
               },
               {
                 icon: <Shield className="w-8 h-8" />,
                 title: "Science-Backed",
-                desc: "40+ years of nutritional research combined with certified coaching.",
-                gradient: "from-orange-500 to-red-600"
+                desc: "40+ years of nutritional research combined with certified coaching."
               },
               {
                 icon: <Heart className="w-8 h-8" />,
                 title: "Ongoing Support",
-                desc: "Weekly check-ins, 24/7 WhatsApp access, and community support.",
-                gradient: "from-purple-500 to-pink-600"
+                desc: "Weekly check-ins, 24/7 WhatsApp access, and community support."
               }
             ].map((item, idx) => (
               <div key={idx} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 group">
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${item.gradient} text-white mb-4 group-hover:scale-110 transition-transform`}>
+                <div className="inline-flex p-3 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white mb-4 group-hover:scale-110 transition-transform">
                   {item.icon}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
@@ -466,7 +460,7 @@ const Home = () => {
             Join hundreds of satisfied clients who achieved their wellness goals with our proven programs.
           </p>
 
-          <a href="tel:+919876543210" className="bg-white text-green-600 px-8 py-3 rounded-full text-base font-bold shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
+          <a href="/contact" className="bg-white text-green-600 px-8 py-3 rounded-full text-base font-bold shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
             Book Your Free Consultation
             <ArrowRight className="w-5 h-5" />
           </a>
@@ -486,16 +480,16 @@ const Home = () => {
                 
                 <div className="space-y-3">
                   {[
-                    { icon: <Phone className="w-5 h-5" />, label: "Call Us", value: "+91 98765 43210", color: "green", href: "tel:+919876543210" },
-                    { icon: <MessageCircle className="w-5 h-5" />, label: "WhatsApp", value: "Chat instantly", color: "green", href: "https://wa.me/919876543210" },
-                    { icon: <MapPin className="w-5 h-5" />, label: "Visit Us", value: "Kolathur, Chennai", color: "blue" }
+                    { icon: <Phone className="w-5 h-5" />, label: "Call Us", value: "+91 98849 88988", href: "tel:+919884988988" },
+                    { icon: <MessageCircle className="w-5 h-5" />, label: "WhatsApp", value: "Book Your Consultation Via WhatsApp", href: "https://wa.me/919884988988" },
+                    { icon: <MapPin className="w-5 h-5" />, label: "Visit Us", value: "22, subramaniyapuram, 1st street, Kolathur, Chennai 600099, Tamil Nadu, India" }
                   ].map((item, idx) => (
                     <a 
                       key={idx} 
                       href={item.href || '#'}
                       className={`flex items-center gap-3 p-4 bg-white rounded-xl hover:shadow-lg transition-all group ${item.href ? 'cursor-pointer' : ''}`}
                     >
-                      <div className={`bg-${item.color}-100 p-2 rounded-lg text-${item.color}-600 group-hover:scale-110 transition-transform flex-shrink-0`}>
+                      <div className="bg-green-100 p-2 rounded-lg text-green-600 group-hover:scale-110 transition-transform flex-shrink-0">
                         {item.icon}
                       </div>
                       <div>
@@ -555,85 +549,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-300 pt-12 pb-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-            <div>
-              <h3 className="text-white text-xl font-black mb-3 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                New Life Wellness Centre
-              </h3>
-              <p className="text-xs leading-relaxed mb-3">
-                Best wellness centre in Kolathur, Chennai. Your trusted partner in achieving optimal health.
-              </p>
-              <div className="flex gap-2">
-                {['F', 'I', 'Y', 'T'].map((social, idx) => (
-                  <a
-                    key={idx}
-                    href="#"
-                    className="w-9 h-9 rounded-full bg-gray-800 hover:bg-green-600 flex items-center justify-center transition-colors font-bold text-sm"
-                    aria-label={`Social link ${social}`}
-                  >
-                    {social}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-white font-bold mb-3 text-sm">Programs</h4>
-              <ul className="space-y-2 text-xs">
-                <li><a href="programs" className="hover:text-green-400 transition-colors">Weight Loss</a></li>
-                <li><a href="programs" className="hover:text-green-400 transition-colors">Weight Gain</a></li>
-                <li><a href="programs" className="hover:text-green-400 transition-colors">21-Day Challenge</a></li>
-                <li><a href="programs" className="hover:text-green-400 transition-colors">Skin Wellness</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-bold mb-3 text-sm">Company</h4>
-              <ul className="space-y-2 text-xs">
-                <li><a href="#" className="hover:text-green-400 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-green-400 transition-colors">Success Stories</a></li>
-                <li><a href="#" className="hover:text-green-400 transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-green-400 transition-colors">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-bold mb-3 text-sm">Contact</h4>
-              <ul className="space-y-3 text-xs">
-                <li className="flex items-start gap-2">
-                  <Phone className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                  <a href="tel:+919876543210" className="hover:text-green-400">+91 98765 43210</a>
-                </li>
-                <li className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
-                  <span>Kolathur, Chennai, Villivakkam</span>
-                </li>
-                <li>
-                  <p className="text-xs text-gray-500 mt-3">
-                    <strong>Hours:</strong><br />
-                    Mon-Sat: 9AM - 8PM<br />
-                    Sun: 10AM - 6PM
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 pt-6 text-center text-xs">
-            <p className="text-gray-500 mb-2">
-              &copy; 2025 New Life Wellness Centre. All rights reserved. | Best Wellness Centre in Kolathur, Chennai
-            </p>
-            <p className="text-xs text-gray-600">
-              <a href="#" className="hover:text-green-400">Privacy Policy</a> · 
-              <a href="#" className="hover:text-green-400 ml-2">Terms of Service</a>
-            </p>
-          </div>
-        </div>
-      </footer>
-
       {/* Floating Cart */}
       {showCart && selectedProducts.length > 0 && (
         <div className="fixed bottom-4 right-4 bg-white rounded-2xl shadow-2xl p-5 w-[calc(100vw-2rem)] sm:w-80 z-50 border border-gray-100 animate-slide-up max-h-[80vh] overflow-y-auto">
@@ -670,7 +585,7 @@ const Home = () => {
             ))}
           </div>
 
-          <a href="https://wa.me/919876543210" className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105 text-sm text-center block">
+          <a href="https://wa.me/919884988988" className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all hover:scale-105 text-sm text-center block">
             Request Quote on WhatsApp →
           </a>
         </div>
@@ -678,7 +593,7 @@ const Home = () => {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/919876543210"
+        href="https://wa.me/919884988988"
         className="fixed bottom-4 left-4 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-2xl hover:shadow-green-500/50 transition-all hover:scale-110 z-50 group"
         aria-label="Chat on WhatsApp"
       >

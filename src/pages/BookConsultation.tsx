@@ -126,7 +126,7 @@ const BookConsultation = () => {
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+91 98765 43210"
+                          placeholder="+91 98849 88988"
                           className="mt-2"
                         />
                       </div>

@@ -2,224 +2,276 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Target, Eye, Award, Users, CheckCircle2, Clock, FileText, Heart, TrendingUp, Building2, Newspaper, Calendar, MessageCircle } from "lucide-react";
+import { Target, Eye, Award, Users, CheckCircle2, FileText, Heart, TrendingUp, Building2, Newspaper, Calendar, MessageCircle, Sparkles, Trophy, Star } from "lucide-react";
 import aboutHero from "@/assets/about-hero.jpg";
-import CoachProfile from "@/components/CoachProfile";
 import GalleryLightbox from "@/components/GalleryLightbox";
 
 const About = () => {
-  // Sample gallery images - replace with actual images
-  const galleryImages = [
-    aboutHero,
-    aboutHero,
-    aboutHero,
-    aboutHero,
-    aboutHero,
-    aboutHero,
-    aboutHero,
-    aboutHero,
-  ];
+  const galleryImages = Array(8).fill(aboutHero);
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Newlife Wellness Centre",
-    "url": "https://newlifewellnesscentre.com",
-    "logo": "https://newlifewellnesscentre.com/logo.png",
-    "description": "Certified Herbalife nutrition center in Kolathur, Chennai providing personalized wellness coaching and nutrition programs",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Kolathur",
-      "addressRegion": "Chennai",
-      "addressCountry": "IN"
-    },
-    "sameAs": [
-      "https://www.facebook.com/newlifewellnesscentre",
-      "https://www.instagram.com/newlifewellnesscentre"
-    ]
-  };
-
-  const personSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Newlife Wellness Coach",
-    "jobTitle": "Certified Herbalife Nutrition Coach",
-    "worksFor": {
+  const schemas = {
+    organization: {
+      "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Newlife Wellness Centre"
+      "name": "Newlife Wellness Centre",
+      "url": "https://newlifewellnesscentre.com",
+      "logo": "https://newlifewellnesscentre.com/logo.png",
+      "description": "Certified Herbalife nutrition center in Kolathur, Chennai providing personalized wellness coaching",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kolathur",
+        "addressRegion": "Chennai",
+        "addressCountry": "IN"
+      }
     },
-    "description": "Certified Herbalife nutrition coach with 10+ years of experience helping clients achieve their wellness goals"
-  };
-
-  const aboutPageSchema = {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "name": "About Newlife Wellness Centre",
-    "description": "Learn about our mission to transform lives through Herbalife nutrition and personalized wellness coaching in Chennai",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "Newlife Wellness Centre"
+    person: {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Avinash & Mahak",
+      "jobTitle": "Certified Herbalife Wellness Coach",
+      "worksFor": { "@type": "Organization", "name": "Newlife Wellness Centre" }
     }
   };
+
+  const missionVisionData = [
+    {
+      icon: <Target className="w-8 h-8" />,
+      title: "Our Mission",
+      content: "Empowering individuals across Chennai to transform their health through personalized nutrition, expert coaching, and Herbalife's proven effectiveness. We create lasting transformations that enhance overall quality of life."
+    },
+    {
+      icon: <Eye className="w-8 h-8" />,
+      title: "Our Vision",
+      content: "To be Chennai's most trusted wellness center, delivering exceptional results and fostering a supportive community where proper nutrition and wellness are accessible to all."
+    }
+  ];
+
+  const approachSteps = [
+    { icon: <FileText className="w-8 h-8" />, step: "01", title: "Assessment", desc: "Comprehensive health evaluation to understand your unique needs and goals" },
+    { icon: <Target className="w-8 h-8" />, step: "02", title: "Personalized Plan", desc: "Tailored nutrition strategy designed specifically for your lifestyle" },
+    { icon: <Heart className="w-8 h-8" />, step: "03", title: "Coaching & Support", desc: "Guided product selection with ongoing personalized coaching" },
+    { icon: <TrendingUp className="w-8 h-8" />, step: "04", title: "Progress Tracking", desc: "Regular check-ins and celebrating your wellness journey" }
+  ];
+
+  const certifications = [
+    "Certified Herbalife Wellness Coach",
+    "Nutrition & Lifestyle Specialist",
+    "9+ Years Professional Experience",
+    "15,000+ Families Transformed"
+  ];
+
+  const recognitions = [
+    "Ranked Among India's Leading Wellness Coaches",
+    "Featured in Health & Wellness Publications",
+    "Corporate Wellness Programs",
+    "Community Health Champion"
+  ];
 
   return (
     <>
       <SEO
-        title="About New Life Wellness Centre - Best Wellness & Nutrition Centre in Kolathur, Chennai, Villivakkam"
-        description="New Life Wellness Centre is the best wellness centre and nutrition centre in Kolathur, Chennai, Villivakkam. Certified Herbalife nutrition coach with 10+ years of experience helping clients achieve their wellness goals. Learn about our mission, vision, and commitment to transforming lives through personalized nutrition."
+        title="About New Life Wellness Centre - Best Wellness & Nutrition Centre in Kolathur, Chennai"
+        description="Led by Avinash & Mahak, certified Herbalife coaches with 9+ years experience. 15,000+ families transformed. Best wellness centre in Kolathur, Chennai."
         canonical="/about"
-        schema={aboutPageSchema}
-        keywords="About New Life Wellness Centre Kolathur, Best Wellness Centre Chennai, Nutrition Centre Villivakkam, Herbalife Coach Kolathur, Certified Nutrition Coach Chennai, Wellness Centre About, Herbalife Nutrition Centre Villivakkam"
+        keywords="About New Life Wellness Centre, Best Wellness Coach Chennai, Avinash Mahak Herbalife, Nutrition Centre Kolathur"
       />
       
-      {/* Structured Data for Organization and Person */}
-      <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
-      <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(schemas.organization)}</script>
+      <script type="application/ld+json">{JSON.stringify(schemas.person)}</script>
 
-      {/* Hero */}
-      <section className="relative h-[50vh] flex items-center justify-center">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${aboutHero})`,
-          }}
-        />
-        <div className="relative z-10 text-center text-white">
-          <h1 className="text-5xl md:text-6xl font-bold mb-4">About New Life Wellness Centre - Best Wellness & Nutrition Centre in Kolathur, Chennai</h1>
-          <p className="text-xl">Transforming lives through personalized Herbalife nutrition and wellness in Kolathur, Chennai, and Villivakkam</p>
+      {/* Hero Section */}
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center transform scale-105" 
+             style={{ backgroundImage: `linear-gradient(135deg, rgba(16,185,129,0.8), rgba(5,150,105,0.9)), url(${aboutHero})` }} />
+        <div className="relative z-10 text-center text-white max-w-5xl px-4 animate-fade-in">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full mb-6">
+            <Sparkles className="w-5 h-5" />
+            <span className="text-sm font-semibold">Transforming Lives Since 2015</span>
+          </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+            Your Wellness Journey<br />Starts Here
+          </h1>
+          <p className="text-xl md:text-2xl text-white/95 mb-8">Best Wellness & Nutrition Centre in Kolathur, Chennai</p>
+          <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-2xl">
+            <Link to="/book-consultation">Start Your Transformation</Link>
+          </Button>
         </div>
       </section>
 
       {/* Our Story */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-6">Our Story - New Life Wellness Centre in Kolathur, Chennai</h2>
-            <div className="space-y-6 text-lg text-muted-foreground text-left">
-              <p>
-                New Life Wellness Centre was founded in <strong className="text-foreground">2015</strong> with a simple yet powerful vision: to be the best wellness centre and nutrition centre in Kolathur, Chennai, and Villivakkam, helping people achieve their health and wellness goals through the science-backed nutrition of Herbalife products combined with personalized coaching.
-              </p>
-              <p>
-                What started as a small wellness center in Kolathur, Chennai, has grown into the most trusted wellness and nutrition centre in Kolathur, Chennai, and Villivakkam, serving hundreds of individuals seeking to transform their lives. Our journey began when our founder recognized the need for accessible, science-backed nutrition solutions combined with genuine, personalized support in the Kolathur and Villivakkam areas of Chennai.
-              </p>
-              <p>
-                Over the years, we have helped hundreds of individuals achieve their health goals—from weight management to improved energy, better skin, and overall wellness. Our certified Herbalife coaches bring years of experience and a deep passion for helping others live their best lives.
-              </p>
-              <p>
-                We believe that everyone deserves to feel their best. Whether your goal is weight loss, weight gain, better skin, improved energy, or overall wellness, we're here to guide you every step of the way with personalized nutrition plans tailored to your unique needs.
-              </p>
-              <div className="bg-primary/10 border-l-4 border-primary p-6 rounded-r-lg mt-8">
-                <h3 className="text-xl font-bold mb-3 text-foreground">Why We Chose Herbalife</h3>
-                <p className="mb-4">
-                  After extensive research and personal experience, we chose to partner with Herbalife Nutrition because of their commitment to science-backed products, rigorous quality control, and 40+ years of global wellness leadership. Herbalife's comprehensive product range allows us to create truly personalized nutrition plans for each client.
-                </p>
-                <Button asChild variant="outline" className="mt-2">
-                  <Link to="/herbalife-story">Learn More About Herbalife →</Link>
-                </Button>
-              </div>
-            </div>
+      <section className="py-24 bg-gradient-to-b from-white to-primary/5">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+              Our Story
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-green-600 mx-auto rounded-full" />
+          </div>
+          <div className="space-y-8 text-lg text-muted-foreground leading-relaxed">
+            <p className="text-xl font-medium text-foreground">
+              Founded in <strong className="text-primary">2015</strong>, New Life Wellness Centre has grown from a vision to become Kolathur's most trusted wellness destination.
+            </p>
+            <p>
+              What began as a passion to help people achieve their health goals has blossomed into a thriving community of wellness. We've proudly served hundreds of individuals in Kolathur, Chennai, and Villivakkam, transforming lives through science-backed Herbalife nutrition and personalized coaching.
+            </p>
+            <p>
+              Our journey is powered by a simple belief: <strong>everyone deserves to feel their absolute best</strong>. From weight management to radiant skin, sustained energy to complete wellness – we're with you every step of the way.
+            </p>
+            <Card className="mt-10 border-2 border-primary/20 shadow-xl bg-gradient-to-br from-primary/5 to-green-50">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Sparkles className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold mb-3 text-foreground">Why Herbalife?</h3>
+                    <p className="text-muted-foreground mb-4">
+                      After extensive research and transformative personal results, we partnered with Herbalife Nutrition for their 40+ years of global leadership, rigorous science-backed formulations, and comprehensive product range that enables truly personalized wellness solutions.
+                    </p>
+                    <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
+                      <Link to="/herbalife-story">Discover Herbalife's Legacy →</Link>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-muted">
+      <section className="py-24 bg-gradient-to-br from-primary/10 via-green-50 to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-none shadow-wellness">
-              <CardContent className="p-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-6">
-                  <Target className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  To empower individuals in Chennai and beyond to take control of their health through personalized nutrition, expert coaching, and the proven effectiveness of Herbalife products. We are committed to creating lasting transformations that go beyond physical appearance to improve overall quality of life.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-wellness">
-              <CardContent className="p-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-6">
-                  <Eye className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  To become the most trusted wellness center in Chennai, known for delivering exceptional results and fostering a supportive community where everyone feels motivated to achieve their health goals. We envision a healthier, happier community where proper nutrition is accessible to all.
-                </p>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-2 gap-10">
+            {missionVisionData.map((item, idx) => (
+              <Card key={idx} className="border-none shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:scale-105 bg-white">
+                <CardContent className="p-10">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-green-600 text-white mb-6 shadow-lg">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-3xl font-extrabold mb-5 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground text-lg leading-relaxed">{item.content}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Meet the Coach */}
-      <section className="py-20 bg-muted">
+      {/* Meet the Coach - ENHANCED */}
+      <section className="py-24 bg-gradient-to-b from-white via-primary/5 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Meet the Coach</h2>
-            <p className="text-xl text-muted-foreground">Your dedicated wellness partner</p>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-primary/10 px-6 py-2 rounded-full mb-6">
+              <Star className="w-5 h-5 text-primary" />
+              <span className="text-sm font-bold text-primary">Meet Your Wellness Partners</span>
+            </div>
+            <h2 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+              Avinash & Mahak
+            </h2>
+            <p className="text-2xl text-muted-foreground">Certified Herbalife Wellness Coaches Since 2015</p>
           </div>
-          <CoachProfile
-            name="Newlife Wellness Coach"
-            certifications={[
-              "Certified Herbalife Nutrition Coach",
-              "Herbalife Wellness Coach",
-              "Nutrition & Wellness Specialist"
-            ]}
-            yearsOfExperience={10}
-            bio="With over 10 years of experience in nutrition and wellness coaching, our certified Herbalife coach has helped hundreds of clients achieve their health goals. Passionate about empowering individuals to take control of their health, our coach combines scientific knowledge with personalized support to create sustainable lifestyle transformations. Whether you're looking to lose weight, gain weight, improve your skin, or enhance your overall wellness, you'll receive expert guidance tailored to your unique needs and goals."
-          />
+
+          <Card className="border-none shadow-2xl overflow-hidden bg-gradient-to-br from-white to-primary/5">
+            <CardContent className="p-0">
+              <div className="grid lg:grid-cols-2 gap-0">
+                {/* Image Section */}
+                <div className="relative h-[500px] lg:h-auto bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
+                  <div className="relative w-full max-w-md">
+                    <img 
+                      src="/mentor.jpeg" 
+                      alt="Avinash & Mahak - Wellness Coaches" 
+                      className="w-full h-auto object-contain rounded-2xl shadow-2xl"
+                    />
+                  </div>
+                  <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-xl">
+                    <div className="flex items-center gap-3 mb-3">
+                      <Trophy className="w-6 h-6 text-primary" />
+                      <span className="text-lg font-bold text-foreground">India's Leading Wellness Coaches</span>
+                    </div>
+                    <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4 text-primary" />
+                        <span>1500+ Families</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Award className="w-4 h-4 text-primary" />
+                        <span>9+ Years Experience</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Section */}
+                <div className="p-10 lg:p-12">
+                  <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-xl font-semibold text-foreground">
+                      💚 Changing Lives Through Health, Wealth & Happiness
+                    </p>
+                    <p>
+                      Avinash & Mahak are dedicated weight loss mentors with extensive expertise in helping individuals achieve their fitness dreams. They understand that <strong className="text-foreground">every person is unique</strong>, which is why they offer personalized guidance tailored to each client's specific needs and goals.
+                    </p>
+                    <p>
+                      With a <strong className="text-foreground">holistic approach</strong>, they empower clients to make lasting lifestyle changes that transcend weight loss. Their focus is on promoting complete well-being, helping clients transform their health for the long term.
+                    </p>
+                    <p className="text-primary font-semibold italic">
+                      "We've personally achieved incredible results through Herbalife Nutrition, and our entire family has embraced this healthy lifestyle since 2015. With over 1500 families transformed, our mission is to help many more achieve their best health and wellness! ✨"
+                    </p>
+
+                    {/* Achievements Grid */}
+                    <div className="grid grid-cols-2 gap-4 pt-6">
+                      {[
+                        { label: "Years Experience", value: "9+", icon: <Award className="w-5 h-5" /> },
+                        { label: "Families Helped", value: "15,000+", icon: <Users className="w-5 h-5" /> },
+                        { label: "Success Rate", value: "98%", icon: <TrendingUp className="w-5 h-5" /> },
+                        { label: "Active Clients", value: "1500+", icon: <Heart className="w-5 h-5" /> }
+                      ].map((stat, i) => (
+                        <div key={i} className="bg-primary/5 rounded-xl p-4 text-center border border-primary/10">
+                          <div className="flex justify-center mb-2 text-primary">{stat.icon}</div>
+                          <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
+                          <div className="text-xs text-muted-foreground">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Mission Statement */}
+                    <div className="bg-gradient-to-r from-primary to-green-600 rounded-2xl p-6 text-white mt-8">
+                      <p className="text-center font-bold text-lg">
+                        🎯 Dedicated to helping every Indian achieve complete 360° fitness
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* Our Approach */}
-      <section className="py-20">
+      <section className="py-24 bg-gradient-to-b from-primary/5 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Our Approach (Methodology)</h2>
-            <p className="text-xl text-muted-foreground">A proven process for lasting results</p>
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+              Our Proven Methodology
+            </h2>
+            <p className="text-xl text-muted-foreground">A systematic approach to lasting transformation</p>
           </div>
 
           <div className="relative">
-            {/* Timeline line for desktop */}
-            <div className="hidden lg:block absolute top-24 left-0 right-0 h-1 bg-primary/20" />
-            
+            <div className="hidden lg:block absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-primary via-green-500 to-primary rounded-full" />
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  icon: <FileText className="w-8 h-8" />,
-                  step: "01",
-                  title: "Assessment",
-                  description: "Comprehensive health and lifestyle evaluation to understand your unique needs, goals, and challenges",
-                },
-                {
-                  icon: <Target className="w-8 h-8" />,
-                  step: "02",
-                  title: "Personalized Plan",
-                  description: "Tailored nutrition and wellness strategy designed specifically for your body and lifestyle",
-                },
-                {
-                  icon: <Heart className="w-8 h-8" />,
-                  step: "03",
-                  title: "Product + Coaching",
-                  description: "Guided product selection and meal planning combined with ongoing coaching support",
-                },
-                {
-                  icon: <TrendingUp className="w-8 h-8" />,
-                  step: "04",
-                  title: "Progress Tracking",
-                  description: "Regular check-ins, adjustments, and celebrations of your journey toward better health",
-                },
-              ].map((item, index) => (
-                <div key={index} className="relative text-center">
-                  <div className="relative z-10 p-6 rounded-lg bg-card border border-border hover:shadow-wellness transition-all">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-4">
+              {approachSteps.map((item, idx) => (
+                <div key={idx} className="relative group">
+                  <div className="relative z-10 p-8 rounded-2xl bg-white border-2 border-primary/20 hover:border-primary hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-green-600 text-white mb-4 shadow-lg group-hover:scale-110 transition-transform">
                       {item.icon}
                     </div>
-                    <div className="text-3xl font-bold text-primary mb-3">{item.step}</div>
-                    <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
+                    <div className="text-4xl font-black text-primary/20 mb-3">{item.step}</div>
+                    <h3 className="text-xl font-bold mb-3 text-foreground">{item.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -228,123 +280,47 @@ const About = () => {
         </div>
       </section>
 
-      {/* Centre Tour Gallery */}
-      <section className="py-20 bg-muted">
+      {/* Centre Tour */}
+      <section className="py-24 bg-gradient-to-br from-primary/10 to-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Centre Tour</h2>
-            <p className="text-xl text-muted-foreground">Take a virtual tour of our wellness center</p>
+            <h2 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+              Visit Our Centre
+            </h2>
+            <p className="text-xl text-muted-foreground">Experience our welcoming wellness space</p>
           </div>
           <GalleryLightbox images={galleryImages} alt="Newlife Wellness Centre" />
         </div>
       </section>
 
-      {/* Certifications & Press */}
-      <section className="py-20">
+      {/* Certifications */}
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Certifications & Press</h2>
-            <p className="text-xl text-muted-foreground">Recognized excellence in wellness</p>
+            <h2 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+              Excellence & Recognition
+            </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <Card className="border-none shadow-wellness">
-              <CardContent className="p-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-6">
-                  <Award className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Certifications</h3>
-                <ul className="space-y-3">
-                  {[
-                    "Certified Herbalife Nutrition Coach",
-                    "Herbalife Wellness Coach Certification",
-                    "Nutrition & Wellness Specialist Training",
-                    "CPR & First Aid Certified",
-                  ].map((cert, i) => (
-                    <li key={i} className="flex items-center">
-                      <CheckCircle2 className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                      <span className="text-muted-foreground">{cert}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-wellness">
-              <CardContent className="p-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-6">
-                  <Newspaper className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">Press & Recognition</h3>
-                <ul className="space-y-3">
-                  {[
-                    "Featured in Local Health & Wellness Publications",
-                    "Community Health Awareness Programs",
-                    "Corporate Wellness Partnership Programs",
-                    "Client Success Stories & Testimonials",
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-center">
-                      <CheckCircle2 className="w-5 h-5 text-primary mr-3 flex-shrink-0" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Logo Placeholders */}
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            <div className="text-center">
-              <Building2 className="w-16 h-16 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">Herbalife Certified</p>
-            </div>
-            <div className="text-center">
-              <Award className="w-16 h-16 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">Certified Coach</p>
-            </div>
-            <div className="text-center">
-              <Newspaper className="w-16 h-16 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">Press Featured</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20 bg-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Our Team</h2>
-            <p className="text-xl text-muted-foreground">Meet the experts dedicated to your wellness</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {[
-              {
-                name: "Main Coach",
-                role: "Certified Herbalife Nutrition Coach",
-                description: "Lead wellness coach with 10+ years of experience",
-              },
-              {
-                name: "Nutrition Specialist",
-                role: "Nutrition & Wellness Advisor",
-                description: "Expert in personalized nutrition planning",
-              },
-              {
-                name: "Support Coach",
-                role: "Wellness Support Specialist",
-                description: "Dedicated to your ongoing success and motivation",
-              },
-            ].map((member, index) => (
-              <Card key={index} className="border-none shadow-wellness text-center">
-                <CardContent className="p-8">
-                  <div className="w-24 h-24 rounded-full bg-primary/20 mx-auto mb-4 flex items-center justify-center">
-                    <Users className="w-12 h-12 text-primary" />
+              { icon: <Award className="w-8 h-8" />, title: "Certifications", items: certifications },
+              { icon: <Newspaper className="w-8 h-8" />, title: "Recognition", items: recognitions }
+            ].map((section, idx) => (
+              <Card key={idx} className="border-none shadow-2xl hover:shadow-primary/20 transition-all">
+                <CardContent className="p-10">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-green-600 text-white mb-6 shadow-lg">
+                    {section.icon}
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                  <p className="text-primary font-semibold mb-3">{member.role}</p>
-                  <p className="text-muted-foreground text-sm">{member.description}</p>
+                  <h3 className="text-2xl font-bold mb-6">{section.title}</h3>
+                  <ul className="space-y-4">
+                    {section.items.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             ))}
@@ -352,33 +328,26 @@ const About = () => {
         </div>
       </section>
 
-      {/* CTA Strip */}
-      <section className="py-20 gradient-wellness text-white">
-        <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="text-4xl font-bold mb-6">Ready to Start Your Wellness Journey?</h2>
-          <p className="text-xl text-white/90 mb-8">
-            Book a free consultation today and take the first step toward a healthier, happier you
+      {/* CTA */}
+      <section className="py-24 bg-gradient-to-r from-primary via-green-600 to-primary text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-20" />
+        <div className="max-w-4xl mx-auto text-center px-4 relative z-10">
+          <Sparkles className="w-16 h-16 mx-auto mb-6 animate-pulse" />
+          <h2 className="text-5xl font-extrabold mb-6">Ready to Transform Your Life?</h2>
+          <p className="text-xl text-white/95 mb-10 max-w-2xl mx-auto">
+            Join 15,000+ families who've already started their wellness journey. Book your free consultation today!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              asChild
-              className="bg-white text-primary hover:bg-white/90 shadow-wellness-lg"
-            >
+            <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-2xl text-lg px-8 py-6">
               <Link to="/book-consultation">
-                <Calendar className="mr-2 w-5 h-5" />
-                Book a Free Consultation
+                <Calendar className="mr-2 w-6 h-6" />
+                Book Free Consultation
               </Link>
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20"
-            >
-              <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="mr-2 w-5 h-5" />
-                Chat on WhatsApp
+            <Button size="lg" asChild variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 backdrop-blur-sm text-lg px-8 py-6">
+              <a href="https://wa.me/919884988988" target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="mr-2 w-6 h-6" />
+                WhatsApp Us
               </a>
             </Button>
           </div>

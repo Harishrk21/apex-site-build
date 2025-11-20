@@ -36,7 +36,7 @@ const SEO = ({
     "url": fullCanonical,
     "logo": `${siteUrl}/logo.png`,
     "image": ogImage,
-    "telephone": "+919876543210",
+    "telephone": "+91+91 98849 88988",
     "email": "info@newlifewellnesscentre.com",
     "address": {
       "@type": "PostalAddress",
