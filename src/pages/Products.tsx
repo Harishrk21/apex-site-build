@@ -1,11 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, SlidersHorizontal } from "lucide-react";
+import { ShoppingCart, SlidersHorizontal, X, Trash2, ShoppingBag, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import productsHero from "@/assets/products-hero.jpg";
+import { toast } from "sonner";
 
 type ProductCategory =
   | "vitamins-supplements"
@@ -739,13 +740,20 @@ const SORT_OPTIONS = [
 ];
 
 const Products = () => {
-  const { addToCart } = useCart();
+  const { addToCart, cart, removeFromCart, clearCart, cartCount } = useCart();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedFlavours, setSelectedFlavours] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("featured");
   const [showFilters, setShowFilters] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isBuyingNow, setIsBuyingNow] = useState<string | null>(null);
+  
+  // Pagination state for mobile
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 6; // Show 6 products per page on mobile
 
   const flavourOptions = useMemo(() => {
     const flavours = PRODUCT_LIST.map((product) => product.flavour).filter(Boolean) as string[];
@@ -823,6 +831,104 @@ const Products = () => {
     });
   };
 
+  const handleBuyNow = async (product: Product) => {
+    setIsBuyingNow(product.id);
+    try {
+      const productName = product.flavour ? `${product.name} - ${product.flavour}` : product.name;
+      const response = await fetch("https://formspree.io/f/xzzybgbz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "Product Enquiry - Buy Now",
+          productName: productName,
+          productSize: product.size,
+          productPrice: priceFormatter.format(product.price),
+          message: `I'm interested in purchasing: ${productName} (${product.size}) - ${priceFormatter.format(product.price)}`,
+          _formType: "Product Enquiry - Buy Now",
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Enquiry sent! We'll contact you shortly.");
+      } else {
+        throw new Error("Failed to send enquiry");
+      }
+    } catch (error) {
+      toast.error("Failed to send enquiry. Please try again.");
+      console.error("Buy Now error:", error);
+    } finally {
+      setIsBuyingNow(null);
+    }
+  };
+
+  const handleCheckout = async () => {
+    if (cart.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+
+    setIsCheckingOut(true);
+    try {
+      const productsList = cart
+        .map((item) => `${item.name}${item.size ? ` (${item.size})` : ""} - ${item.price ? priceFormatter.format(item.price) : "Price on request"}`)
+        .join("\n");
+      
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price || 0), 0);
+
+      const response = await fetch("https://formspree.io/f/xzzybgbz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "Product Enquiry - Checkout",
+          products: productsList,
+          totalItems: cart.length,
+          totalPrice: priceFormatter.format(totalPrice),
+          message: `I'm interested in the following products:\n\n${productsList}\n\nTotal: ${priceFormatter.format(totalPrice)}`,
+          _formType: "Product Enquiry - Checkout",
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Enquiry sent! We'll contact you shortly.");
+        clearCart();
+        setIsCartOpen(false);
+      } else {
+        throw new Error("Failed to send enquiry");
+      }
+    } catch (error) {
+      toast.error("Failed to send enquiry. Please try again.");
+      console.error("Checkout error:", error);
+    } finally {
+      setIsCheckingOut(false);
+    }
+  };
+
+  // Pagination logic
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const paginatedProducts = isMobile ? sortedProducts.slice(startIndex, endIndex) : sortedProducts;
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, selectedFlavours, selectedSizes, selectedPrice, sortOption]);
+
   return (
     <main>
       <SEO
@@ -832,274 +938,416 @@ const Products = () => {
         keywords="Herbalife Products Kolathur, Buy Herbalife Chennai, Herbalife Products Villivakkam, Formula 1 Shake Kolathur, Herbalife Supplements Chennai, SKIN Products Villivakkam, Herbalife Nutrition Products Kolathur, Best Herbalife Products Chennai, Herbalife Centre Kolathur, Nutrition Products Villivakkam"
       />
 
-      <div className="pt-20 bg-[radial-gradient(circle_at_top,_rgba(34,197,94,0.12),_transparent_55%),_radial-gradient(circle_at_20%_20%,_rgba(16,185,129,0.15),_transparent_40%),_linear-gradient(to_bottom,_#f8fff1,_#ffffff)]">
-        {/* Hero */}
-        <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-b from-emerald-50/30 to-white">
+        {/* Hero Section */}
+        <section className="relative h-[35vh] sm:h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-emerald-700 to-emerald-900">
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{
-              backgroundImage: `linear-gradient(rgba(6,78,59,0.75), rgba(6,95,70,0.75)), url(${productsHero})`,
+              backgroundImage: `url(${productsHero})`,
             }}
           />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(52,_211,_153,_0.3),_transparent_55%)]" />
-          <div className="relative z-10 text-center text-white px-4">
-            <p className="text-sm uppercase tracking-[0.3em] mb-4">Full product library</p>
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Herbalife Products in Kolathur, Chennai & Villivakkam</h1>
-            {/* <p className="text-lg md:text-2xl max-w-3xl mx-auto">
-              New Life Wellness Centre offers 55+ curated Herbalife nutrition products in Kolathur, Chennai, and Villivakkam. Discover authentic Herbalife products spanning nutrition, performance, and self-care—filter by category, flavour, size, and price to find your perfect match at the best nutrition centre in Kolathur, Chennai.
-            </p> */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(52,211,153,0.3),_transparent_50%)]" />
+          <div className="relative z-10 text-center text-white px-4 sm:px-6 max-w-5xl mx-auto">
+            <p className="text-xs sm:text-sm uppercase tracking-widest mb-2 sm:mb-3 opacity-90">Full product library</p>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight">
+              Herbalife Products in Kolathur, Chennai & Villivakkam
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg max-w-3xl mx-auto opacity-90">
+              Discover 50+ authentic Herbalife nutrition products at New Life Wellness Centre
+            </p>
           </div>
         </section>
 
-        {/* Category Rail */}
-        <section className="py-6 backdrop-blur sticky top-16 z-30 border-y border-white/50 bg-white/70">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-wrap gap-3 justify-center">
-              {CATEGORIES.map((category) => (
-                <Button
-                  key={category.id}
-                  variant={selectedCategory === category.id ? "default" : "outline"}
-                  className={
-                    selectedCategory === category.id
-                      ? "gradient-wellness border-none shadow-lg shadow-emerald-200"
-                      : "bg-white/70 backdrop-blur"
-                  }
-                  onClick={() => setSelectedCategory(category.id)}
-                >
-                  {category.label}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Filters, Sorting, Products */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <p className="text-sm uppercase tracking-wide text-muted-foreground">
-                  Showing {sortedProducts.length} of {totalProducts} result(s)
-                </p>
-                <h2 className="text-2xl font-semibold">Filters &amp; sorting</h2>
-              </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <label className="text-sm font-medium text-muted-foreground" htmlFor="sort-select">
-                  Sort by
-                </label>
-                <select
-                  id="sort-select"
-                  value={sortOption}
-                  onChange={(event) => setSortOption(event.target.value)}
-                  className="rounded-md border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  {SORT_OPTIONS.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="md:hidden"
-                  onClick={() => setShowFilters((prev) => !prev)}
-                  aria-label="Toggle filters"
-                >
-                  <SlidersHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="grid gap-10 md:grid-cols-[300px_1fr]">
-              <aside className={`${showFilters ? "block" : "hidden"} md:block`}>
-                <div className="rounded-3xl border border-white/60 bg-white/80 p-6 space-y-6 shadow-xl shadow-emerald-100">
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold">Filter products</h3>
+        {/* Sticky Category & Cart Bar */}
+        <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b shadow-sm">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Category Scroll */}
+              <div className="flex-1 overflow-x-auto scrollbar-hide -mx-3 px-3 sm:mx-0 sm:px-0">
+                <div className="flex gap-1.5 sm:gap-2 min-w-max">
+                  {CATEGORIES.map((category) => (
                     <button
-                      type="button"
-                      className="text-sm font-medium text-primary"
-                      onClick={clearFilters}
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
+                        selectedCategory === category.id
+                          ? "bg-emerald-600 text-white shadow-md"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
                     >
-                      Clear all
+                      {category.label}
                     </button>
-                  </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Cart Button */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative flex-shrink-0 p-2 sm:p-2.5 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 transition-colors shadow-lg"
+              >
+                <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
 
-                  <div className="space-y-3">
-                    <p className="text-sm font-semibold">Flavour</p>
-                    <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-                      {flavourOptions.map((flavour) => (
-                        <label key={flavour} className="flex items-center gap-2 text-sm">
-                          <input
-                            type="checkbox"
-                            checked={selectedFlavours.includes(flavour)}
-                            onChange={() => toggleFilterValue(flavour, selectedFlavours, setSelectedFlavours)}
-                            className="h-4 w-4 rounded border-muted-foreground/30"
-                          />
-                          {flavour}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-sm font-semibold">Price</p>
-                    <div className="space-y-2">
-                      {PRICE_FILTERS.map((filter) => (
-                        <label key={filter.id} className="flex items-center gap-2 text-sm">
-                          <input
-                            type="radio"
-                            name="price-range"
-                            value={filter.id}
-                            checked={selectedPrice === filter.id}
-                            onChange={(event) => setSelectedPrice(event.target.value)}
-                            className="h-4 w-4"
-                          />
-                          {filter.label}
-                        </label>
-                      ))}
-                    </div>
-                  </div>
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-6 sm:py-8 md:py-10">
+          {/* Filters & Sort Header */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-6">
+            <div>
+              <p className="text-xs sm:text-sm text-gray-600">
+                Showing {sortedProducts.length} of {totalProducts} products
+              </p>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold mt-1">Our Products</h2>
+            </div>
+            
+            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+              <select
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                className="flex-1 sm:flex-none min-w-[160px] px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              >
+                {SORT_OPTIONS.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="md:hidden px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+              >
+                <SlidersHorizontal className="h-4 w-4" />
+                Filters
+              </button>
+            </div>
+          </div>
 
-                  <div className="space-y-3">
-                    <p className="text-sm font-semibold">Size</p>
-                    <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-                      {sizeOptions.map((size) => (
-                        <label key={size} className="flex items-center gap-2 text-sm">
-                          <input
-                            type="checkbox"
-                            checked={selectedSizes.includes(size)}
-                            onChange={() => toggleFilterValue(size, selectedSizes, setSelectedSizes)}
-                            className="h-4 w-4 rounded border-muted-foreground/30"
-                          />
-                          {size}
-                        </label>
-                      ))}
-                    </div>
+          <div className="grid md:grid-cols-[260px_1fr] lg:grid-cols-[280px_1fr] gap-6">
+            {/* Filters Sidebar */}
+            <aside className={`${showFilters ? "block" : "hidden"} md:block`}>
+              <div className="bg-white rounded-2xl border shadow-lg p-4 sm:p-5 space-y-5 sticky top-24">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base sm:text-lg font-bold">Filters</h3>
+                  <button
+                    onClick={clearFilters}
+                    className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                  >
+                    Clear all
+                  </button>
+                </div>
+
+                {/* Price Filter */}
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold">Price Range</p>
+                  <div className="space-y-2">
+                    {PRICE_FILTERS.map((filter) => (
+                      <label key={filter.id} className="flex items-center gap-2 text-sm cursor-pointer hover:text-emerald-600">
+                        <input
+                          type="radio"
+                          name="price"
+                          value={filter.id}
+                          checked={selectedPrice === filter.id}
+                          onChange={(e) => setSelectedPrice(e.target.value)}
+                          className="accent-emerald-600"
+                        />
+                        {filter.label}
+                      </label>
+                    ))}
                   </div>
                 </div>
-              </aside>
 
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {sortedProducts.map((product) => (
-                  <Card
-                    key={product.id}
-                    className="border border-white/60 shadow-2xl shadow-emerald-50/70 transition hover:-translate-y-1 hover:shadow-emerald-200/80 rounded-3xl bg-white/90 backdrop-blur"
-                  >
-                    <CardContent className="p-6 space-y-5">
-                      <div className="relative h-52 rounded-2xl overflow-hidden">
+                {/* Flavour Filter */}
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold">Flavour</p>
+                  <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                    {flavourOptions.map((flavour) => (
+                      <label key={flavour} className="flex items-center gap-2 text-sm cursor-pointer hover:text-emerald-600">
+                        <input
+                          type="checkbox"
+                          checked={selectedFlavours.includes(flavour)}
+                          onChange={() => toggleFilterValue(flavour, selectedFlavours, setSelectedFlavours)}
+                          className="accent-emerald-600"
+                        />
+                        {flavour}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Size Filter */}
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold">Size</p>
+                  <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                    {sizeOptions.map((size) => (
+                      <label key={size} className="flex items-center gap-2 text-sm cursor-pointer hover:text-emerald-600">
+                        <input
+                          type="checkbox"
+                          checked={selectedSizes.includes(size)}
+                          onChange={() => toggleFilterValue(size, selectedSizes, setSelectedSizes)}
+                          className="accent-emerald-600"
+                        />
+                        {size}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+            {/* Products Grid */}
+            <div className="space-y-6">
+              <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {paginatedProducts.map((product) => (
+                  <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden border-2 hover:border-emerald-200">
+                    <CardContent className="p-4 space-y-4">
+                      {/* Product Image */}
+                      <div className="relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
                         {product.image ? (
                           <img
                             src={product.image}
                             alt={product.name}
-                            className="h-full w-full object-contain bg-white"
-                            loading="lazy"
+                            className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                           />
                         ) : (
                           <div
-                            className="h-full w-full flex items-center justify-center text-6xl"
+                            className="w-full h-full flex items-center justify-center text-6xl"
                             style={{ background: getProductVisual(product).gradient }}
                           >
                             {getProductVisual(product).emoji}
                           </div>
                         )}
-                        <span
-                          className="absolute -bottom-4 -right-4 h-16 w-16 rounded-full opacity-70"
-                          style={{ backgroundColor: getProductVisual(product).accent }}
-                        />
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <Badge variant="outline">
-                          {product.categories
-                            .map((categoryId) => CATEGORIES.find((cat) => cat.id === categoryId)?.label)
-                            .filter(Boolean)
-                            .slice(0, 1)
-                            .join("")}
-                        </Badge>
                         {product.tag && (
-                          <Badge className="bg-primary/15 text-primary px-3 py-1 rounded-full">
+                          <Badge className="absolute top-2 right-2 bg-emerald-600 text-white px-2 py-1 text-xs">
                             {product.tag}
                           </Badge>
                         )}
                       </div>
 
-                      <div>
-                        <h3 className="text-xl font-semibold">
-                          {product.flavour ? (
-                            <span>
-                              {product.flavour}
-                              <span className="text-muted-foreground font-normal"> · {product.name}</span>
-                            </span>
-                          ) : (
-                            product.name
-                          )}
+                      {/* Product Info */}
+                      <div className="space-y-2">
+                        <Badge variant="outline" className="text-xs">
+                          {CATEGORIES.find((c) => c.id === product.categories[0])?.label}
+                        </Badge>
+                        
+                        <h3 className="font-bold text-base sm:text-lg leading-tight line-clamp-2">
+                          {product.flavour ? `${product.flavour} · ${product.name}` : product.name}
                         </h3>
-                        <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
-                      </div>
-
-                      <div className="text-sm text-muted-foreground space-y-1">
-                        <p>
-                          Size: <span className="font-medium text-foreground">{product.size}</span>
-                          {product.sizeNote && <span className="text-xs text-muted-foreground"> {product.sizeNote}</span>}
+                        
+                        <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">
+                          {product.description}
                         </p>
-                        {product.flavourNote && <p>{product.flavourNote}</p>}
+                        
+                        <p className="text-xs text-gray-500">
+                          Size: <span className="font-medium text-gray-700">{product.size}</span>
+                          {product.sizeNote && <span className="ml-1">{product.sizeNote}</span>}
+                        </p>
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-2xl font-bold text-emerald-700">
-                            {priceFormatter.format(product.price)}
-                          </p>
-                          <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                            MRP (incl. of all taxes)
-                          </p>
+                      {/* Price & Actions */}
+                      <div className="space-y-3 pt-2 border-t">
+                        <div className="flex items-baseline justify-between">
+                          <div>
+                            <p className="text-xl sm:text-2xl font-bold text-emerald-700">
+                              {priceFormatter.format(product.price)}
+                            </p>
+                            <p className="text-xs text-gray-500">MRP (incl. taxes)</p>
+                          </div>
                         </div>
-                        <span className="text-sm font-medium text-muted-foreground">
-                          {sortedProducts.indexOf(product) + 1}/{sortedProducts.length}
-                        </span>
+                        
+                        <div className="grid grid-cols-2 gap-2">
+                          <button
+                            onClick={() => handleAddToCart(product)}
+                            className="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1.5"
+                          >
+                            <ShoppingCart className="h-3.5 w-3.5" />
+                            Add
+                          </button>
+                          <button
+                            onClick={() => handleBuyNow(product)}
+                            disabled={isBuyingNow === product.id}
+                            className="px-3 py-2 border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
+                          >
+                            <Zap className="h-3.5 w-3.5" />
+                            {isBuyingNow === product.id ? "Sending..." : "Buy"}
+                          </button>
+                        </div>
                       </div>
-
-                      <Button
-                        className="w-full gradient-wellness shadow-lg shadow-emerald-200"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        <ShoppingCart className="mr-2 h-4 w-4" /> Add to My List
-                      </Button>
                     </CardContent>
                   </Card>
                 ))}
 
+                {/* No Results */}
                 {sortedProducts.length === 0 && (
-                  <div className="col-span-full rounded-2xl border border-dashed p-10 text-center">
-                    <p className="text-lg font-semibold">No results match the selected filters.</p>
-                    <p className="text-muted-foreground text-sm mt-2">
-                      Try clearing some filters or choosing a different category.
-                    </p>
-                    <Button className="mt-4" variant="outline" onClick={clearFilters}>
-                      Reset filters
-                    </Button>
+                  <div className="text-center py-12 bg-white rounded-2xl border-2 border-dashed">
+                    <p className="text-lg font-semibold mb-2">No products found</p>
+                    <p className="text-gray-600 mb-4">Try adjusting your filters</p>
+                    <button
+                      onClick={clearFilters}
+                      className="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                    >
+                      Clear Filters
+                    </button>
                   </div>
                 )}
               </div>
+
+              {/* Mobile Pagination */}
+              {isMobile && totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 pt-4">
+                  <button
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-lg border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                  
+                  <span className="px-4 py-2 text-sm font-medium">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  
+                  <button
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-lg border disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </div>
+              )}
             </div>
           </div>
-        </section>
+        </div>
 
-        {/* Info Section */}
-        <section className="py-20 bg-white/80">
-          <div className="max-w-4xl mx-auto text-center px-4">
-            <h2 className="text-3xl font-bold mb-6">How to Order</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Select the products you're interested in and add them to your list.
-              We'll contact you to discuss your personalized nutrition plan and complete your order.
+        {/* Cart Sidebar */}
+        {isCartOpen && (
+          <div className="fixed inset-0 z-50 flex justify-end">
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setIsCartOpen(false)}
+            />
+            <div className="relative w-full sm:w-96 bg-white shadow-2xl flex flex-col max-h-screen">
+              <div className="p-4 sm:p-6 border-b">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl sm:text-2xl font-bold">My Cart</h2>
+                  <button
+                    onClick={() => setIsCartOpen(false)}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                <p className="text-sm text-gray-600 mt-1">
+                  {cart.length} {cart.length === 1 ? "item" : "items"} in your cart
+                </p>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+                {cart.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-center py-12">
+                    <ShoppingCart className="h-16 w-16 text-gray-300 mb-4" />
+                    <p className="text-lg font-semibold text-gray-700 mb-2">Your cart is empty</p>
+                    <p className="text-sm text-gray-500">Add products to get started</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {cart.map((item, index) => (
+                      <div key={`${item.id}-${index}`} className="bg-gray-50 rounded-lg p-3 sm:p-4">
+                        <div className="flex justify-between gap-3">
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-sm sm:text-base leading-tight break-words">
+                              {item.name}
+                            </h4>
+                            <p className="text-xs text-gray-600 mt-1">Size: {item.size}</p>
+                            <p className="text-sm sm:text-base font-bold text-emerald-700 mt-2">
+                              {item.price ? priceFormatter.format(item.price) : "Price on request"}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => removeFromCart(item.id)}
+                            className="flex-shrink-0 p-2 hover:bg-red-50 rounded-lg transition-colors self-start"
+                          >
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {cart.length > 0 && (
+                <div className="border-t p-4 sm:p-6 bg-white space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Subtotal</span>
+                      <span className="font-semibold">
+                        {priceFormatter.format(cart.reduce((sum, item) => sum + (item.price || 0), 0))}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-base sm:text-lg font-bold">
+                      <span>Total</span>
+                      <span className="text-emerald-700">
+                        {priceFormatter.format(cart.reduce((sum, item) => sum + (item.price || 0), 0))}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <button
+                      onClick={handleCheckout}
+                      disabled={isCheckingOut}
+                      className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
+                    >
+                      <ShoppingBag className="h-5 w-5" />
+                      {isCheckingOut ? "Sending Enquiry..." : "Checkout & Send Enquiry"}
+                    </button>
+                    
+                    <button
+                      onClick={clearCart}
+                      className="w-full py-2.5 border-2 border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-medium transition-colors"
+                    >
+                      Clear Cart
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* CTA Section */}
+        <section className="bg-gradient-to-r from-emerald-600 to-emerald-700 py-12 sm:py-16 md:py-20">
+          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to Start Your Wellness Journey?
+            </h2>
+            <p className="text-base sm:text-lg text-emerald-50 mb-8 max-w-2xl mx-auto">
+              Add products to your cart and send us an enquiry. Our nutrition experts will contact you to create your personalized plan.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild className="gradient-wellness">
-                <a href="/book-consultation">Book Consultation</a>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="/contact">Contact Us</a>
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <a
+                href="/book-consultation"
+                className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-emerald-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors shadow-lg text-sm sm:text-base"
+              >
+                Book Consultation
+              </a>
+              <a
+                href="/contact"
+                className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white text-white rounded-xl font-semibold hover:bg-white/10 transition-colors text-sm sm:text-base"
+              >
+                Contact Us
+              </a>
             </div>
           </div>
         </section>

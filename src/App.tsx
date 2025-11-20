@@ -8,6 +8,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/ScrollToTop";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import HerbalifeStory from "./pages/HerbalifeStory";
@@ -48,8 +49,9 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTop />
             <Navigation />
-            <main className="min-h-screen">
+            <main className="min-h-screen pt-16 md:pt-20">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

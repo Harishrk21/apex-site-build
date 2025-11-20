@@ -144,4 +144,13 @@ All colors MUST be HSL.
   .shadow-wellness-lg {
     box-shadow: 0 20px 50px -15px hsl(var(--wellness-soft-green) / 0.4);
   }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -150,13 +150,13 @@ const Results = () => {
       {/* Filter Section */}
       <section className="sticky top-20 z-40 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 md:flex-wrap md:items-center md:justify-center md:overflow-x-visible md:pb-0">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
                 className={`
-                  flex items-center space-x-2 px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300
+                  flex items-center space-x-2 px-5 py-2.5 rounded-full font-medium text-sm transition-all duration-300 whitespace-nowrap flex-shrink-0
                   ${selectedCategory === category.id
                     ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 scale-105"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:scale-105"

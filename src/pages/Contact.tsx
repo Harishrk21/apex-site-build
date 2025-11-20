@@ -1,15 +1,8 @@
 import { useState } from "react";
-// Assuming "@/components/ui/..." resolve to UI components or are styled correctly by Tailwind
-// We use simple divs and inputs for the file generation constraint, assuming the styles are defined.
-// The component names (Button, Input, Textarea, Card, CardContent) are kept for structural integrity.
-
-// Mock UI components based on the user's structure (replace with real shandcn components if environment allows)
-const Button = ({ children, onClick, className, size, disabled }) => <button onClick={onClick} className={`p-2 rounded-md ${className}`} disabled={disabled}>{children}</button>;
-const Input = ({ className, ...props }) => <input className={`border p-2 rounded-md ${className}`} {...props} />;
-const Textarea = ({ className, ...props }) => <textarea className={`border p-2 rounded-md ${className}`} {...props} />;
-const Card = ({ children, className }) => <div className={`rounded-2xl shadow-lg ${className}`}>{children}</div>;
-const CardContent = ({ children, className }) => <div className={`p-6 ${className}`}>{children}</div>;
-
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Clock, Calendar, User, Send, Sparkles, CheckCircle } from "lucide-react";
 
 const Contact = () => {
@@ -22,7 +15,8 @@ const Contact = () => {
     message: "",
   });
   // State for handling form submission status (success, error, null)
-  const [submissionStatus, setSubmissionStatus] = useState(null);
+  const [submissionStatus, setSubmissionStatus] = useState<"success" | "error" | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const services = [
     { id: "weight-loss", name: "Lose Weight", icon: "⚖️", duration: "12 weeks", color: "from-green-600 to-yellow-500", description: "Sustainable transformation" },
@@ -46,7 +40,7 @@ const Contact = () => {
     { id: "kids-nutrition", name: "Kids Nutrition", icon: "👶", duration: "Ongoing", color: "from-lime-400 to-emerald-400", description: "Healthy growth support" },
   ];
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
@@ -55,7 +49,7 @@ const Contact = () => {
     setSubmissionStatus(null);
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Check if all required fields are filled
     if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.message) {
       setSubmissionStatus('error');
@@ -64,10 +58,44 @@ const Contact = () => {
       return;
     }
 
-    // Submission success logic
-    setSubmissionStatus('success');
-    // Clear form after successful submission
-    setFormData({ name: "", email: "", phone: "", service: "", preferredDate: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const selectedService = services.find(s => s.id === formData.service);
+      const serviceName = selectedService ? selectedService.name : formData.service;
+
+      const response = await fetch("https://formspree.io/f/xzzybgbz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "New Contact Form Message",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          service: serviceName,
+          preferredDate: formData.preferredDate,
+          message: formData.message,
+          _formType: "Contact Form",
+        }),
+      });
+
+      if (response.ok) {
+        setSubmissionStatus('success');
+        // Clear form after successful submission
+        setFormData({ name: "", email: "", phone: "", service: "", preferredDate: "", message: "" });
+      } else {
+        throw new Error("Failed to submit form");
+      }
+    } catch (error) {
+      setSubmissionStatus('error');
+      console.error("Form submission error:", error);
+      // Hide error message after 5 seconds
+      setTimeout(() => setSubmissionStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFormValid = formData.name && formData.email && formData.phone && formData.service && formData.message;
@@ -367,15 +395,15 @@ const Contact = () => {
                     <Button 
                       onClick={handleSubmit}
                       size="lg" 
-                      disabled={!isFormValid}
+                      disabled={!isFormValid || isSubmitting}
                       className={`w-full h-14 text-lg font-bold shadow-2xl transition-all duration-300 rounded-xl group ${
-                        isFormValid 
+                        isFormValid && !isSubmitting
                             ? 'bg-gradient-to-r from-green-700 via-emerald-600 to-yellow-600 hover:from-green-800 hover:via-emerald-700 hover:to-yellow-700 hover:shadow-3xl text-white'
                             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                       }`}
                     >
                       <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
-                      Send Message
+                      {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </div>
                 </CardContent>

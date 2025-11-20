@@ -268,7 +268,7 @@ const Programs = () => {
       {/* Category Filter */}
       <section className="sticky top-16 md:top-20 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2 md:flex-wrap md:justify-center md:overflow-x-visible md:pb-0">
             {categories.map((category) => {
               const Icon = category.icon;
               return (
@@ -276,7 +276,7 @@ const Programs = () => {
                   key={category.name}
                   onClick={() => setSelectedCategory(category.name)}
                   className={`
-                    flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200
+                    flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 whitespace-nowrap flex-shrink-0
                     ${selectedCategory === category.name
                       ? "bg-green-600 text-white shadow-md"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"

@@ -109,9 +109,6 @@ const Home = () => {
 
   return (
     <div className="bg-white overflow-hidden">
-      {/* Navbar Placeholder */}
-      <div className="h-16 md:h-20"></div>
-
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-600 via-emerald-700 to-teal-800 overflow-hidden">
         <div className="absolute inset-0">
@@ -140,7 +137,7 @@ const Home = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <a href="/consultation" className="group bg-white text-green-700 hover:bg-green-50 px-6 py-2.5 rounded-full font-bold text-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2">
+                <a href="/book-consultation" className="group bg-white text-green-700 hover:bg-green-50 px-6 py-2.5 rounded-full font-bold text-sm shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2">
                   Start Free Consultation
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -460,7 +457,7 @@ const Home = () => {
             Join hundreds of satisfied clients who achieved their wellness goals with our proven programs.
           </p>
 
-          <a href="/contact" className="bg-white text-green-600 px-8 py-3 rounded-full text-base font-bold shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
+          <a href="/book-consultation" className="bg-white text-green-600 px-8 py-3 rounded-full text-base font-bold shadow-2xl hover:shadow-white/50 hover:scale-105 transition-all duration-300 inline-flex items-center gap-2">
             Book Your Free Consultation
             <ArrowRight className="w-5 h-5" />
           </a>

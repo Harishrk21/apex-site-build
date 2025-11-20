@@ -174,23 +174,27 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Grid with Filtering */}
-      <section className="py-20 lg:py-24 bg-white">
+      {/* Filter Section */}
+      <section className="sticky top-16 md:top-20 z-40 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Filtering Controls */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 md:flex-wrap md:justify-center md:overflow-x-visible md:pb-0">
             {categories.map((category) => (
               <Button
                 key={category}
                 variant={activeFilter === category ? "default" : "outline"}
                 onClick={() => setActiveFilter(category)}
-                className={`transition-all duration-300 ${activeFilter === category ? 'bg-primary hover:bg-primary/90 text-white shadow-lg' : 'border-gray-300 text-gray-700 hover:bg-gray-100'}`}
+                className={`transition-all duration-300 whitespace-nowrap flex-shrink-0 ${activeFilter === category ? 'bg-primary hover:bg-primary/90 text-white shadow-lg' : 'border-gray-300 text-gray-700 hover:bg-gray-100'}`}
               >
                 {category}
               </Button>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Gallery Grid with Filtering */}
+      <section className="py-20 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Gallery Grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">

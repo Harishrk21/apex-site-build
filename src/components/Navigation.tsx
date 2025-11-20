@@ -93,14 +93,14 @@ const Navigation = () => {
                 <img
                   src="/mylogo.png"
                   alt="New Life Wellness Centre Logo"
-                  className="w-22 h-22 sm:w-26 sm:h-26 md:w-30 md:h-30 lg:w-36 lg:h-36 object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <div className="hidden sm:flex flex-col justify-center">
-                <span className="text-lg md:text-xl lg:text-2xl font-bold text-emerald-600 whitespace-nowrap">
+              <div className="flex flex-col justify-center leading-tight text-left">
+                <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-emerald-600 whitespace-nowrap">
                   New Life
                 </span>
-                <span className="text-xs md:text-xs text-gray-600 font-semibold tracking-wider whitespace-nowrap">
+                <span className="text-[10px] sm:text-xs text-gray-600 font-semibold tracking-[0.2em] whitespace-nowrap">
                   WELLNESS CENTRE
                 </span>
               </div>
@@ -222,9 +222,9 @@ const Navigation = () => {
         transform transition-all duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "translate-x-full"}
       `}>
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full overflow-hidden">
           {/* Mobile menu header */}
-          <div className="flex justify-between items-center p-4 border-b border-gray-100">
+          <div className="flex justify-between items-center p-4 border-b border-gray-100 flex-shrink-0">
             <button
               onClick={() => handleNavClick("/")}
               className="flex items-center space-x-2"
@@ -251,7 +251,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile menu items */}
-          <div className="flex-1 overflow-y-auto px-4 py-6 space-y-2">
+          <div className="flex-1 overflow-y-auto px-4 py-6 space-y-2 pb-4 min-h-0">
             {navigation.map((item, index) => (
               <div key={item.name}>
                 <button
@@ -287,17 +287,17 @@ const Navigation = () => {
                 {item.submenu && (
                   <div className={`
                     overflow-hidden transition-all duration-300
-                    ${activeSubmenu === item.name ? "max-h-96 opacity-100 mt-2" : "max-h-0 opacity-0"}
+                    ${activeSubmenu === item.name ? "opacity-100 mt-2 mb-2" : "max-h-0 opacity-0"}
                   `}>
-                    <div className="ml-4 space-y-1 border-l-2 border-emerald-200 pl-4">
+                    <div className="ml-4 space-y-1 border-l-2 border-emerald-200 pl-4 pb-2">
                       {item.submenu.map((subitem) => (
                         <button
                           key={subitem.name}
                           onClick={() => handleNavClick(subitem.href)}
                           className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
                         >
-                          <span className="text-lg">{subitem.icon}</span>
-                          <span>{subitem.name}</span>
+                          <span className="text-lg flex-shrink-0">{subitem.icon}</span>
+                          <span className="text-left">{subitem.name}</span>
                         </button>
                       ))}
                     </div>
@@ -308,7 +308,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile CTA Buttons */}
-          <div className="p-4 space-y-3 border-t border-gray-100">
+          <div className="p-4 space-y-3 border-t border-gray-100 flex-shrink-0">
             <a
               href="tel:+919884988988"
               className="flex items-center justify-center space-x-2 w-full px-4 py-3 rounded-lg bg-white border-2 border-emerald-600 text-emerald-600 font-semibold hover:bg-emerald-50 transition-colors"

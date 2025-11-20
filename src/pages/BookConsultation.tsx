@@ -18,19 +18,49 @@ const BookConsultation = () => {
     preferredTime: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, this would send to backend
-    toast.success("Consultation booked! We'll contact you shortly.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      goal: "",
-      preferredTime: "",
-      message: "",
-    });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xzzybgbz", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "New Consultation Booking Request",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          goal: formData.goal,
+          preferredTime: formData.preferredTime,
+          message: formData.message,
+          _formType: "Consultation Booking",
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Consultation booked! We'll contact you shortly.");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          goal: "",
+          preferredTime: "",
+          message: "",
+        });
+      } else {
+        throw new Error("Failed to submit form");
+      }
+    } catch (error) {
+      toast.error("Failed to submit. Please try again or contact us directly.");
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -176,8 +206,8 @@ const BookConsultation = () => {
                       />
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full gradient-wellness">
-                      Book My Free Consultation
+                    <Button type="submit" size="lg" className="w-full gradient-wellness" disabled={isSubmitting}>
+                      {isSubmitting ? "Submitting..." : "Book My Free Consultation"}
                     </Button>
 
                     <p className="text-xs text-center text-muted-foreground">

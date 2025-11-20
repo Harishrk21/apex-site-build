@@ -80,19 +80,19 @@ const About = () => {
       <script type="application/ld+json">{JSON.stringify(schemas.person)}</script>
 
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center transform scale-105" 
              style={{ backgroundImage: `linear-gradient(135deg, rgba(16,185,129,0.8), rgba(5,150,105,0.9)), url(${aboutHero})` }} />
-        <div className="relative z-10 text-center text-white max-w-5xl px-4 animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full mb-6">
-            <Sparkles className="w-5 h-5" />
-            <span className="text-sm font-semibold">Transforming Lives Since 2015</span>
+        <div className="relative z-10 text-center text-white max-w-5xl px-4 sm:px-6 animate-fade-in">
+          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full mb-4 sm:mb-6">
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="text-xs sm:text-sm font-semibold">Transforming Lives Since 2015</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight px-2">
             Your Wellness Journey<br />Starts Here
           </h1>
-          <p className="text-xl md:text-2xl text-white/95 mb-8">Best Wellness & Nutrition Centre in Kolathur, Chennai</p>
-          <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-2xl">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-6 sm:mb-8 px-2">Best Wellness & Nutrition Centre in Kolathur, Chennai</p>
+          <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-2xl text-sm sm:text-base">
             <Link to="/book-consultation">Start Your Transformation</Link>
           </Button>
         </div>
@@ -176,28 +176,28 @@ const About = () => {
 
           <Card className="border-none shadow-2xl overflow-hidden bg-gradient-to-br from-white to-primary/5">
             <CardContent className="p-0">
-              <div className="grid lg:grid-cols-2 gap-0">
+              <div className="grid lg:grid-cols-2 gap-0 lg:items-stretch">
                 {/* Image Section */}
-                <div className="relative h-[500px] lg:h-auto bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-8">
-                  <div className="relative w-full max-w-md">
+                <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 sm:p-6 md:p-8 lg:min-h-full">
+                  <div className="relative w-full max-w-md flex items-center justify-center">
                     <img 
                       src="/mentor.jpeg" 
                       alt="Avinash & Mahak - Wellness Coaches" 
                       className="w-full h-auto object-contain rounded-2xl shadow-2xl"
                     />
                   </div>
-                  <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-sm rounded-xl p-6 shadow-xl">
-                    <div className="flex items-center gap-3 mb-3">
-                      <Trophy className="w-6 h-6 text-primary" />
-                      <span className="text-lg font-bold text-foreground">India's Leading Wellness Coaches</span>
+                  <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 md:bottom-8 md:left-8 md:right-8 bg-white/95 backdrop-blur-sm rounded-xl p-4 sm:p-5 md:p-6 shadow-xl">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                      <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                      <span className="text-sm sm:text-base md:text-lg font-bold text-foreground">India's Leading Wellness Coaches</span>
                     </div>
-                    <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4 text-primary" />
+                    <div className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-muted-foreground flex-wrap">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
                         <span>1500+ Families</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Award className="w-4 h-4 text-primary" />
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
                         <span>9+ Years Experience</span>
                       </div>
                     </div>
@@ -205,9 +205,9 @@ const About = () => {
                 </div>
 
                 {/* Content Section */}
-                <div className="p-10 lg:p-12">
-                  <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-                    <p className="text-xl font-semibold text-foreground">
+                <div className="p-6 sm:p-8 md:p-10 lg:p-12">
+                  <div className="space-y-4 sm:space-y-5 md:space-y-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
+                    <p className="text-lg sm:text-xl font-semibold text-foreground">
                       💚 Changing Lives Through Health, Wealth & Happiness
                     </p>
                     <p>
@@ -216,29 +216,29 @@ const About = () => {
                     <p>
                       With a <strong className="text-foreground">holistic approach</strong>, they empower clients to make lasting lifestyle changes that transcend weight loss. Their focus is on promoting complete well-being, helping clients transform their health for the long term.
                     </p>
-                    <p className="text-primary font-semibold italic">
+                    <p className="text-primary font-semibold italic text-sm sm:text-base md:text-lg">
                       "We've personally achieved incredible results through Herbalife Nutrition, and our entire family has embraced this healthy lifestyle since 2015. With over 1500 families transformed, our mission is to help many more achieve their best health and wellness! ✨"
                     </p>
 
                     {/* Achievements Grid */}
-                    <div className="grid grid-cols-2 gap-4 pt-6">
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4 sm:pt-6">
                       {[
                         { label: "Years Experience", value: "9+", icon: <Award className="w-5 h-5" /> },
                         { label: "Families Helped", value: "15,000+", icon: <Users className="w-5 h-5" /> },
                         { label: "Success Rate", value: "98%", icon: <TrendingUp className="w-5 h-5" /> },
                         { label: "Active Clients", value: "1500+", icon: <Heart className="w-5 h-5" /> }
                       ].map((stat, i) => (
-                        <div key={i} className="bg-primary/5 rounded-xl p-4 text-center border border-primary/10">
-                          <div className="flex justify-center mb-2 text-primary">{stat.icon}</div>
-                          <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
-                          <div className="text-xs text-muted-foreground">{stat.label}</div>
+                        <div key={i} className="bg-primary/5 rounded-xl p-3 sm:p-4 text-center border border-primary/10">
+                          <div className="flex justify-center mb-1.5 sm:mb-2 text-primary">{stat.icon}</div>
+                          <div className="text-2xl sm:text-3xl font-bold text-primary mb-1">{stat.value}</div>
+                          <div className="text-xs sm:text-xs text-muted-foreground leading-tight">{stat.label}</div>
                         </div>
                       ))}
                     </div>
 
                     {/* Mission Statement */}
-                    <div className="bg-gradient-to-r from-primary to-green-600 rounded-2xl p-6 text-white mt-8">
-                      <p className="text-center font-bold text-lg">
+                    <div className="bg-gradient-to-r from-primary to-green-600 rounded-2xl p-4 sm:p-5 md:p-6 text-white mt-6 sm:mt-8">
+                      <p className="text-center font-bold text-sm sm:text-base md:text-lg">
                         🎯 Dedicated to helping every Indian achieve complete 360° fitness
                       </p>
                     </div>
