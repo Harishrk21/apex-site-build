@@ -148,7 +148,7 @@
         />
 
         <ProgramHero
-            image={aboutHero}
+            image="https://activelifestyler.com/wp-content/uploads/2020/07/Healthy-Breakfast-hero.jpg"
             title="Start Your Day Right - Nutrition in Minutes"
             tagline="Fuel your morning with complete, balanced nutrition that powers your entire day"
         />

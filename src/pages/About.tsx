@@ -56,8 +56,8 @@ const About = () => {
   const certifications = [
     "Certified Herbalife Wellness Coach",
     "Nutrition & Lifestyle Specialist",
-    "9+ Years Professional Experience",
-    "15,000+ Families Transformed"
+    "10 Years Professional Experience",
+    "1500+ Families Transformed"
   ];
 
   const recognitions = [
@@ -71,7 +71,7 @@ const About = () => {
     <>
       <SEO
         title="About New Life Wellness Centre - Best Wellness & Nutrition Centre in Kolathur, Chennai"
-        description="Led by Avinash & Mahak, certified Herbalife coaches with 9+ years experience. 15,000+ families transformed. Best wellness centre in Kolathur, Chennai."
+        description="Led by Avinash & Mahak, certified Herbalife coaches with 10 years experience. 1500+ families transformed. Best wellness centre in Kolathur, Chennai."
         canonical="/about"
         keywords="About New Life Wellness Centre, Best Wellness Coach Chennai, Avinash Mahak Herbalife, Nutrition Centre Kolathur"
       />
@@ -81,8 +81,12 @@ const About = () => {
 
       {/* Hero Section */}
       <section className="relative h-[50vh] sm:h-[55vh] md:h-[60vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center transform scale-105" 
-             style={{ backgroundImage: `linear-gradient(135deg, rgba(16,185,129,0.8), rgba(5,150,105,0.9)), url(${aboutHero})` }} />
+        <div
+  className="absolute inset-0 bg-cover bg-center"
+  style={{
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg')`,
+  }}
+/>
         <div className="relative z-10 text-center text-white max-w-5xl px-4 sm:px-6 animate-fade-in">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 sm:px-6 py-2 rounded-full mb-4 sm:mb-6">
             <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -126,7 +130,7 @@ const About = () => {
                   <div>
                     <h3 className="text-2xl font-bold mb-3 text-foreground">Why Herbalife?</h3>
                     <p className="text-muted-foreground mb-4">
-                      After extensive research and transformative personal results, we partnered with Herbalife Nutrition for their 40+ years of global leadership, rigorous science-backed formulations, and comprehensive product range that enables truly personalized wellness solutions.
+                      After extensive research and transformative personal results, we partnered with Herbalife Nutrition for their 45 years of global leadership, rigorous science-backed formulations, and comprehensive product range that enables truly personalized wellness solutions.
                     </p>
                     <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
                       <Link to="/herbalife-story">Discover Herbalife's Legacy →</Link>
@@ -198,7 +202,7 @@ const About = () => {
                       </div>
                       <div className="flex items-center gap-1.5 sm:gap-2">
                         <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
-                        <span>9+ Years Experience</span>
+                        <span>10 Years Experience</span>
                       </div>
                     </div>
                   </div>
@@ -223,8 +227,8 @@ const About = () => {
                     {/* Achievements Grid */}
                     <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4 sm:pt-6">
                       {[
-                        { label: "Years Experience", value: "9+", icon: <Award className="w-5 h-5" /> },
-                        { label: "Families Helped", value: "15,000+", icon: <Users className="w-5 h-5" /> },
+                        { label: "Years Experience", value: "10", icon: <Award className="w-5 h-5" /> },
+                        { label: "Families Helped", value: "1500+", icon: <Users className="w-5 h-5" /> },
                         { label: "Success Rate", value: "98%", icon: <TrendingUp className="w-5 h-5" /> },
                         { label: "Active Clients", value: "1500+", icon: <Heart className="w-5 h-5" /> }
                       ].map((stat, i) => (
@@ -335,7 +339,7 @@ const About = () => {
           <Sparkles className="w-16 h-16 mx-auto mb-6 animate-pulse" />
           <h2 className="text-5xl font-extrabold mb-6">Ready to Transform Your Life?</h2>
           <p className="text-xl text-white/95 mb-10 max-w-2xl mx-auto">
-            Join 15,000+ families who've already started their wellness journey. Book your free consultation today!
+            Join 1500+ families who've already started their wellness journey. Book your free consultation today!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-2xl text-lg px-8 py-6">

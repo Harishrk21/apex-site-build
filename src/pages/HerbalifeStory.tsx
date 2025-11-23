@@ -141,11 +141,12 @@ const HerbalifeStory = () => {
       {/* Hero */}
       <section className="relative h-[60vh] flex items-center justify-center">
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${productsHero})`,
-          }}
-        />
+  className="absolute inset-0 bg-cover bg-center"
+  style={{
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg')`,
+  }}
+/>
+
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">The Story Behind Our Nutrition — Herbalife</h1>
           <p className="text-xl text-white/90">

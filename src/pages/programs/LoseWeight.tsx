@@ -184,7 +184,7 @@ const LoseWeight = () => {
       <script type="application/ld+json">{JSON.stringify(howToSchema)}</script>
 
       <ProgramHero
-        image={aboutHero}
+        image="https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
         title="Lose Weight – Personalized Program"
         tagline="Transform your body with science-backed nutrition and expert coaching"
       />

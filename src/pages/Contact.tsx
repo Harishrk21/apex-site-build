@@ -1,11 +1,32 @@
-import { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Clock, Calendar, User, Send, Sparkles, CheckCircle } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Calendar,
+  User,
+  Send,
+  Sparkles,
+  CheckCircle,
+} from "lucide-react";
 
-const Contact = () => {
+/**
+ * Notes:
+ * - This sends form data to FormSubmit (https://formsubmit.co) via fetch using FormData.
+ * - Replace RECIPIENT_EMAIL with the Zoho mailbox you want to receive mails to.
+ * - First time you submit, FormSubmit will send a verification email to that address — click the confirm link.
+ * - FormSubmit accepts form-encoded / multipart posts and will forward email to the recipient.
+ */
+
+const RECIPIENT_EMAIL = "info@newlifewellness.com"; // ← change if you want another mail
+const FORM_SUBMIT_URL = `https://formsubmit.co/${RECIPIENT_EMAIL}`;
+
+const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,8 +35,11 @@ const Contact = () => {
     preferredDate: "",
     message: "",
   });
-  // State for handling form submission status (success, error, null)
-  const [submissionStatus, setSubmissionStatus] = useState<"success" | "error" | null>(null);
+
+  // Submission state
+  const [submissionStatus, setSubmissionStatus] = useState<
+    "success" | "error" | null
+  >(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const services = [
@@ -42,18 +66,25 @@ const Contact = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
-  
+
+  const isFormValid =
+    formData.name &&
+    formData.email &&
+    formData.phone &&
+    formData.service &&
+    formData.message;
+
+  // success modal close
   const closeSuccessModal = () => {
     setSubmissionStatus(null);
-  }
+  };
 
+  // Main submit — uses FormSubmit endpoint via FormData
   const handleSubmit = async () => {
-    // Check if all required fields are filled
-    if (!formData.name || !formData.email || !formData.phone || !formData.service || !formData.message) {
-      setSubmissionStatus('error');
-      // Hide error message after 5 seconds
+    if (!isFormValid) {
+      setSubmissionStatus("error");
       setTimeout(() => setSubmissionStatus(null), 5000);
       return;
     }
@@ -61,53 +92,75 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const selectedService = services.find(s => s.id === formData.service);
+      const selectedService = services.find((s) => s.id === formData.service);
       const serviceName = selectedService ? selectedService.name : formData.service;
 
-      const response = await fetch("https://formspree.io/f/xzzybgbz", {
+      // Build FormData expected by FormSubmit
+      const payload = new FormData();
+      // Hidden fields for FormSubmit behaviour
+      payload.append("_subject", "New Contact Form Message - Website");
+      // You can set _next to a URL if you want FormSubmit to redirect (we are using fetch so we won't be redirected)
+      // payload.append("_next", "https://yourdomain.com/thank-you");
+      payload.append("_captcha", "false");
+      payload.append("_template", "table");
+
+      // Add all visible fields
+      payload.append("name", formData.name);
+      payload.append("email", formData.email);
+      payload.append("phone", formData.phone);
+      payload.append("service", serviceName);
+      payload.append("preferredDate", formData.preferredDate || "Not provided");
+      payload.append("message", formData.message);
+      payload.append("_formType", "Contact Form");
+
+      // Optional: capture page URL
+      if (typeof window !== "undefined") {
+        payload.append("page_url", window.location.href);
+      }
+
+      // OPTIONAL honeypot field (leave empty for users)
+      payload.append("_honey", "");
+
+      // Send via fetch to FormSubmit
+      const resp = await fetch(FORM_SUBMIT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _subject: "New Contact Form Message",
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          service: serviceName,
-          preferredDate: formData.preferredDate,
-          message: formData.message,
-          _formType: "Contact Form",
-        }),
+        body: payload,
+        // Note: do NOT set Content-Type; browser will set multipart/form-data automatically with boundary
       });
 
-      if (response.ok) {
-        setSubmissionStatus('success');
-        // Clear form after successful submission
-        setFormData({ name: "", email: "", phone: "", service: "", preferredDate: "", message: "" });
+      // FormSubmit returns a redirect (303) normally; fetch will follow it and typically return 200/ok.
+      if (resp.ok) {
+        setSubmissionStatus("success");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          preferredDate: "",
+          message: "",
+        });
       } else {
-        throw new Error("Failed to submit form");
+        // Some hosts return 200 even on errors; handle conservative check
+        console.error("Form submit returned non-OK status:", resp.status, await resp.text());
+        setSubmissionStatus("error");
       }
-    } catch (error) {
-      setSubmissionStatus('error');
-      console.error("Form submission error:", error);
-      // Hide error message after 5 seconds
-      setTimeout(() => setSubmissionStatus(null), 5000);
+    } catch (err) {
+      console.error("Submission error:", err);
+      setSubmissionStatus("error");
     } finally {
       setIsSubmitting(false);
+      // hide error after few seconds automatically
+      if (submissionStatus === "error") setTimeout(() => setSubmissionStatus(null), 5000);
     }
   };
 
-  const isFormValid = formData.name && formData.email && formData.phone && formData.service && formData.message;
-
-  // Custom Success Modal Component
+  // Success modal
   const SuccessModal = () => (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 transition-opacity duration-300"
-      // Added a simple animation utility class for better visual feedback
-      style={{ animation: 'fadeIn 0.3s ease-out' }}
+      style={{ animation: "fadeIn 0.3s ease-out" }}
     >
-      <style jsx="true">{`
+      <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(-20px); }
           to { opacity: 1; transform: translateY(0); }
@@ -116,13 +169,11 @@ const Contact = () => {
       <Card className="border-none shadow-2xl bg-white max-w-sm w-full text-center transition-transform duration-300 transform scale-100">
         <div className="p-8">
           <CheckCircle className="w-16 h-16 mx-auto mb-4 text-green-600" />
-          <h3 className="text-3xl font-black mb-2 text-green-800">
-            Success!
-          </h3>
+          <h3 className="text-3xl font-black mb-2 text-green-800">Success!</h3>
           <p className="text-gray-600 mb-6">
             Your details have been submitted successfully. We will review your request and get back to you within 24 hours.
           </p>
-          <Button 
+          <Button
             onClick={closeSuccessModal}
             className="w-full h-12 text-lg font-bold shadow-lg transition-all duration-300 rounded-xl bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-700 hover:to-emerald-600 text-white"
           >
@@ -135,8 +186,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-lime-50 font-sans">
-      {/* Success Modal Render */}
-      {submissionStatus === 'success' && <SuccessModal />}
+      {submissionStatus === "success" && <SuccessModal />}
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-r from-green-700 via-emerald-600 to-yellow-600 text-white py-24">
@@ -162,9 +212,8 @@ const Contact = () => {
       <section className="py-16 -mt-20 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* Contact Information Cards */}
+            {/* Contact Info Cards (unchanged) */}
             <div className="space-y-6">
-              {/* Card 1: Visit Us */}
               <Card className="border-none shadow-2xl bg-gradient-to-br from-green-600 to-yellow-500 text-white overflow-hidden group hover:scale-105 transition-transform duration-300">
                 <CardContent className="p-6 relative">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
@@ -185,7 +234,6 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* Card 2: Call Us */}
               <Card className="border-none shadow-2xl bg-gradient-to-br from-emerald-600 to-lime-500 text-white overflow-hidden group hover:scale-105 transition-transform duration-300">
                 <CardContent className="p-6 relative">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
@@ -203,7 +251,6 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* Card 3: Email Us */}
               <Card className="border-none shadow-2xl bg-gradient-to-br from-teal-600 to-cyan-500 text-white overflow-hidden group hover:scale-105 transition-transform duration-300">
                 <CardContent className="p-6 relative">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
@@ -213,15 +260,14 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-bold text-lg mb-2">Email Us</h3>
-                      <a href="mailto:info@newlifewellness.com" className="text-white/90 hover:text-white transition-colors break-all">
-                        info@newlifewellness.com
+                      <a href={`mailto:${RECIPIENT_EMAIL}`} className="text-white/90 hover:text-white transition-colors break-all">
+                        {RECIPIENT_EMAIL}
                       </a>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Card 4: Working Hours */}
               <Card className="border-none shadow-2xl bg-gradient-to-br from-yellow-600 to-orange-500 text-white overflow-hidden group hover:scale-105 transition-transform duration-300">
                 <CardContent className="p-6 relative">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
@@ -252,8 +298,7 @@ const Contact = () => {
                   <p className="text-white/90">Fill out the form below and we'll get back to you within 24 hours</p>
                 </div>
                 <CardContent className="p-8">
-                  {/* Submission Error Message Box (Success is now a modal) */}
-                  {submissionStatus === 'error' && (
+                  {submissionStatus === "error" && (
                     <div className="p-4 mb-6 rounded-xl bg-red-100 border border-red-400 text-red-700 font-semibold flex items-center justify-center transition-all duration-300">
                       <span className="text-2xl mr-3">⚠️</span>
                       Please fill out all the required fields and select a service.
@@ -262,13 +307,14 @@ const Contact = () => {
 
                   <div className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2"> {/* Ensures consistent spacing for label/input pair */}
+                      <div className="space-y-2">
                         <label htmlFor="name" className="block text-sm font-bold text-gray-700 flex items-center gap-2">
                           <User className="w-4 h-4 text-green-700" />
                           Your Name *
                         </label>
                         <Input
                           id="name"
+                          name="name"
                           required
                           value={formData.name}
                           onChange={handleChange}
@@ -277,13 +323,14 @@ const Contact = () => {
                         />
                       </div>
 
-                      <div className="space-y-2"> {/* Ensures consistent spacing for label/input pair */}
+                      <div className="space-y-2">
                         <label htmlFor="email" className="block text-sm font-bold text-gray-700 flex items-center gap-2">
                           <Mail className="w-4 h-4 text-yellow-600" />
                           Email Address *
                         </label>
                         <Input
                           id="email"
+                          name="email"
                           type="email"
                           required
                           value={formData.email}
@@ -295,13 +342,14 @@ const Contact = () => {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2"> {/* Ensures consistent spacing for label/input pair */}
+                      <div className="space-y-2">
                         <label htmlFor="phone" className="block text-sm font-bold text-gray-700 flex items-center gap-2">
                           <Phone className="w-4 h-4 text-emerald-600" />
                           Phone Number *
                         </label>
                         <Input
                           id="phone"
+                          name="phone"
                           type="tel"
                           required
                           value={formData.phone}
@@ -311,13 +359,14 @@ const Contact = () => {
                         />
                       </div>
 
-                      <div className="space-y-2"> {/* Ensures consistent spacing for label/input pair */}
+                      <div className="space-y-2">
                         <label htmlFor="preferredDate" className="block text-sm font-bold text-gray-700 flex items-center gap-2">
                           <Calendar className="w-4 h-4 text-yellow-500" />
                           Preferred Date
                         </label>
                         <Input
                           id="preferredDate"
+                          name="preferredDate"
                           type="date"
                           value={formData.preferredDate}
                           onChange={handleChange}
@@ -340,14 +389,14 @@ const Contact = () => {
                             className={`relative p-4 rounded-2xl border-2 transition-all duration-300 text-left group hover:scale-105 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-green-300 ${
                               formData.service === service.id
                                 ? `bg-gradient-to-br ${service.color} text-white border-transparent shadow-xl scale-105`
-                                : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-lg'
+                                : "bg-white border-gray-200 hover:border-gray-300 hover:shadow-lg"
                             }`}
                           >
                             <div className="text-3xl mb-2">{service.icon}</div>
-                            <div className={`font-bold text-sm mb-1 ${formData.service === service.id ? 'text-white' : 'text-gray-800'}`}>
+                            <div className={`font-bold text-sm mb-1 ${formData.service === service.id ? "text-white" : "text-gray-800"}`}>
                               {service.name}
                             </div>
-                            <div className={`text-xs ${formData.service === service.id ? 'text-white/80' : 'text-gray-500'}`}>
+                            <div className={`text-xs ${formData.service === service.id ? "text-white/80" : "text-gray-500"}`}>
                               {service.duration}
                             </div>
                             {formData.service === service.id && (
@@ -358,31 +407,22 @@ const Contact = () => {
                           </button>
                         ))}
                       </div>
-                      {/* Custom scrollbar style for better aesthetics */}
-                      <style jsx="true">{`
-                        .custom-scrollbar::-webkit-scrollbar {
-                          width: 8px;
-                        }
-                        .custom-scrollbar::-webkit-scrollbar-track {
-                          background: #f1f1f1;
-                          border-radius: 10px;
-                        }
-                        .custom-scrollbar::-webkit-scrollbar-thumb {
-                          background: #a7f3d0; /* emerald-200 */
-                          border-radius: 10px;
-                        }
-                        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                          background: #6ee7b7; /* emerald-300 */
-                        }
+
+                      <style>{`
+                        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+                        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+                        .custom-scrollbar::-webkit-scrollbar-thumb { background: #a7f3d0; border-radius: 10px; }
+                        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6ee7b7; }
                       `}</style>
                     </div>
 
-                    <div className="space-y-2"> {/* Ensures consistent spacing for label/input pair */}
+                    <div className="space-y-2">
                       <label htmlFor="message" className="block text-sm font-bold text-gray-700">
                         Your Message *
                       </label>
                       <Textarea
                         id="message"
+                        name="message"
                         required
                         rows={5}
                         value={formData.message}
@@ -392,14 +432,14 @@ const Contact = () => {
                       />
                     </div>
 
-                    <Button 
+                    <Button
                       onClick={handleSubmit}
-                      size="lg" 
+                      size="lg"
                       disabled={!isFormValid || isSubmitting}
                       className={`w-full h-14 text-lg font-bold shadow-2xl transition-all duration-300 rounded-xl group ${
                         isFormValid && !isSubmitting
-                            ? 'bg-gradient-to-r from-green-700 via-emerald-600 to-yellow-600 hover:from-green-800 hover:via-emerald-700 hover:to-yellow-700 hover:shadow-3xl text-white'
-                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                          ? "bg-gradient-to-r from-green-700 via-emerald-600 to-yellow-600 hover:from-green-800 hover:via-emerald-700 hover:to-yellow-700 hover:shadow-3xl text-white"
+                          : "bg-gray-300 text-gray-500 cursor-not-allowed"
                       }`}
                     >
                       <Send className="w-5 h-5 mr-2 group-hover:translate-x-1 transition-transform" />
@@ -434,7 +474,7 @@ const Contact = () => {
                 width="100%"
                 height="500"
                 style={{ border: 0 }}
-                allowFullScreen=""
+                allowFullScreen={true}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 className="w-full"

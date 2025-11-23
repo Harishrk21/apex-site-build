@@ -123,7 +123,7 @@ const HealthyActiveLifestyle = () => {
       />
 
       <ProgramHero
-        image={healthyActiveHero}
+        image="https://mma.prnasia.com/media2/2331868/Herbalife_Run_2023_Key_Visual.jpg?p=medium600"
         title="Ignite Your Potential: Healthy, Active Lifestyle"
         tagline="Fuel sustained energy, achieve fitness goals, and build lifelong habits that keep you thriving"
       />

@@ -154,7 +154,7 @@ const GainWeight = () => {
       <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
 
       <ProgramHero
-        image={aboutHero}
+        image="https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
         title="Gain Weight – Healthy Weight Gain Program"
         tagline="Build healthy weight and lean muscle with science-backed nutrition and expert coaching"
       />

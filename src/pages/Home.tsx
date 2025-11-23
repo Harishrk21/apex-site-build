@@ -19,28 +19,28 @@ const Home = () => {
     {
       title: "Weight Loss",
       benefit: "Sustainable transformation",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop",
+      image: "https://www.herbalife.com/dmassets/regional-reusable-assets/workflow/emea/india/lifestyle/li-man-drinking-formula-1-shale-kitchen.jpg",
       duration: "12 weeks",
       icon: "🎯"
     },
     {
       title: "Weight Gain",
       benefit: "Healthy muscle building",
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=1000&fit=crop",
+      image: "https://www.nutritionleaders.co.uk/cdn/shop/products/IMG_0085_1200x1200.jpg?v=1617878796",
       duration: "16 weeks",
       icon: "💪"
     },
     {
       title: "21-Day Challenge",
       benefit: "Quick start program",
-      image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyw6bGlxth9JwNHgj5j1idRBYGnKnW-RG0Pg&s",
       duration: "3 weeks",
       icon: "⚡"
     },
     {
       title: "Skin Wellness",
       benefit: "Radiance from within",
-      image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=1000&fit=crop",
+      image: "https://herbalplanet.in/cdn/shop/files/cq5dam.web.800.800_37.jpg?v=1735197980",
       duration: "8 weeks",
       icon: "✨"
     }
@@ -82,21 +82,21 @@ const Home = () => {
       id: 1,
       name: "Formula 1 Shake",
       description: "Nutritious meal replacement with balanced nutrition",
-      price: "₹2,500",
+      // price: "₹2,500",
       image: "https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-1247-in.png:pdp-w875h783?fmt=webp-alpha"
     },
     {
       id: 2,
       name: "Protein Powder",
       description: "Build & maintain lean muscle mass",
-      price: "₹3,200",
+      // price: "₹3,200",
       image: "https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-1233-in.png:pdp-w875h783?fmt=webp-alpha"
     },
     {
       id: 3,
       name: "Herbal Tea",
       description: "Boost metabolism naturally",
-      price: "₹1,800",
+      // price: "₹1,800",
       image: "https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-1295-in.png:pdp-w875h783?fmt=webp-alpha"
     }
   ];
@@ -316,7 +316,7 @@ const Home = () => {
               {
                 icon: <Shield className="w-8 h-8" />,
                 title: "Science-Backed",
-                desc: "40+ years of nutritional research combined with certified coaching."
+                desc: "45 years of nutritional research combined with certified coaching."
               },
               {
                 icon: <Heart className="w-8 h-8" />,

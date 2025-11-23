@@ -126,7 +126,7 @@ const SkinCare = () => {
       />
 
       <ProgramHero
-        image={aboutHero}
+        image="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZ4EXmUeyoKItSPgYkNdWzCWz5hhupu4ZekS7hYrXBcAFNvL6IX7YO_7r_kV_FNyD101f6UlIBgX7pIy3PzzAsnq_meW7k2BVysioRLQB4WjcCvHKGxjrWcw9SnqN3kpaRe0V7eSz-VRz_2p31AGjGhE9r1_I5Y1Qwnc2zo6FdNzr_XRUKRaLrfn2puOo/s1150/Screenshot%202025-05-21%20154654.png"
         title="Skin Care (Outer & Inner) – Radiant Skin Program"
         tagline="Nourish your skin from within with science-backed nutrition and expert guidance"
       />
