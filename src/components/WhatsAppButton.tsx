@@ -2,7 +2,7 @@ import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const WhatsAppButton = () => {
-  const phoneNumber = "91+91 98849 88988"; // Replace with actual number
+  const phoneNumber = "919884988988"; // Correct format: country code + number (no spaces/special chars)
   const message = encodeURIComponent(
     "Hi! I'm interested in starting my Herbalife journey with Newlife Wellness Centre."
   );

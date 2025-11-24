@@ -50,7 +50,7 @@ const BoneJointHealth = () => {
       features: [
         "Comprehensive assessment + X-ray/scan review",
         "Custom Herbalife bone & joint protocol",
-        "90-day premium pack (Joint Support + Xtra-Cal + Formula 1 + Protein)",
+        "90-day premium pack (Joint Support  + Formula 1 + Protein)",
         "Weekly coaching calls",
         "Physiotherapy guidance integration",
         "Unlimited WhatsApp support",
@@ -78,7 +78,7 @@ const BoneJointHealth = () => {
   const faqItems = [
     {
       question: "How do Herbalife products help with joint pain and bone health?",
-      answer: "Herbalife Joint Support Advanced contains Glucosamine, Chondroitin, and MSM — clinically proven to rebuild cartilage, reduce inflammation, and improve flexibility. Xtra-Cal Advanced provides highly absorbable calcium, magnesium, and Vitamin D3 for strong bones. Our protein products help maintain muscle mass that protects joints. Together, they provide complete musculoskeletal support.",
+      answer: "Herbalife Joint Support Advanced contains Glucosamine, Chondroitin, and MSM — clinically proven to rebuild cartilage, reduce inflammation, and improve flexibility. Cal  provides highly absorbable calcium, magnesium, and Vitamin D3 for strong bones. Our protein products help maintain muscle mass that protects joints. Together, they provide complete musculoskeletal support.",
     },
     {
       question: "Can this help with arthritis, knee pain, and back pain?",
@@ -86,7 +86,7 @@ const BoneJointHealth = () => {
     },
     {
       question: "I'm already taking calcium. Why isn't it working?",
-      answer: "Most calcium supplements have poor absorption (only 10-20%). Xtra-Cal Advanced uses calcium citrate with Vitamin D3, K2, and magnesium for 70%+ absorption. Plus, we address the complete picture — not just calcium but also protein, anti-inflammatory nutrition, and weight management.",
+      answer: "Most calcium supplements have poor absorption (only 10-20%). Cal uses calcium citrate with Vitamin D3, K2, and magnesium for 70%+ absorption. Plus, we address the complete picture — not just calcium but also protein, anti-inflammatory nutrition, and weight management.",
     },
     {
       question: "Will I need to stop my pain medication?",
@@ -130,14 +130,42 @@ const BoneJointHealth = () => {
       />
 
       <ProgramHero
-        image={boneJointHero}
+        image='https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg'
         title="Move Freely, Live Fully – Strong Bones & Healthy Joints"
         tagline="Reduce pain · Rebuild cartilage · Strengthen bones · Regain your freedom"
       />
 
       {/* The Hidden Crisis */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 relative">
+        {/* 🔥 Inline CSS */}
+        <style>
+          {`
+            .scroll-track {
+              display: flex;
+              width: max-content;
+              animation: scroll-left 28s linear infinite;
+              white-space: nowrap;
+            }
+
+            @keyframes scroll-left {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}
+        </style>
+
+        {/* 🚨 Full-Width Running Banner */}
+        <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+          <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+          </div>
+        </div>
+
+        {/* 👇 Increased top padding so nothing overlaps */}
+        <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">The Silent Epidemic Affecting 200 Million Indians</h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
@@ -375,7 +403,7 @@ const BoneJointHealth = () => {
               {
                 title: "3. Targeted Supplementation",
                 icon: <Shield className="w-8 h-8" />,
-                items: ["Joint Support Advanced", "Xtra-Cal Advanced", "Omega-3 Herbalifeline", "Formula 1 + Protein"],
+                items: ["Joint Support Advanced", "Cal", "Omega-3 Herbalifeline", "Formula 1 + Protein"],
               },
               {
                 title: "4. Movement Medicine",
@@ -453,7 +481,7 @@ const BoneJointHealth = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/20 text-primary mb-6">
                   <Bone className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Xtra-Cal Advanced</h3>
+                <h3 className="text-2xl font-bold mb-4">Calcium</h3>
                 <p className="text-muted-foreground mb-4">
                   Superior bone nutrition with highly absorbable calcium citrate plus everything needed for strong bones.
                 </p>
@@ -539,7 +567,7 @@ const BoneJointHealth = () => {
               { title: "Bone & Joint Assessment", description: "Complete evaluation + report analysis", icon: <Target className="w-6 h-6" /> },
               { title: "Personalized Nutrition Plan", description: "Anti-inflammatory diet customized for you", icon: <Calendar className="w-6 h-6" /> },
               { title: "50+ Joint-Friendly Recipes", description: "Delicious meals that heal", icon: <Coffee className="w-6 h-6" /> },
-              { title: "Premium Product Bundle", description: "Joint Support + Xtra-Cal + Omega-3 + Formula 1", icon: <Shield className="w-6 h-6" /> },
+              { title: "Premium Product Bundle", description: "Joint Support + Cal + Omega-3 + Formula 1", icon: <Shield className="w-6 h-6" /> },
               { title: "Exercise Video Library", description: "Safe movements for every fitness level", icon: <Activity className="w-6 h-6" /> },
               { title: "Pain Relief Toolkit", description: "Natural techniques that work", icon: <Brain className="w-6 h-6" /> },
               { title: "Progress Tracking App", description: "Monitor pain, mobility, strength", icon: <TrendingUp className="w-6 h-6" /> },
@@ -742,7 +770,7 @@ const BoneJointHealth = () => {
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-wellness-lg">
               <Link to="/book-consultation">
                 <Calendar className="mr-2 w-5 h-5" />
-                Book Free Joint Assessment Now
+                Book Free Consultation Now
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white/20 hover:bg-white/20">

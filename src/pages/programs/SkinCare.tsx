@@ -126,14 +126,42 @@ const SkinCare = () => {
       />
 
       <ProgramHero
-        image="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZ4EXmUeyoKItSPgYkNdWzCWz5hhupu4ZekS7hYrXBcAFNvL6IX7YO_7r_kV_FNyD101f6UlIBgX7pIy3PzzAsnq_meW7k2BVysioRLQB4WjcCvHKGxjrWcw9SnqN3kpaRe0V7eSz-VRz_2p31AGjGhE9r1_I5Y1Qwnc2zo6FdNzr_XRUKRaLrfn2puOo/s1150/Screenshot%202025-05-21%20154654.png"
+        image='https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg'
         title="Skin Care (Outer & Inner) – Radiant Skin Program"
         tagline="Nourish your skin from within with science-backed nutrition and expert guidance"
       />
 
       {/* Who is this for? */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-white relative">
+        {/* 🔥 Inline CSS */}
+        <style>
+          {`
+            .scroll-track {
+              display: flex;
+              width: max-content;
+              animation: scroll-left 28s linear infinite;
+              white-space: nowrap;
+            }
+
+            @keyframes scroll-left {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}
+        </style>
+
+        {/* 🚨 Full-Width Running Banner */}
+        <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+          <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+          </div>
+        </div>
+
+        {/* 👇 Increased top padding so nothing overlaps */}
+        <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Perfect For</p>
             <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Who is this for?</h2>
@@ -354,20 +382,6 @@ const SkinCare = () => {
         </div>
       </section>
 
-      {/* Sample Plan */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Daily Schedule</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Sample Plan</h2>
-            <p className="text-xl text-muted-foreground">
-              See what a typical day looks like in our skin care program
-            </p>
-          </div>
-          <PlanAccordion dailyPlan={dailyPlan} title="Daily Nutrition Schedule" />
-        </div>
-      </section>
-
       {/* Pricing & Packages */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -454,7 +468,7 @@ const SkinCare = () => {
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-wellness-lg">
               <Link to="/book-consultation">
                 <Calendar className="mr-2 w-5 h-5" />
-                Book Free Skin Assessment
+                Book Free Consultation
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white/20 hover:bg-white/20">

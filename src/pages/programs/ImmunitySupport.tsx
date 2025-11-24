@@ -3,43 +3,42 @@ import SEO from "@/components/SEO";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { CheckCircle2, Calendar, Download, FileText, Target, TrendingUp, Clock, Users, Star } from "lucide-react";
+import { CheckCircle2, Calendar, Download, FileText, Target, Shield, Clock, Users, Star } from "lucide-react";
 import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
-import aboutHero from "@/assets/about-hero.jpg";
 
-const GainWeight = () => {
+const ImmunitySupport = () => {
   const dailyPlan = [
     {
       time: "Morning (7-8 AM)",
-      meal: "Formula 1 Shake with Personalized Protein + Healthy fats",
-      products: ["Formula 1 Shake Mix", "Personalized Protein Powder", "Herbalife24"]
+      meal: "Formula 1 Shake with Personalized Protein + Vitamin C",
+      products: ["Formula 1 Shake Mix", "Personalized Protein Powder", "RoseGuard"]
     },
     {
       time: "Mid-Morning (10-11 AM)",
-      meal: "High-calorie snack with protein",
-      products: ["Herbalife24 Protein Bar"]
+      meal: "Herbal Aloe Concentrate",
+      products: ["Herbal Aloe Concentrate"]
     },
     {
       time: "Lunch (1-2 PM)",
-      meal: "Calorie-dense meal with lean protein, complex carbs, and healthy fats",
+      meal: "Balanced meal rich in antioxidants and nutrients",
       products: []
     },
     {
       time: "Afternoon (4-5 PM)",
-      meal: "Formula 1 Shake + Nuts/Dried fruits",
-      products: ["Formula 1 Shake Mix", "Personalized Protein Powder"]
+      meal: "RoseGuard or Immune Support Supplement",
+      products: ["RoseGuard"]
     },
     {
       time: "Dinner (7-8 PM)",
-      meal: "Balanced meal with extra portions",
+      meal: "Healthy meal with immune-supporting foods",
       products: []
     },
     {
       time: "Before Bed (9-10 PM)",
-      meal: "Protein shake or healthy snack",
-      products: ["Personalized Protein Powder"]
+      meal: "Herbal Aloe Concentrate",
+      products: ["Herbal Aloe Concentrate"]
     }
   ];
 
@@ -49,8 +48,8 @@ const GainWeight = () => {
       duration: "21 days",
       price: "Contact for price",
       features: [
-        "Initial wellness evaluation",
-        "Personalized meal plan for weight gain",
+        "Initial health assessment",
+        "Personalized immunity support plan",
         "21-day product bundle",
         "Email support"
       ]
@@ -60,8 +59,8 @@ const GainWeight = () => {
       duration: "1 month",
       price: "Contact for price",
       features: [
-        "Comprehensive wellness evaluation",
-        "Personalized high-calorie meal plan",
+        "Comprehensive health evaluation",
+        "Personalized nutrition plan for immunity",
         "1-month product pack",
         "2 weekly check-ins",
         "WhatsApp support",
@@ -74,58 +73,58 @@ const GainWeight = () => {
       duration: "3 months",
       price: "Contact for price",
       features: [
-        "Comprehensive wellness evaluation",
-        "Personalized meal plan",
+        "Comprehensive health evaluation",
+        "Personalized immunity support plan",
         "3-month product pack",
         "Daily check-ins",
         "WhatsApp group access",
         "Weekly coaching calls",
         "Progress tracking & adjustments",
-        "Strength training guidance"
+        "Lifestyle optimization guidance"
       ]
     }
   ];
 
   const faqItems = [
     {
-      question: "How long does it take to see weight gain results?",
-      answer: "Most clients notice increased energy and appetite within the first week. Visible weight gain typically becomes noticeable after 3-4 weeks of consistent use combined with proper nutrition and coaching. Healthy weight gain is gradual, aiming for 0.5-1 kg per week for sustainable results."
+      question: "How long does it take to see immune system improvements?",
+      answer: "Many clients notice increased energy and overall well-being within 2-3 weeks. More significant immune system improvements typically become noticeable after 4-6 weeks of consistent use. Results vary based on individual health status and lifestyle factors."
     },
     {
-      question: "Will I gain fat or muscle?",
-      answer: "Our program focuses on healthy weight gain through lean muscle building. Herbalife products provide high-quality protein and balanced nutrition that supports muscle growth rather than fat accumulation. Combined with appropriate exercise guidance, you'll gain healthy, lean weight."
+      question: "Can this program help prevent illnesses?",
+      answer: "While we can't guarantee prevention of specific illnesses, supporting your immune system with proper nutrition, adequate sleep, and healthy lifestyle habits can help your body function optimally and maintain better overall health."
     },
     {
-      question: "Do I need to exercise?",
-      answer: "While not mandatory, strength training significantly enhances muscle gain and ensures you're building lean mass rather than fat. Our coaches can provide simple strength-building guidance that fits your schedule and fitness level."
+      question: "Is this suitable for people with autoimmune conditions?",
+      answer: "If you have an autoimmune condition, it's essential to consult with your healthcare provider before starting any new nutrition program. Our coaches can work with you and your doctor to create a plan that supports your health needs."
     },
     {
-      question: "What if I have a fast metabolism?",
-      answer: "Our program is specifically designed for individuals with fast metabolisms. We create calorie-dense meal plans using Herbalife products that make it easier to consume more calories without feeling overly full. Formula 1 shakes and protein supplements help you meet your calorie goals efficiently."
+      question: "What makes Herbalife products good for immunity?",
+      answer: "Herbalife products provide essential vitamins, minerals, and antioxidants that support immune function. Products like RoseGuard contain vitamin C and other immune-supporting nutrients, while Formula 1 ensures you're getting complete nutrition that supports overall health."
     },
     {
-      question: "Can I continue after reaching my goal weight?",
-      answer: "Absolutely! Many clients transition to maintenance plans or continue with the program to build more muscle. Our goal is to help you achieve and maintain your ideal healthy weight long-term."
+      question: "Do I need to take supplements if I eat healthy?",
+      answer: "Even with a healthy diet, modern lifestyles, stress, and environmental factors can create gaps in nutrition. Our program helps ensure you're getting optimal levels of immune-supporting nutrients through both whole foods and targeted supplementation."
     },
     {
       question: "What products are included?",
-      answer: "The program typically includes Formula 1 Shake Mix, Personalized Protein Powder, Herbalife24 sports nutrition products, and meal replacement options. Your coach will customize the product selection based on your specific needs and goals."
+      answer: "The program typically includes Formula 1 Shake Mix, Personalized Protein Powder, RoseGuard (immune support), Herbal Aloe Concentrate, and targeted supplements based on your specific needs. Your coach will customize the selection."
     },
     {
-      question: "Is this safe for teenagers?",
-      answer: "Yes, with proper guidance. Herbalife products are safe for teenagers when used appropriately. We recommend consulting with your healthcare provider and our coaches will create age-appropriate plans for younger clients."
+      question: "Can children use this program?",
+      answer: "Yes, with proper guidance. Herbalife products are safe for children when used appropriately. We recommend consulting with your healthcare provider and our coaches will create age-appropriate plans for younger clients."
     },
     {
-      question: "How do I track my progress?",
-      answer: "Your coach will help you track progress through regular check-ins, weight tracking, body measurements, and strength assessments. You'll receive a progress tracking sheet and can communicate with your coach via WhatsApp or scheduled calls."
+      question: "How does this complement a healthy lifestyle?",
+      answer: "Our program works best when combined with adequate sleep, regular exercise, stress management, and good hygiene practices. We provide guidance on all these aspects to support your immune system holistically."
     }
   ];
 
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Gain Weight Program - Personalized Nutrition Plan",
-    "description": "Comprehensive weight gain program with personalized nutrition plans, Herbalife products, and expert coaching for healthy muscle building"
+    "name": "Immunity Support Program - Immune System Health Plan",
+    "description": "Comprehensive immunity support program with personalized nutrition plans, Herbalife products, and expert coaching for optimal immune health"
   };
 
   const faqSchema = {
@@ -144,10 +143,10 @@ const GainWeight = () => {
   return (
     <>
       <SEO
-        title="Weight Gain Program - Healthy Weight Gain | New Life Wellness Centre Kolathur, Chennai, Villivakkam"
-        description="Build healthy weight and lean muscle with our personalized weight gain program at New Life Wellness Centre in Kolathur, Chennai, and Villivakkam. Science-backed Herbalife nutrition, expert coaching, and sustainable results. Best weight gain program in Kolathur, Chennai. Book your free evaluation today."
-        canonical="/programs/gain-weight"
-        keywords="Weight Gain Program Kolathur, Gain Weight Chennai, Healthy Weight Gain Villivakkam, Muscle Building Program Kolathur, Herbalife Weight Gain Chennai, Best Weight Gain Program Villivakkam, Weight Gain Centre Kolathur, Nutrition Weight Gain Chennai"
+        title="Immunity Support Program - Boost Immune System | New Life Wellness Centre Kolathur, Chennai, Villivakkam"
+        description="Strengthen your immune system with our personalized immunity support program at New Life Wellness Centre in Kolathur, Chennai, and Villivakkam. Science-backed Herbalife nutrition, expert coaching, and proven results. Best immunity support program in Kolathur, Chennai. Book your free evaluation today."
+        canonical="/programs/immunity-support"
+        keywords="Immunity Support Program Kolathur, Boost Immune System Chennai, Immune Health Program Villivakkam, Herbalife Immunity Support Kolathur, Best Immunity Program Chennai, Immune System Support Villivakkam, Immunity Centre Kolathur"
       />
       
       <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
@@ -155,13 +154,12 @@ const GainWeight = () => {
 
       <ProgramHero
         image="https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
-        title="Gain Weight – Healthy Weight Gain Program"
-        tagline="Build healthy weight and lean muscle with science-backed nutrition and expert coaching"
+        title="Immunity Support – Immune System Health Program"
+        tagline="Strengthen your immune system with science-backed nutrition and expert guidance"
       />
 
       {/* Who is this for? */}
       <section className="py-16 bg-white relative">
-        {/* 🔥 Inline CSS */}
         <style>
           {`
             .scroll-track {
@@ -178,7 +176,6 @@ const GainWeight = () => {
           `}
         </style>
 
-        {/* 🚨 Full-Width Running Banner */}
         <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
           <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
             ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
@@ -188,24 +185,23 @@ const GainWeight = () => {
           </div>
         </div>
 
-        {/* 👇 Increased top padding so nothing overlaps */}
         <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Perfect For</p>
             <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Who is this for?</h2>
             <p className="text-base text-gray-600 max-w-2xl mx-auto">
-              This program is perfect for individuals who want to gain weight healthily and build lean muscle
+              This program is perfect for individuals who want to strengthen their immune system and maintain optimal health
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              "Underweight individuals seeking healthy weight gain",
-              "Athletes and fitness enthusiasts wanting to build muscle",
-              "People with fast metabolism struggling to gain weight",
-              "Post-illness recovery requiring weight restoration",
-              "Teenagers and young adults needing healthy weight gain",
-              "Anyone wanting to build lean muscle mass"
+              "People who frequently get sick or feel run down",
+              "Individuals with busy, stressful lifestyles",
+              "Those wanting to proactively support their health",
+              "People recovering from illness",
+              "Individuals with weakened immune systems",
+              "Anyone wanting to maintain optimal immune function"
             ].map((item, index) => (
               <Card key={index} className="border-none shadow-wellness">
                 <CardContent className="p-6 flex items-start">
@@ -223,17 +219,17 @@ const GainWeight = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">The Challenge</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">The Weight Gain Challenge</h2>
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">The Immune Health Challenge</h2>
           </div>
           <div className="space-y-6 text-lg text-muted-foreground">
             <p>
-              Gaining weight can be just as challenging as losing it. If you have a fast metabolism, struggle with appetite, or find it difficult to consume enough calories, you know how frustrating it can be to see the scale barely move despite your efforts.
+              Your immune system works around the clock to protect you, but modern life can take a toll. Stress, poor nutrition, lack of sleep, and environmental factors can weaken your body's natural defenses, leaving you more susceptible to illness and feeling run down.
             </p>
             <p>
-              Many people try to gain weight by eating unhealthy, calorie-dense junk food, which leads to fat gain rather than healthy muscle. Others struggle to eat enough due to busy schedules, poor appetite, or feeling full too quickly. This approach doesn't work long-term and can harm your health.
+              Many people don't realize their immune system needs support until they're already sick. By then, it's too late. The key is proactive support through proper nutrition, adequate rest, and lifestyle habits that keep your immune system functioning at its best.
             </p>
             <p>
-              The solution is a structured program that provides calorie-dense, nutrient-rich nutrition through Herbalife products combined with personalized meal planning. Our program helps you gain healthy weight by building lean muscle mass while ensuring you get all the essential nutrients your body needs.
+              Our immunity support program provides targeted nutrition through Herbalife products rich in vitamins, minerals, and antioxidants that support immune function. Combined with personalized guidance on sleep, stress management, and healthy habits, we help you build a stronger foundation for health.
             </p>
           </div>
         </div>
@@ -245,7 +241,7 @@ const GainWeight = () => {
           <div className="text-center mb-12">
             <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Our Approach</p>
             <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">How We Help</h2>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto">A structured approach to healthy weight gain</p>
+            <p className="text-base text-gray-600 max-w-2xl mx-auto">A comprehensive approach to immune health</p>
           </div>
 
           <div className="grid md:grid-cols-5 gap-6">
@@ -253,20 +249,20 @@ const GainWeight = () => {
               {
                 week: "Week 0",
                 title: "Assessment",
-                description: "Comprehensive evaluation of your metabolism, current nutrition, and goals",
+                description: "Comprehensive evaluation of your health, lifestyle, and immune concerns",
                 icon: <FileText className="w-8 h-8" />
               },
               {
                 week: "Week 1",
-                title: "Calorie-Dense Plan",
-                description: "Custom high-calorie nutrition strategy with product recommendations",
+                title: "Custom Plan",
+                description: "Personalized nutrition and lifestyle strategy for immune support",
                 icon: <Target className="w-8 h-8" />
               },
               {
                 week: "Week 1-4",
                 title: "Product + Coaching",
-                description: "Start your program with ongoing support and meal planning guidance",
-                icon: <Users className="w-8 h-8" />
+                description: "Start your program with immune-supporting products and guidance",
+                icon: <Shield className="w-8 h-8" />
               },
               {
                 week: "Ongoing",
@@ -278,7 +274,7 @@ const GainWeight = () => {
                 week: "Week 4/12",
                 title: "Review & Adjust",
                 description: "Comprehensive review and optimization of your plan",
-                icon: <TrendingUp className="w-8 h-8" />
+                icon: <Shield className="w-8 h-8" />
               }
             ].map((step, index) => (
               <div key={index} className="text-center">
@@ -297,12 +293,12 @@ const GainWeight = () => {
               <h3 className="text-2xl font-bold mb-4">Expected Outcomes</h3>
               <div className="grid md:grid-cols-2 gap-4">
                 {[
-                  "Healthy weight gain (0.5-1 kg per week)",
-                  "Increased lean muscle mass",
-                  "Improved appetite and eating habits",
-                  "Enhanced energy levels",
-                  "Better strength and physical performance",
-                  "Sustainable healthy weight maintenance"
+                  "Improved immune function",
+                  "Increased energy levels",
+                  "Better resistance to common illnesses",
+                  "Enhanced overall well-being",
+                  "Improved sleep quality",
+                  "Reduced frequency of getting sick"
                 ].map((outcome, i) => (
                   <div key={i} className="flex items-start">
                     <CheckCircle2 className="w-5 h-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
@@ -322,23 +318,67 @@ const GainWeight = () => {
             <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Science-Backed</p>
             <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Science & Product Role</h2>
             <p className="text-base text-gray-600 max-w-2xl mx-auto">
-              How Herbalife products support your weight gain journey
+              How Herbalife products support your immune health
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="border-none shadow-wellness">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">Formula 1 Shake</h3>
+                <h3 className="text-2xl font-bold mb-4">RoseGuard</h3>
                 <p className="text-muted-foreground mb-4">
-                  Provides 114 essential nutrients in a convenient, calorie-dense format. When combined with Personalized Protein and healthy fats, it becomes an excellent high-calorie meal option that's easy to consume even when you have a poor appetite.
+                  Specially formulated immune support supplement containing vitamin C and other essential nutrients that help support your body's natural defense system. Vitamin C is a key nutrient for immune function.
                 </p>
                 <ul className="space-y-2">
                   {[
-                    "Calorie-dense meal replacement option",
-                    "Complete nutrition in every serving",
-                    "Easy to digest and consume",
-                    "Customizable with protein and healthy fats"
+                    "Contains vitamin C for immune support",
+                    "Antioxidant protection",
+                    "Supports natural defense system",
+                    "Easy to take daily"
+                  ].map((point, i) => (
+                    <li key={i} className="flex items-start">
+                      <CheckCircle2 className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground text-sm">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-none shadow-wellness">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-4">Herbal Aloe Concentrate</h3>
+                <p className="text-muted-foreground mb-4">
+                  Supports digestive health, which is closely linked to immune function. A healthy gut is essential for a strong immune system, as a significant portion of immune cells are located in the digestive tract.
+                </p>
+                <ul className="space-y-2">
+                  {[
+                    "Supports digestive health",
+                    "Promotes gut health",
+                    "Contains aloe vera",
+                    "Supports overall wellness"
+                  ].map((point, i) => (
+                    <li key={i} className="flex items-start">
+                      <CheckCircle2 className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground text-sm">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-none shadow-wellness">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold mb-4">Formula 1 Shake</h3>
+                <p className="text-muted-foreground mb-4">
+                  Provides 114 essential nutrients including vitamins and minerals that support overall health and immune function. Ensuring adequate nutrition is fundamental to maintaining a strong immune system.
+                </p>
+                <ul className="space-y-2">
+                  {[
+                    "Complete nutrition with essential vitamins",
+                    "Supports overall health",
+                    "Provides immune-supporting nutrients",
+                    "Convenient meal replacement"
                   ].map((point, i) => (
                     <li key={i} className="flex items-start">
                       <CheckCircle2 className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
@@ -353,58 +393,14 @@ const GainWeight = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-4">Personalized Protein</h3>
                 <p className="text-muted-foreground mb-4">
-                  High-quality protein is essential for muscle building. Personalized Protein provides the amino acids your body needs to build and repair muscle tissue, supporting healthy weight gain through lean muscle development.
+                  Protein is essential for the production of immune cells and antibodies. Adequate protein intake ensures your body has the building blocks needed to maintain and repair immune system components.
                 </p>
                 <ul className="space-y-2">
                   {[
-                    "Supports muscle growth and repair",
-                    "High-quality amino acids",
-                    "Helps build lean muscle mass",
-                    "Customizable to your protein needs"
-                  ].map((point, i) => (
-                    <li key={i} className="flex items-start">
-                      <CheckCircle2 className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground text-sm">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-wellness">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">Herbalife24 Sports Nutrition</h3>
-                <p className="text-muted-foreground mb-4">
-                  Herbalife24 products support active individuals with additional calories, protein, and performance nutrients. Protein bars, energy drinks, and recovery supplements help you meet your calorie goals while supporting athletic performance.
-                </p>
-                <ul className="space-y-2">
-                  {[
-                    "Convenient high-calorie snacks",
-                    "Supports athletic performance",
-                    "Recovery and muscle support",
-                    "Easy to consume on-the-go"
-                  ].map((point, i) => (
-                    <li key={i} className="flex items-start">
-                      <CheckCircle2 className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground text-sm">{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-wellness">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold mb-4">Meal Planning Support</h3>
-                <p className="text-muted-foreground mb-4">
-                  Our coaches create personalized meal plans that combine Herbalife products with calorie-dense whole foods. This approach ensures you're getting enough calories while maintaining balanced nutrition for healthy weight gain.
-                </p>
-                <ul className="space-y-2">
-                  {[
-                    "Personalized high-calorie meal plans",
-                    "Combines products with whole foods",
-                    "Strategies for increased appetite",
-                    "Sustainable eating habits"
+                    "Supports immune cell production",
+                    "Essential for antibody formation",
+                    "High-quality protein source",
+                    "Supports overall health"
                   ].map((point, i) => (
                     <li key={i} className="flex items-start">
                       <CheckCircle2 className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" />
@@ -441,13 +437,13 @@ const GainWeight = () => {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              "Comprehensive wellness evaluation",
-              "Personalized high-calorie meal plan",
-              "Product recommendations for weight gain",
+              "Comprehensive health evaluation",
+              "Personalized immunity support nutrition plan",
+              "Product recommendations for immune health",
               "Weekly check-ins with your coach",
-              "WhatsApp support for questions and motivation",
+              "WhatsApp support for questions and guidance",
               "Progress tracking tools and resources",
-              "Strength training guidance (optional)",
+              "Lifestyle optimization guidance",
               "Ongoing plan adjustments based on your progress"
             ].map((item, index) => (
               <div key={index} className="flex items-start">
@@ -479,17 +475,17 @@ const GainWeight = () => {
                       <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <h3 className="text-2xl font-bold mb-4">Rahul's Transformation</h3>
+                  <h3 className="text-2xl font-bold mb-4">Meera's Transformation</h3>
                   <div className="space-y-3 text-muted-foreground mb-6">
-                    <p><strong className="text-foreground">Goal:</strong> Gain 10 kg of healthy weight</p>
-                    <p><strong className="text-foreground">Plan:</strong> Standard 3-month program with Formula 1, Personalized Protein, and Herbalife24</p>
-                    <p><strong className="text-foreground">Result:</strong> Gained 12 kg in 3 months, built lean muscle, improved strength and confidence</p>
-                    <p><strong className="text-foreground">Timeline:</strong> Started March 2024, achieved goal by June 2024</p>
+                    <p><strong className="text-foreground">Goal:</strong> Strengthen immune system and reduce frequent illnesses</p>
+                    <p><strong className="text-foreground">Plan:</strong> Standard 3-month program with RoseGuard and immune support products</p>
+                    <p><strong className="text-foreground">Result:</strong> Significantly reduced frequency of getting sick, increased energy, improved overall health</p>
+                    <p><strong className="text-foreground">Timeline:</strong> Started September 2023, noticed improvements within 6 weeks</p>
                   </div>
                   <p className="italic text-foreground">
-                    "I always struggled to gain weight due to my fast metabolism. The Herbalife products made it so much easier to consume enough calories, and the personalized meal plan from my coach was a game-changer. I not only gained weight but built real muscle. Highly recommend!"
+                    "I used to get sick every few months, especially during season changes. Since starting the immunity support program, I've noticed a huge difference. I feel more energetic, and I haven't been sick in over 6 months. The products are easy to take, and the coaching support has been invaluable."
                   </p>
-                  <p className="mt-4 font-semibold">— Rahul K., Chennai</p>
+                  <p className="mt-4 font-semibold">— Meera R., Chennai</p>
                 </div>
                 <div className="flex items-center justify-center bg-muted rounded-lg">
                   <div className="text-center text-muted-foreground">
@@ -511,7 +507,7 @@ const GainWeight = () => {
             <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Got Questions?</p>
             <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Frequently Asked Questions</h2>
             <p className="text-base text-gray-600 max-w-2xl mx-auto">
-              Everything you need to know about our weight gain program
+              Everything you need to know about our immunity support program
             </p>
           </div>
 
@@ -540,17 +536,17 @@ const GainWeight = () => {
           </div>
           
           <h2 className="text-3xl sm:text-4xl font-black mb-4">
-            Ready to Start Your Weight Gain Journey?
+            Ready to Strengthen Your Immune System?
           </h2>
           
           <p className="text-base sm:text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-            Book your free wellness evaluation and get a personalized plan designed just for you
+            Book your free health evaluation and get a personalized immunity support plan designed just for you
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-wellness-lg">
               <Link to="/book-consultation">
                 <Calendar className="mr-2 w-5 h-5" />
-                Book Free Wellness Evaluation
+                Book Free Consultation
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white/20 hover:bg-white/20">
@@ -565,5 +561,5 @@ const GainWeight = () => {
   );
 };
 
-export default GainWeight;
+export default ImmunitySupport;
 

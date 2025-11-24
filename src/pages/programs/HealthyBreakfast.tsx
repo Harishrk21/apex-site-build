@@ -148,14 +148,42 @@
         />
 
         <ProgramHero
-            image="https://activelifestyler.com/wp-content/uploads/2020/07/Healthy-Breakfast-hero.jpg"
+            image="https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
             title="Start Your Day Right - Nutrition in Minutes"
             tagline="Fuel your morning with complete, balanced nutrition that powers your entire day"
         />
 
         {/* Why Breakfast is Critical */}
-        <section className="py-16 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="py-16 bg-white relative">
+            {/* 🔥 Inline CSS */}
+            <style>
+                {`
+                    .scroll-track {
+                        display: flex;
+                        width: max-content;
+                        animation: scroll-left 28s linear infinite;
+                        white-space: nowrap;
+                    }
+
+                    @keyframes scroll-left {
+                        from { transform: translateX(0); }
+                        to { transform: translateX(-50%); }
+                    }
+                `}
+            </style>
+
+            {/* 🚨 Full-Width Running Banner */}
+            <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+                <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+                </div>
+            </div>
+
+            {/* 👇 Increased top padding so nothing overlaps */}
+            <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
                 <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Foundation</p>
                 <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Why Breakfast is Critical for Your Health</h2>
@@ -244,7 +272,7 @@
                     </Card>
                 ))}
                 </div>
-            </div>
+                </div>
             </div>
         </section>
 
@@ -752,20 +780,6 @@
             </div>
         </section>
         
-        {/* Sample Breakfast Options */}
-        <section className="py-16 bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-                <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Daily Schedule</p>
-                <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Sample Breakfast Options</h2>
-                <p className="text-base text-gray-600 max-w-2xl mx-auto">
-                Quick, nutritious solutions that fit any morning schedule
-                </p>
-            </div>
-            <PlanAccordion dailyPlan={dailyPlan} title="Flexible Breakfast Solutions" />
-            </div>
-        </section>
-
         {/* Breakfast Solutions for Different Lifestyles */}
         <section className="py-16 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1021,7 +1035,7 @@
                 <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-wellness-lg">
                 <Link to="/book-consultation">
                     <Calendar className="mr-2 w-5 h-5" />
-                    Book Free Breakfast Assessment
+                    Book Free Consultation
                 </Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white/20 hover:bg-white/20">

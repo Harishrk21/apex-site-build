@@ -7,7 +7,17 @@ import aboutHero from "@/assets/about-hero.jpg";
 import GalleryLightbox from "@/components/GalleryLightbox";
 
 const About = () => {
-  const galleryImages = Array(8).fill(aboutHero);
+  const galleryImages = [
+    "/ce1.jpeg",
+    "/ce2.jpeg",
+    "/ce3.jpeg",
+    "/ce4.jpeg",
+    "/ce5.jpeg",
+    "/ce6.jpeg",
+    "/centre1.jpeg",
+    "/acheive.jpeg"
+  ];
+  
 
   const schemas = {
     organization: {
@@ -289,11 +299,14 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
-              Visit Our Centre
+              Meet Our Mentors & Wellness Centre
             </h2>
             <p className="text-xl text-muted-foreground">Experience our welcoming wellness space</p>
           </div>
-          <GalleryLightbox images={galleryImages} alt="Newlife Wellness Centre" />
+          <GalleryLightbox 
+          images={galleryImages} 
+          alt="Newlife Wellness Centre"
+        />
         </div>
       </section>
 

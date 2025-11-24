@@ -49,7 +49,7 @@ const Home = () => {
   const stats = [
     { value: '1,200+', label: 'Happy Clients', icon: <Users className="w-4 h-4" /> },
     { value: '4.9/5', label: 'Rating', icon: <Star className="w-4 h-4" /> },
-    { value: '98%', label: 'Success Rate', icon: <TrendingUp className="w-4 h-4" /> },
+    { value: '99.9%', label: 'Success Rate', icon: <TrendingUp className="w-4 h-4" /> },
     { value: '10+', label: 'Years Experience', icon: <Award className="w-4 h-4" /> }
   ];
 
@@ -158,9 +158,9 @@ const Home = () => {
                 ))}
               </div>
 
-              <p className="text-xl text-gray-350  pt-1">
+              {/* <p className="text-xl text-gray-350  pt-1">
                  Individual results may vary
-              </p>
+              </p> */}
             </div>
 
             <div className="relative mt-6 lg:mt-0">
@@ -179,7 +179,7 @@ const Home = () => {
                     </div>
                     <div>
                       <p className="text-xs text-gray-500">Success Rate</p>
-                      <p className="text-base font-bold text-gray-900">98%</p>
+                      <p className="text-base font-bold text-gray-900">99.9%</p>
                     </div>
                   </div>
                 </div>
@@ -202,13 +202,49 @@ const Home = () => {
       </section>
 
       {/* How It Works */}
-      <section id="how-it-works" className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">Simple Process</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">Your Wellness Journey Starts Here</h2>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto">A proven pathway to lasting wellness results</p>
-          </div>
+      <section id="how-it-works" className="py-16 bg-gray-50 relative">
+
+  {/* 🔥 Inline CSS */}
+  <style>
+    {`
+      .scroll-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-left 28s linear infinite;
+        white-space: nowrap;
+      }
+
+      @keyframes scroll-left {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+    `}
+  </style>
+
+  {/* 🚨 Full-Width Running Banner */}
+  <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+    <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+    </div>
+  </div>
+
+  {/* 👇 Increased top padding so nothing overlaps */}
+  <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-12">
+      <p className="text-green-600 font-semibold text-xs uppercase tracking-wider mb-2">
+        Simple Process
+      </p>
+      <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-3">
+        Your Wellness Journey Starts Here
+      </h2>
+      <p className="text-base text-gray-600 max-w-2xl mx-auto">
+        A proven pathway to lasting wellness results
+      </p>
+    </div>
+
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -336,7 +372,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Transformations */}
+      {/* Transformations
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -391,7 +427,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Products */}
       <section className="py-16 bg-gray-50">

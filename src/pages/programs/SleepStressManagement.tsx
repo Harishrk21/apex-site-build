@@ -129,13 +129,39 @@ const SleepStressManagement = () => {
       />
 
       <ProgramHero
-        image={sleepHero}
+        image='https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg'
         title="Sleep Better, Stress Less - Reclaim Your Peace & Energy"
         tagline="Natural solutions for quality sleep and effective stress management through nutrition and lifestyle"
       />
 
       {/* Understanding Sleep & Stress Connection */}
       <section className="py-24 bg-gradient-to-br from-indigo-950 via-purple-950 to-indigo-950 relative overflow-hidden">
+        {/* 🔥 Inline CSS */}
+        <style>
+          {`
+            .scroll-track {
+              display: flex;
+              width: max-content;
+              animation: scroll-left 28s linear infinite;
+              white-space: nowrap;
+            }
+
+            @keyframes scroll-left {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}
+        </style>
+
+        {/* 🚨 Full-Width Running Banner */}
+        <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+          <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+          </div>
+        </div>
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>

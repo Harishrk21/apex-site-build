@@ -11,7 +11,7 @@ const Programs = () => {
     {
       title: "Lose Weight",
       benefit: "Sustainable transformation",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop",
+      image: "https://www.herbalife.com/dmassets/regional-reusable-assets/amer/images/lifestyle/li-woman-making-vanilla-shake.png",
       color: "from-green-600 to-emerald-700",
       duration: "12 weeks",
       icon: "⚖️",
@@ -21,7 +21,7 @@ const Programs = () => {
     {
       title: "Gain Weight",
       benefit: "Healthy muscle building",
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=1000&fit=crop",
+      image: "https://www.nutritionleaders.co.uk/cdn/shop/products/IMG_0085_1200x1200.jpg?v=1617878796",
       color: "from-orange-500 to-red-600",
       duration: "16 weeks",
       icon: "💪",
@@ -31,7 +31,7 @@ const Programs = () => {
     {
       title: "Skin Care",
       benefit: "Radiance from within",
-      image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&h=1000&fit=crop",
+      image: "https://rukminim2.flixcart.com/image/480/640/xif0q/facial-kit/2/f/a/330-herbalife-skincare-product-kit-facial-cleanser-moisturiser-original-imahdwrhnh42z4e2.jpeg?q=90",
       color: "from-pink-500 to-rose-600",
       duration: "8 weeks",
       icon: "✨",
@@ -41,7 +41,7 @@ const Programs = () => {
     {
       title: "Healthy Breakfast",
       benefit: "Start your day right",
-      image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScZot033DnUIcMnI8LjKSqkyse7ul2wLDmFQ&s",
       color: "from-yellow-500 to-orange-500",
       duration: "Ongoing",
       icon: "🥗",
@@ -51,7 +51,7 @@ const Programs = () => {
     {
       title: "Bone & Joint Health",
       benefit: "Strength and mobility",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYJrGTOKanBenhD9oqd04e6t_z4nynfofzMg&s",
       color: "from-gray-600 to-slate-700",
       duration: "12 weeks",
       icon: "🦴",
@@ -61,7 +61,7 @@ const Programs = () => {
     {
       title: "Gain Muscle",
       benefit: "Build lean muscle mass",
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWU_-noqtm4soNrUd785V2iMWHNyj9H55gew&s",
       color: "from-blue-500 to-indigo-600",
       duration: "16 weeks",
       icon: "💪",
@@ -71,7 +71,7 @@ const Programs = () => {
     {
       title: "Heart Health",
       benefit: "Cardiovascular wellness",
-      image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIUdEXb8X3ZHiYrfpg8Jv_mRSPQnwHE3fJnw&s",
       color: "from-red-500 to-rose-600",
       duration: "12 weeks",
       icon: "❤️",
@@ -81,7 +81,7 @@ const Programs = () => {
     {
       title: "Brain & Immune Health",
       benefit: "Enhanced cognitive function",
-      image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&h=1000&fit=crop",
+      image: "https://pbs.twimg.com/media/E92CqwkWEAElpvb.jpg",
       color: "from-indigo-500 to-purple-600",
       duration: "12 weeks",
       icon: "🧠",
@@ -91,7 +91,7 @@ const Programs = () => {
     {
       title: "Immunity Support",
       benefit: "Strengthen your immune system",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=1000&fit=crop",
+      image: "https://www.herbalife.com/dmassets/regional-reusable-assets/apac/images/li-herbalife-nutrition-products-healthy-meal-apac.jpg",
       color: "from-teal-500 to-cyan-600",
       duration: "8 weeks",
       icon: "🛡️",
@@ -101,7 +101,7 @@ const Programs = () => {
     {
       title: "Eye Health",
       benefit: "Protect and enhance vision",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFIxobSzmmNEp-1W8X-wRAjA43BIktP4AEMg&s",
       color: "from-cyan-500 to-blue-600",
       duration: "12 weeks",
       icon: "👁️",
@@ -121,7 +121,7 @@ const Programs = () => {
     {
       title: "Men's Health",
       benefit: "Tailored wellness support",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=1000&fit=crop",
+      image: "https://www.nutritionleaders.co.uk/cdn/shop/products/F2_Flyer_Men-A5_UK_Web_1000x1000.jpg?v=1604113225",
       color: "from-blue-600 to-indigo-700",
       duration: "12 weeks",
       icon: "👨",
@@ -131,7 +131,7 @@ const Programs = () => {
     {
       title: "Women's Health",
       benefit: "Comprehensive wellness support",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4_Y7HJLly3sylxsBfEYgxjuZN1NTkDL9qpw&s",
       color: "from-fuchsia-500 to-pink-600",
       duration: "12 weeks",
       icon: "👩",
@@ -141,7 +141,7 @@ const Programs = () => {
     {
       title: "Active Lifestyle",
       benefit: "Performance-focused nutrition",
-      image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=1000&fit=crop",
+      image: "https://i.pinimg.com/736x/b0/91/29/b0912988ea64a2745807056b41cd67c7.jpg",
       color: "from-amber-500 to-yellow-600",
       duration: "Ongoing",
       icon: "⚡",
@@ -151,7 +151,7 @@ const Programs = () => {
     {
       title: "Sleep & Stress",
       benefit: "Better rest and calm",
-      image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8iBnAZC2zkx5eAIqHy0dZqwSOUZhoVQoWcQ&s",
       color: "from-violet-500 to-purple-600",
       duration: "8 weeks",
       icon: "😴",
@@ -161,7 +161,7 @@ const Programs = () => {
     {
       title: "Diet Plans",
       benefit: "Customized meal plans",
-      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfV-vlGr9CjKdz-0FOQZwloy5kHE3vb9KudA&s",
       color: "from-purple-500 to-violet-600",
       duration: "Ongoing",
       icon: "🍽️",
@@ -171,7 +171,7 @@ const Programs = () => {
     {
       title: "Overall Wellbeing",
       benefit: "Holistic health and vitality",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1oUt5zyGHcH0mMOeRiWj30G9zYFNuTiOadA&s",
       color: "from-emerald-600 to-teal-700",
       duration: "Ongoing",
       icon: "🌟",
@@ -181,7 +181,7 @@ const Programs = () => {
     {
       title: "Complete Wellness",
       benefit: "Comprehensive wellness program",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbR4SXLUZeM69iiQhTZz3hin-LCAJWZ--i6g&s",
       color: "from-teal-600 to-cyan-700",
       duration: "Ongoing",
       icon: "💎",

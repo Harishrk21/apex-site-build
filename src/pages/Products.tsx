@@ -12,7 +12,6 @@ type ProductCategory =
   | "vitamins-supplements"
   | "teas-beverages"
   | "shakes"
-  | "skin-body"
   | "skin-body-care"
   | "targeted-health"
   | "daily-nutrition"
@@ -64,11 +63,6 @@ const CATEGORY_VISUALS: Record<ProductCategory, CategoryVisual> = {
     accent: "#facc15",
     emoji: "🥤",
   },
-  "skin-body": {
-    gradient: "linear-gradient(135deg, #fee2e2, #fecaca)",
-    accent: "#fb7185",
-    emoji: "💮",
-  },
   "skin-body-care": {
     gradient: "linear-gradient(135deg, #ede9fe, #ddd6fe)",
     accent: "#a78bfa",
@@ -109,9 +103,8 @@ const getProductVisual = (product: Product) => {
 const CATEGORIES = [
   { id: "all", label: "All products" },
   { id: "vitamins-supplements", label: "Vitamins & Supplements" },
-  { id: "teas-beverages", label: "Teas & Beverages" },
+  { id: "teas-beverages", label: "Afresh" },
   { id: "shakes", label: "Shakes" },
-  { id: "skin-body", label: "Skin & Body" },
   { id: "skin-body-care", label: "Skin & Body Care" },
   { id: "targeted-health", label: "Targeted Health" },
   { id: "daily-nutrition", label: "Daily Nutrition" },
@@ -265,7 +258,7 @@ const PRODUCT_LIST: Product[] = [
     flavour: "Orange",
     size: "30 Sachets",
     price: 3910,
-    categories: ["skin-body-care", "skin-body"],
+    categories: ["skin-body-care"],
     description: "Collagen drink mix with orange zing to nourish skin from within.",
     tag: "Featured",
     sizeNote: "+1 size(s)",
@@ -286,7 +279,7 @@ const PRODUCT_LIST: Product[] = [
   {
     id: "h24-rebuild-strength",
     name: "Herbalife24® Rebuild Strength",
-    flavour: "Chocolate",
+    // flavour: "Chocolate",
     size: "10 Sachets",
     price: 2616,
     categories: ["fitness", "performance", "shakes"],
@@ -353,7 +346,7 @@ const PRODUCT_LIST: Product[] = [
     flavour: "Orange",
     size: "300 g",
     price: 3910,
-    categories: ["skin-body-care", "skin-body"],
+    categories: ["skin-body-care"],
     description: "Larger pack of collagen-rich orange skin booster drink.",
     tag: "New",
     sizeNote: "+1 size(s)",
@@ -365,7 +358,7 @@ const PRODUCT_LIST: Product[] = [
     name: "Vritilife® Facial Serum (Deep Nourishment)",
     size: "30 ml",
     price: 3022,
-    categories: ["skin-body", "skin-body-care"],
+    categories: ["skin-body-care"],
     description: "Ayurveda-inspired serum for deep skin nourishment.",
     tag: "New",
     image:"https://m.media-amazon.com/images/I/41GFiRzRbYL._SY300_SX300_QL70_FMwebp_.jpg"
@@ -375,7 +368,7 @@ const PRODUCT_LIST: Product[] = [
     name: "Vritilife® Facial Cleanser (All skin types*)",
     size: "100 ml",
     price: 1165,
-    categories: ["skin-body", "skin-body-care"],
+    categories: ["skin-body-care"],
     description: "Gentle Ayurvedic cleanser suited for every skin type.",
     tag: "New",
     image:"https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-275k-in.png:pdp-w875h783?fmt=webp-alpha"
@@ -385,7 +378,7 @@ const PRODUCT_LIST: Product[] = [
     name: "Vritilife® Moisturizer (All skin types*)",
     size: "100 ml",
     price: 1473,
-    categories: ["skin-body", "skin-body-care"],
+    categories: ["skin-body-care"],
     description: "Hydrating Ayurvedic moisturizer to lock in softness.",
     tag: "New",
     image:"https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-277k-in.png:pdp-w875h783?fmt=webp-alpha"
@@ -395,7 +388,7 @@ const PRODUCT_LIST: Product[] = [
     name: "Vritilife® Facial Toner (All skin types*)",
     size: "100 ml",
     price: 1322,
-    categories: ["skin-body", "skin-body-care"],
+    categories: ["skin-body-care"],
     description: "Refreshing toner formulated with age-honoured botanicals.",
     tag: "New",
     image:"https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-315k-in.png:pdp-w875h783?fmt=webp-alpha"
@@ -540,9 +533,9 @@ const PRODUCT_LIST: Product[] = [
     image:"https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-507k-in.png:pdp-w875h783?fmt=webp-alpha"
   },
   {
-    id: "niteworks-lemon",
+    id: "niteworks",
     name: "Niteworks®",
-    flavour: "Lemon",
+    // flavour: "Lemon",
     size: "300 g",
     price: 7128,
     categories: ["teas-beverages", "performance"],
@@ -590,7 +583,7 @@ const PRODUCT_LIST: Product[] = [
   {
     id: "h24-hydrate",
     name: "Herbalife24® Hydrate",
-    flavour: "Orange",
+    // flavour: "Orange",
     size: "20 Sachets",
     price: 1636,
     categories: ["fitness", "performance", "teas-beverages"],
@@ -662,7 +655,7 @@ const PRODUCT_LIST: Product[] = [
     price: 3433,
     categories: ["healthy-weight", "targeted-health"],
     description: "Metabolism-support tablets with green and black tea extracts.",
-    image:"https://m.media-amazon.com/images/I/41OsO0wieGL._SY300_SX300_QL70_FMwebp_.jpg"
+    image:"https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/canister/pc-0077-in.png:pdp-w875h783?fmt=webp-alpha"
   },
   {
     id: "beta-heart",
@@ -725,17 +718,11 @@ const PRODUCT_LIST: Product[] = [
   },
 ];
 
-const PRICE_FILTERS = [
-  { id: "under-1000", label: "Below ₹1,000", predicate: (price: number) => price < 1000 },
-  { id: "1000-2000", label: "₹1,000 - ₹2,000", predicate: (price: number) => price >= 1000 && price <= 2000 },
-  { id: "2000-4000", label: "₹2,000 - ₹4,000", predicate: (price: number) => price > 2000 && price <= 4000 },
-  { id: "4000-plus", label: "Above ₹4,000", predicate: (price: number) => price > 4000 },
-];
+const RECIPIENT_EMAIL = "info@kolathurwellnesscentre.com";
+const FORM_SUBMIT_URL = `https://formsubmit.co/${RECIPIENT_EMAIL}`;
 
 const SORT_OPTIONS = [
   { id: "featured", label: "Featured" },
-  { id: "price-low-high", label: "Price (low to high)" },
-  { id: "price-high-low", label: "Price (high to low)" },
   { id: "name-az", label: "Name (A-Z)" },
 ];
 
@@ -743,8 +730,6 @@ const Products = () => {
   const { addToCart, cart, removeFromCart, clearCart, cartCount } = useCart();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedFlavours, setSelectedFlavours] = useState<string[]>([]);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-  const [selectedPrice, setSelectedPrice] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("featured");
   const [showFilters, setShowFilters] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -756,33 +741,66 @@ const Products = () => {
   const productsPerPage = 6; // Show 6 products per page on mobile
 
   const flavourOptions = useMemo(() => {
-    const flavours = PRODUCT_LIST.map((product) => product.flavour).filter(Boolean) as string[];
+    // Only get flavors from Dinoshake, Formula 1, or Afresh products
+    const flavours = PRODUCT_LIST.filter(
+      (product) =>
+        product.name === "Dinoshake" ||
+        product.name === "Formula 1 Nutritional Shake Mix" ||
+        product.name === "Afresh Energy Drink Mix"
+    )
+      .map((product) => product.flavour)
+      .filter(Boolean) as string[];
     return Array.from(new Set(flavours)).sort((a, b) => a.localeCompare(b));
   }, []);
 
-  const sizeOptions = useMemo(() => {
-    const sizes = PRODUCT_LIST.map((product) => product.size);
-    return Array.from(new Set(sizes)).sort((a, b) => a.localeCompare(b));
-  }, []);
+  // Check if current category should show flavor filters
+  const shouldShowFlavorFilter = useMemo(() => {
+    if (selectedCategory === "all") {
+      // Show flavor filter if any products in the list are Dinoshake, Formula 1, or Afresh
+      return PRODUCT_LIST.some(
+        (product) =>
+          product.name === "Dinoshake" ||
+          product.name === "Formula 1 Nutritional Shake Mix" ||
+          product.name === "Afresh Energy Drink Mix"
+      );
+    }
+    // Check if selected category contains Dinoshake, Formula 1, or Afresh products
+    return PRODUCT_LIST.some(
+      (product) =>
+        product.categories.includes(selectedCategory as ProductCategory) &&
+        (product.name === "Dinoshake" ||
+          product.name === "Formula 1 Nutritional Shake Mix" ||
+          product.name === "Afresh Energy Drink Mix")
+    );
+  }, [selectedCategory]);
 
   const filteredProducts = useMemo(() => {
     return PRODUCT_LIST.filter((product) => {
       const matchesCategory =
         selectedCategory === "all" || product.categories.includes(selectedCategory as ProductCategory);
 
-      const flavourValue = product.flavour ?? "Unflavoured";
-      const matchesFlavour =
-        selectedFlavours.length === 0 || selectedFlavours.includes(flavourValue);
+      // Only apply flavor filter to Dinoshake, Formula 1, or Afresh products
+      const isFlavorFilterable =
+        product.name === "Dinoshake" ||
+        product.name === "Formula 1 Nutritional Shake Mix" ||
+        product.name === "Afresh Energy Drink Mix";
 
-      const matchesSize =
-        selectedSizes.length === 0 || selectedSizes.includes(product.size);
+      // If no flavors are selected, include all products that match category
+      if (selectedFlavours.length === 0) {
+        return matchesCategory;
+      }
 
-      const priceFilter = PRICE_FILTERS.find((filter) => filter.id === selectedPrice);
-      const matchesPrice = !priceFilter || priceFilter.predicate(product.price);
+      // If flavors are selected, only show flavor-filterable products that match the selected flavors
+      if (isFlavorFilterable) {
+        const flavourValue = product.flavour;
+        // Only include if this product has a flavor AND it's in the selected flavors list
+        return matchesCategory && flavourValue && selectedFlavours.includes(flavourValue);
+      }
 
-      return matchesCategory && matchesFlavour && matchesSize && matchesPrice;
+      // If flavors are selected but this product is not flavor-filterable, exclude it
+      return false;
     });
-  }, [selectedCategory, selectedFlavours, selectedSizes, selectedPrice]);
+  }, [selectedCategory, selectedFlavours]);
 
   const sortedProducts = useMemo(() => {
     if (sortOption === "featured") {
@@ -791,10 +809,6 @@ const Products = () => {
 
     const cloned = [...filteredProducts];
     switch (sortOption) {
-      case "price-low-high":
-        return cloned.sort((a, b) => a.price - b.price);
-      case "price-high-low":
-        return cloned.sort((a, b) => b.price - a.price);
       case "name-az":
         return cloned.sort((a, b) => a.name.localeCompare(b.name));
       default:
@@ -818,8 +832,6 @@ const Products = () => {
 
   const clearFilters = () => {
     setSelectedFlavours([]);
-    setSelectedSizes([]);
-    setSelectedPrice("");
   };
 
   const handleAddToCart = (product: Product) => {
@@ -835,19 +847,27 @@ const Products = () => {
     setIsBuyingNow(product.id);
     try {
       const productName = product.flavour ? `${product.name} - ${product.flavour}` : product.name;
-      const response = await fetch("https://formspree.io/f/xzzybgbz", {
+      
+      // Build FormData expected by FormSubmit
+      const payload = new FormData();
+      payload.append("_subject", "Product Enquiry - Buy Now");
+      payload.append("_captcha", "false");
+      payload.append("_template", "table");
+      
+      payload.append("productName", productName);
+      payload.append("productSize", product.size);
+      payload.append("message", `I'm interested in purchasing: ${productName} (${product.size})`);
+      payload.append("_formType", "Product Enquiry - Buy Now");
+      
+      if (typeof window !== "undefined") {
+        payload.append("page_url", window.location.href);
+      }
+      
+      payload.append("_honey", "");
+
+      const response = await fetch(FORM_SUBMIT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _subject: "Product Enquiry - Buy Now",
-          productName: productName,
-          productSize: product.size,
-          productPrice: priceFormatter.format(product.price),
-          message: `I'm interested in purchasing: ${productName} (${product.size}) - ${priceFormatter.format(product.price)}`,
-          _formType: "Product Enquiry - Buy Now",
-        }),
+        body: payload,
       });
 
       if (response.ok) {
@@ -872,24 +892,29 @@ const Products = () => {
     setIsCheckingOut(true);
     try {
       const productsList = cart
-        .map((item) => `${item.name}${item.size ? ` (${item.size})` : ""} - ${item.price ? priceFormatter.format(item.price) : "Price on request"}`)
+        .map((item) => `${item.name}${item.size ? ` (${item.size})` : ""}`)
         .join("\n");
-      
-      const totalPrice = cart.reduce((sum, item) => sum + (item.price || 0), 0);
 
-      const response = await fetch("https://formspree.io/f/xzzybgbz", {
+      // Build FormData expected by FormSubmit
+      const payload = new FormData();
+      payload.append("_subject", "Product Enquiry - Checkout");
+      payload.append("_captcha", "false");
+      payload.append("_template", "table");
+      
+      payload.append("products", productsList);
+      payload.append("totalItems", cart.length.toString());
+      payload.append("message", `I'm interested in the following products:\n\n${productsList}`);
+      payload.append("_formType", "Product Enquiry - Checkout");
+      
+      if (typeof window !== "undefined") {
+        payload.append("page_url", window.location.href);
+      }
+      
+      payload.append("_honey", "");
+
+      const response = await fetch(FORM_SUBMIT_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          _subject: "Product Enquiry - Checkout",
-          products: productsList,
-          totalItems: cart.length,
-          totalPrice: priceFormatter.format(totalPrice),
-          message: `I'm interested in the following products:\n\n${productsList}\n\nTotal: ${priceFormatter.format(totalPrice)}`,
-          _formType: "Product Enquiry - Checkout",
-        }),
+        body: payload,
       });
 
       if (response.ok) {
@@ -927,7 +952,7 @@ const Products = () => {
   // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory, selectedFlavours, selectedSizes, selectedPrice, sortOption]);
+  }, [selectedCategory, selectedFlavours, sortOption]);
 
   return (
     <main>
@@ -944,7 +969,7 @@ const Products = () => {
           <div
             className="absolute inset-0 bg-cover bg-center opacity-30"
             style={{
-              backgroundImage: `url(${productsHero})`,
+              backgroundImage: `url('https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg')`,
             }}
           />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(52,211,153,0.3),_transparent_50%)]" />
@@ -1022,87 +1047,55 @@ const Products = () => {
                 ))}
               </select>
               
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="md:hidden px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
-              >
-                <SlidersHorizontal className="h-4 w-4" />
-                Filters
-              </button>
+              {shouldShowFlavorFilter && (
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="md:hidden px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+                >
+                  <SlidersHorizontal className="h-4 w-4" />
+                  Filters
+                </button>
+              )}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-[260px_1fr] lg:grid-cols-[280px_1fr] gap-6">
+          <div className={`grid ${shouldShowFlavorFilter ? "md:grid-cols-[260px_1fr] lg:grid-cols-[280px_1fr]" : ""} gap-6`}>
             {/* Filters Sidebar */}
-            <aside className={`${showFilters ? "block" : "hidden"} md:block`}>
-              <div className="bg-white rounded-2xl border shadow-lg p-4 sm:p-5 space-y-5 sticky top-24">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base sm:text-lg font-bold">Filters</h3>
-                  <button
-                    onClick={clearFilters}
-                    className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
-                  >
-                    Clear all
-                  </button>
-                </div>
-
-                {/* Price Filter */}
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold">Price Range</p>
-                  <div className="space-y-2">
-                    {PRICE_FILTERS.map((filter) => (
-                      <label key={filter.id} className="flex items-center gap-2 text-sm cursor-pointer hover:text-emerald-600">
-                        <input
-                          type="radio"
-                          name="price"
-                          value={filter.id}
-                          checked={selectedPrice === filter.id}
-                          onChange={(e) => setSelectedPrice(e.target.value)}
-                          className="accent-emerald-600"
-                        />
-                        {filter.label}
-                      </label>
-                    ))}
+            {shouldShowFlavorFilter && (
+              <aside className={`${showFilters ? "block" : "hidden"} md:block`}>
+                <div className="bg-white rounded-2xl border shadow-lg p-4 sm:p-5 space-y-5 sticky top-24">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base sm:text-lg font-bold">Filters</h3>
+                    <button
+                      onClick={clearFilters}
+                      className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                    >
+                      Clear all
+                    </button>
                   </div>
-                </div>
 
-                {/* Flavour Filter */}
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold">Flavour</p>
-                  <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-                    {flavourOptions.map((flavour) => (
-                      <label key={flavour} className="flex items-center gap-2 text-sm cursor-pointer hover:text-emerald-600">
-                        <input
-                          type="checkbox"
-                          checked={selectedFlavours.includes(flavour)}
-                          onChange={() => toggleFilterValue(flavour, selectedFlavours, setSelectedFlavours)}
-                          className="accent-emerald-600"
-                        />
-                        {flavour}
-                      </label>
-                    ))}
-                  </div>
+                  {/* Flavour Filter - Only for Dinoshake, Formula 1, and Afresh */}
+                  {flavourOptions.length > 0 && (
+                    <div className="space-y-2">
+                      <p className="text-sm font-semibold">Flavour</p>
+                      <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+                        {flavourOptions.map((flavour) => (
+                          <label key={flavour} className="flex items-center gap-2 text-sm cursor-pointer hover:text-emerald-600">
+                            <input
+                              type="checkbox"
+                              checked={selectedFlavours.includes(flavour)}
+                              onChange={() => toggleFilterValue(flavour, selectedFlavours, setSelectedFlavours)}
+                              className="accent-emerald-600"
+                            />
+                            {flavour}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-
-                {/* Size Filter */}
-                <div className="space-y-2">
-                  <p className="text-sm font-semibold">Size</p>
-                  <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-                    {sizeOptions.map((size) => (
-                      <label key={size} className="flex items-center gap-2 text-sm cursor-pointer hover:text-emerald-600">
-                        <input
-                          type="checkbox"
-                          checked={selectedSizes.includes(size)}
-                          onChange={() => toggleFilterValue(size, selectedSizes, setSelectedSizes)}
-                          className="accent-emerald-600"
-                        />
-                        {size}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </aside>
+              </aside>
+            )}
 
             {/* Products Grid */}
             <div className="space-y-6">
@@ -1153,17 +1146,8 @@ const Products = () => {
                         </p>
                       </div>
 
-                      {/* Price & Actions */}
+                      {/* Actions */}
                       <div className="space-y-3 pt-2 border-t">
-                        <div className="flex items-baseline justify-between">
-                          <div>
-                            <p className="text-xl sm:text-2xl font-bold text-emerald-700">
-                              {priceFormatter.format(product.price)}
-                            </p>
-                            <p className="text-xs text-gray-500">MRP (incl. taxes)</p>
-                          </div>
-                        </div>
-                        
                         <div className="grid grid-cols-2 gap-2">
                           <button
                             onClick={() => handleAddToCart(product)}
@@ -1269,9 +1253,6 @@ const Products = () => {
                               {item.name}
                             </h4>
                             <p className="text-xs text-gray-600 mt-1">Size: {item.size}</p>
-                            <p className="text-sm sm:text-base font-bold text-emerald-700 mt-2">
-                              {item.price ? priceFormatter.format(item.price) : "Price on request"}
-                            </p>
                           </div>
                           <button
                             onClick={() => removeFromCart(item.id)}
@@ -1288,21 +1269,6 @@ const Products = () => {
 
               {cart.length > 0 && (
                 <div className="border-t p-4 sm:p-6 bg-white space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Subtotal</span>
-                      <span className="font-semibold">
-                        {priceFormatter.format(cart.reduce((sum, item) => sum + (item.price || 0), 0))}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-base sm:text-lg font-bold">
-                      <span>Total</span>
-                      <span className="text-emerald-700">
-                        {priceFormatter.format(cart.reduce((sum, item) => sum + (item.price || 0), 0))}
-                      </span>
-                    </div>
-                  </div>
-                  
                   <div className="space-y-2">
                     <button
                       onClick={handleCheckout}

@@ -38,6 +38,12 @@ import EyeHealth from "./pages/programs/EyeHealth";
 import MensHealth from "./pages/programs/MensHealth";
 import BrainHealth from "./pages/programs/BrainHealth";
 import SleepStressManagement from "./pages/programs/SleepStressManagement";
+import GainMuscle from "./pages/programs/GainMuscle";
+import ImmunitySupport from "./pages/programs/ImmunitySupport";
+import WomensWellness from "./pages/programs/WomensWellness";
+import DietPlans from "./pages/programs/DietPlans";
+import OverallWellbeing from "./pages/programs/OverallWellbeing";
+import CompleteWellness from "./pages/programs/CompleteWellness";
 
 const queryClient = new QueryClient();
 
@@ -60,27 +66,24 @@ const App = () => (
                 <Route path="/programs/weight-management" element={<WeightManagement />} />
                 <Route path="/programs/lose-weight" element={<LoseWeight />} />
                 <Route path="/programs/gain-weight" element={<GainWeight />} />
-                <Route path="/programs/gain-muscle" element={<WeightManagement />} />
+                <Route path="/programs/gain-muscle" element={<GainMuscle />} />
                 <Route path="/programs/skin-care" element={<SkinCare />} />
                 <Route path="/programs/heart-health" element={<HeartHealth />} />
                 <Route path="/programs/bone-joint" element={<BoneJointHealth />} />
                 <Route path="/programs/healthy-breakfast" element={<HealthyBreakfast />} />
-                <Route path="/programs/active-lifestyle" element={<HealthyActiveLifestyle />} />
-                <Route path="/programs/healthy-breakfast" element={<WeightManagement />} />
-                <Route path="/programs/diet-plans" element={<WeightManagement />} />
-                <Route path="/programs/bone-joint" element={<WeightManagement />} />
-                <Route path="/programs/heart-health" element={<WeightManagement />} />
+                <Route path="/programs/healthy-active-lifestyle" element={<HealthyActiveLifestyle />} />
+                <Route path="/programs/diet-plans" element={<DietPlans />} />
                 <Route path="/programs/brain-immune" element={<BrainHealth />} />
-                <Route path="/programs/immunity-support" element={<WeightManagement />} />
+                <Route path="/programs/immunity-support" element={<ImmunitySupport />} />
                 <Route path="/programs/eye-health" element={<EyeHealth />} />
                 <Route path="/programs/gut-health" element={<DigestiveHealth />} />
-                <Route path="/programs/women-wellness" element={<WeightManagement />} />
+                <Route path="/programs/women-wellness" element={<WomensWellness />} />
                 <Route path="/programs/men-wellness" element={<MensHealth />} />
-                <Route path="/programs/active-lifestyle" element={<WeightManagement />} />
+                <Route path="/programs/active-lifestyle" element={<HealthyActiveLifestyle />} />
                 <Route path="/programs/sleep-stress" element={<SleepStressManagement />} />
                 <Route path="/programs/kids-nutrition" element={<KidsNutrition />} />
-                <Route path="/programs/wellbeing" element={<WeightManagement />} />
-                <Route path="/programs/complete-wellness" element={<WeightManagement />} />
+                <Route path="/programs/wellbeing" element={<OverallWellbeing />} />
+                <Route path="/programs/complete-wellness" element={<CompleteWellness />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/transformations" element={<Transformations />} />
                 <Route path="/results" element={<Results />} />

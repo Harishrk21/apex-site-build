@@ -131,14 +131,42 @@ const DigestiveHealth = () => {
       />
 
       <ProgramHero
-        image={digestiveHero}
+        image='https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg'
         title="Heal Your Gut, Transform Your Life"
         tagline="Banishing bloating, acidity, and fatigue by restoring your body's 'Second Brain'"
       />
 
       {/* The Silent Epidemic */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 relative">
+        {/* 🔥 Inline CSS */}
+        <style>
+          {`
+            .scroll-track {
+              display: flex;
+              width: max-content;
+              animation: scroll-left 28s linear infinite;
+              white-space: nowrap;
+            }
+
+            @keyframes scroll-left {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}
+        </style>
+
+        {/* 🚨 Full-Width Running Banner */}
+        <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+          <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+          </div>
+        </div>
+
+        {/* 👇 Increased top padding so nothing overlaps */}
+        <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">All Disease Begins in the Gut</h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
@@ -695,7 +723,7 @@ const DigestiveHealth = () => {
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-wellness-lg">
               <Link to="/book-consultation">
                 <Calendar className="mr-2 w-5 h-5" />
-                Book Free Gut Assessment
+                Book Free Consultation
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white/20 hover:bg-white/20">

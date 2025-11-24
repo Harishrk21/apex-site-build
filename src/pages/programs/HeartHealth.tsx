@@ -126,14 +126,42 @@ const HeartHealth = () => {
       />
 
       <ProgramHero
-        image={heartHero}
+        image='https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg'
         title="Your Path to a Stronger, Healthier Heart"
         tagline="Lower cholesterol · Healthy blood pressure · More energy · Live longer, live better"
       />
 
       {/* Why Heart Health is Critical */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 relative">
+        {/* 🔥 Inline CSS */}
+        <style>
+          {`
+            .scroll-track {
+              display: flex;
+              width: max-content;
+              animation: scroll-left 28s linear infinite;
+              white-space: nowrap;
+            }
+
+            @keyframes scroll-left {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}
+        </style>
+
+        {/* 🚨 Full-Width Running Banner */}
+        <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+          <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+          </div>
+        </div>
+
+        {/* 👇 Increased top padding so nothing overlaps */}
+        <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">India's #1 Killer is Completely Preventable</h2>
             <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
@@ -595,13 +623,13 @@ const HeartHealth = () => {
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-4xl font-bold mb-6">Your Heart Can't Wait Another Day</h2>
           <p className="text-xl text-white/90 mb-8">
-            Book your FREE Heart Health Assessment today (includes full blood report review worth ₹1500)
+            Book your FREE Consultation today (includes full blood report review worth ₹1500)
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" asChild className="bg-white text-primary hover:bg-white/90 shadow-wellness-lg">
               <Link to="/book-consultation">
                 <Calendar className="mr-2 w-5 h-5" />
-                Book Free Heart Assessment Now
+                Book Free Consultation Now
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild className="bg-white/10 text-white border-white/20 hover:bg-white/20">

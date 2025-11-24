@@ -23,7 +23,7 @@ import {
  * - FormSubmit accepts form-encoded / multipart posts and will forward email to the recipient.
  */
 
-const RECIPIENT_EMAIL = "info@newlifewellness.com"; // ← change if you want another mail
+const RECIPIENT_EMAIL = "info@kolathurwellnesscentre.com"; // ← change if you want another mail
 const FORM_SUBMIT_URL = `https://formsubmit.co/${RECIPIENT_EMAIL}`;
 
 const Contact: React.FC = () => {

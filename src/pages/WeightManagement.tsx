@@ -26,8 +26,36 @@ const WeightManagement = () => {
       </section>
 
       {/* Options */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 relative">
+        {/* 🔥 Inline CSS */}
+        <style>
+          {`
+            .scroll-track {
+              display: flex;
+              width: max-content;
+              animation: scroll-left 28s linear infinite;
+              white-space: nowrap;
+            }
+
+            @keyframes scroll-left {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}
+        </style>
+
+        {/* 🚨 Full-Width Running Banner */}
+        <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
+          <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
+            ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+          </div>
+        </div>
+
+        {/* 👇 Increased top padding so nothing overlaps */}
+        <div className="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="border-none shadow-wellness-lg">
               <CardContent className="p-8">
@@ -141,10 +169,7 @@ const WeightManagement = () => {
                 name: "Personalized Protein",
                 benefit: "Muscle preservation & growth",
               },
-              {
-                name: "Total Control",
-                benefit: "Metabolism support",
-              },
+              
             ].map((product, index) => (
               <Card key={index} className="border-none shadow-wellness hover:shadow-wellness-lg transition-all">
                 <CardContent className="p-6 text-center">

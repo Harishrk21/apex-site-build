@@ -127,8 +127,9 @@ const HerbalifeStory = () => {
   return (
     <>
       <SEO
-        title="Herbalife Story - 40+ Years of Nutrition Excellence | New Life Wellness Centre Kolathur, Chennai"
-        description="Learn about Herbalife Nutrition's 40+ year legacy, founder Mark R. Hughes, product philosophy, manufacturing standards, and why you can trust Herbalife products for your wellness journey at New Life Wellness Centre - the best wellness centre and nutrition centre in Kolathur, Chennai, Villivakkam."
+        title="Herbalife Story - 45
+         Years of Nutrition Excellence | New Life Wellness Centre Kolathur, Chennai"
+        description="Learn about Herbalife Nutrition's 45 year legacy, founder Mark R. Hughes, product philosophy, manufacturing standards, and why you can trust Herbalife products for your wellness journey at New Life Wellness Centre - the best wellness centre and nutrition centre in Kolathur, Chennai, Villivakkam."
         canonical="/herbalife-story"
         keywords="Herbalife History Kolathur, Mark Hughes Chennai, Herbalife Nutrition Villivakkam, Herbalife Products Science Kolathur, Global Wellness Chennai, Herbalife Manufacturing Villivakkam, Herbalife Story Kolathur, Herbalife Products Chennai"
       />
@@ -199,7 +200,7 @@ const HerbalifeStory = () => {
               },
               {
                 icon: <Award className="w-8 h-8" />,
-                number: "40+",
+                number: "45",
                 label: "Years of Excellence",
               },
               {
@@ -456,8 +457,8 @@ const HerbalifeStory = () => {
             {[
               {
                 program: "Weight Loss Program",
-                products: ["Formula 1 Shake", "Personalized Protein", "Total Control"],
-                description: "Formula 1 provides balanced meal replacement, Personalized Protein preserves muscle during weight loss, and Total Control supports healthy metabolism."
+                products: ["Formula 1 Shake", "Personalized Protein", "Boosts Energy"],
+                description: "Formula 1 provides balanced meal replacement, Personalized Protein preserves muscle during weight loss, and  supports healthy metabolism."
               },
               {
                 program: "Weight Gain Program",
