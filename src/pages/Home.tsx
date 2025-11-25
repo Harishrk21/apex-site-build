@@ -47,7 +47,7 @@ const Home = () => {
   ];
 
   const stats = [
-    { value: '1,200+', label: 'Happy Clients', icon: <Users className="w-4 h-4" /> },
+    { value: '1,500', label: 'Happy Clients', icon: <Users className="w-4 h-4" /> },
     { value: '4.9/5', label: 'Rating', icon: <Star className="w-4 h-4" /> },
     { value: '99.9%', label: 'Success Rate', icon: <TrendingUp className="w-4 h-4" /> },
     { value: '10+', label: 'Years Experience', icon: <Award className="w-4 h-4" /> }
@@ -191,7 +191,7 @@ const Home = () => {
                     </div>
                     <div>
                       <p className="text-xs text-gray-500">Happy Clients</p>
-                      <p className="text-base font-bold text-gray-900">1,200+</p>
+                      <p className="text-base font-bold text-gray-900">1,500+</p>
                     </div>
                   </div>
                 </div>
@@ -224,10 +224,10 @@ const Home = () => {
   {/* 🚨 Full-Width Running Banner */}
   <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
     <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
-      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
-      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
-      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
-      ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+      ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp; 
+      ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp; 
+      ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp; 
+      ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp;
     </div>
   </div>
 

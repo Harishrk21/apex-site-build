@@ -175,10 +175,10 @@
             {/* 🚨 Full-Width Running Banner */}
             <div className="absolute left-0 w-screen -translate-x-[calc((100vw-100%)/2)] bg-red-600 border-y-4 border-red-800 py-2 overflow-hidden z-20">
                 <div className="scroll-track font-extrabold text-white text-base sm:text-lg tracking-wide drop-shadow-lg">
-                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
-                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
-                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp; 
-                    ⚠️ Results are Typical. Individual Results May Vary. ⚠️ &nbsp;
+                    ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp; 
+                    ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp; 
+                    ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp; 
+                    ⚠️ Results are NotTypical. Individual Results May Vary from person to person. ⚠️ &nbsp;
                 </div>
             </div>
 
