@@ -1,4 +1,4 @@
-import SEO from "@/components/SEO";
+import SEO from "@/components/SEOHelmet";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState, useCallback } from "react";

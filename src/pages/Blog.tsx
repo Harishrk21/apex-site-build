@@ -1,4 +1,7 @@
 import { useState } from "react";
+import SEO from "@/components/SEOHelmet";
+import { baseSEO, seoPages } from "@/config/seoConfig";
+import { organizationSchema, generateBreadcrumbSchema } from "@/lib/structuredData";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,6 +22,12 @@ import {
   Mail,
   ExternalLink
 } from "lucide-react";
+
+const blogSEO = seoPages.blog;
+const blogBreadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Home", url: `${baseSEO.baseUrl}/` },
+  { name: "Blog", url: `${baseSEO.baseUrl}/blog` },
+]);
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -197,6 +206,13 @@ const Blog = () => {
 
   return (
     <>
+      <SEO
+        title={blogSEO.title}
+        description={blogSEO.description}
+        keywords={blogSEO.keywords}
+        canonical="/blog"
+        schema={[organizationSchema, blogBreadcrumbSchema]}
+      />
       {/* Hero Section with Search */}
       <section className="relative py-24 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>

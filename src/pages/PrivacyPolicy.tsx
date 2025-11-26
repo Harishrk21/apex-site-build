@@ -1,4 +1,4 @@
-import SEO from "@/components/SEO";
+import SEO from "@/components/SEOHelmet";
 
 const PrivacyPolicy = () => {
   return (
@@ -47,8 +47,8 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-semibold text-foreground mb-4">Contact Us</h2>
               <p>
                 If you have any questions about our privacy policy, please contact us at 
-                <a href="mailto:info@newlifewellness.com" className="text-primary hover:underline ml-1">
-                  info@newlifewellness.com
+                <a href="mailto:info@kolathurwellnesscentre.com" className="text-primary hover:underline ml-1">
+                  info@kolathurwellnesscentre.com
                 </a>
               </p>
             </section>

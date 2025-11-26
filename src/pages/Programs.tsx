@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SEO from "@/components/SEO";
+import SEO from "@/components/SEOHelmet";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Heart, Brain, Eye, Shield, Zap, Moon, Baby, Users, Activity, Apple, Dumbbell, TrendingUp } from "lucide-react";
 

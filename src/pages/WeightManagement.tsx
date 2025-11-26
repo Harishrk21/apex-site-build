@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SEO from "@/components/SEO";
+import SEO from "@/components/SEOHelmet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Scale, Target, TrendingDown, TrendingUp } from "lucide-react";

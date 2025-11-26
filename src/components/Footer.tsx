@@ -68,8 +68,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <Mail size={18} />
-                <a href="mailto:info@newlifewellness.com" className="hover:text-secondary transition-colors">
-                  info@newlifewellness.com
+                <a href="mailto:info@kolathurwellnesscentre.com" className="hover:text-secondary transition-colors">
+                  info@kolathurwellnesscentre.com
                 </a>
               </li>
             </ul>

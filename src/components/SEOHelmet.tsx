@@ -1,50 +1,59 @@
 import { Helmet } from "react-helmet-async";
+import { baseSEO } from "@/config/seoConfig";
+
+type SchemaObject = Record<string, unknown>;
 
 interface SEOProps {
   title: string;
   description: string;
-  keywords?: string;
+  keywords?: string | string[];
   canonical?: string;
   ogImage?: string;
   ogType?: string;
-  schema?: object;
-  localBusinessSchema?: object;
+  schema?: SchemaObject | SchemaObject[];
+  localBusinessSchema?: SchemaObject | SchemaObject[];
+  disableDefaultLocalBusinessSchema?: boolean;
 }
 
 const SEO = ({
   title,
   description,
-  keywords = "New Life Wellness Centre Kolathur, Best Wellness Centre Chennai, Nutrition Centre Villivakkam, Herbalife Nutrition Kolathur, Weight Loss Centre Chennai, Wellness Coach Villivakkam, Herbalife Products Chennai, Nutrition Consultation Kolathur",
+  keywords = baseSEO.defaultKeywords,
   canonical,
-  ogImage = "https://newlifewellnesscentre.com/og-image.jpg",
+  ogImage,
   ogType = "website",
   schema,
   localBusinessSchema,
+  disableDefaultLocalBusinessSchema = false,
 }: SEOProps) => {
-  const fullTitle = `${title} | New Life Wellness Centre - Best Wellness & Nutrition Centre in Kolathur, Chennai`;
-  const siteUrl = "https://newlifewellnesscentre.com";
+  const siteUrl = baseSEO.baseUrl;
+  const fullTitle = title.includes(baseSEO.siteName) ? title : `${title} | ${baseSEO.siteName}`;
   const fullCanonical = canonical ? `${siteUrl}${canonical}` : siteUrl;
+  const resolvedOgImage = ogImage || baseSEO.defaultOgImage;
+  const resolvedDescription = description || baseSEO.defaultDescription;
+  const keywordContent = Array.isArray(keywords) ? keywords.join(", ") : keywords;
+  const schemaList = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 
   // Default LocalBusiness schema if not provided
-  const defaultLocalBusinessSchema = localBusinessSchema || {
+  const defaultLocalBusinessSchema: SchemaObject = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": `${siteUrl}${canonical || ""}`,
-    "name": "New Life Wellness Centre",
+    "@id": `${fullCanonical}#localbusiness`,
+    "name": baseSEO.siteName,
     "alternateName": "Newlife Wellness Centre",
-    "description": "Best wellness centre and nutrition centre in Kolathur, Chennai, Villivakkam. Certified Herbalife nutrition coach providing personalized weight management, nutrition consultation, and wellness programs.",
+    "description": baseSEO.defaultDescription,
     "url": fullCanonical,
-    "logo": `${siteUrl}/logo.png`,
-    "image": ogImage,
-    "telephone": "+91+91 98849 88988",
-    "email": "info@newlifewellnesscentre.com",
+    "logo": `${siteUrl}/mylogo.png`,
+    "image": resolvedOgImage,
+    "telephone": baseSEO.phone,
+    "email": baseSEO.email,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Kolathur",
-      "addressLocality": "Kolathur",
-      "addressRegion": "Chennai",
-      "postalCode": "600099",
-      "addressCountry": "IN"
+      "streetAddress": baseSEO.address.street,
+      "addressLocality": baseSEO.address.locality,
+      "addressRegion": baseSEO.address.region,
+      "postalCode": baseSEO.address.postalCode,
+      "addressCountry": baseSEO.address.country
     },
     "geo": {
       "@type": "GeoCoordinates",
@@ -66,20 +75,10 @@ const SEO = ({
       }
     ],
     "priceRange": "$$",
-    "areaServed": [
-      {
-        "@type": "City",
-        "name": "Chennai"
-      },
-      {
-        "@type": "City",
-        "name": "Kolathur"
-      },
-      {
-        "@type": "City",
-        "name": "Villivakkam"
-      }
-    ],
+    "areaServed": baseSEO.areas.map((city) => ({
+      "@type": "City",
+      "name": city
+    })),
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Wellness Programs",
@@ -108,40 +107,49 @@ const SEO = ({
       ]
     },
     "sameAs": [
-      "https://www.facebook.com/newlifewellnesscentre",
-      "https://www.instagram.com/newlifewellnesscentre"
+      baseSEO.socialMedia.facebook,
+      baseSEO.socialMedia.instagram,
+      baseSEO.socialMedia.youtube
     ]
   };
+
+  const localBusinessSchemas = disableDefaultLocalBusinessSchema
+    ? []
+    : localBusinessSchema
+      ? (Array.isArray(localBusinessSchema) ? localBusinessSchema : [localBusinessSchema])
+      : [defaultLocalBusinessSchema];
+
+  const structuredData = [...schemaList, ...localBusinessSchemas];
 
   return (
     <Helmet>
       {/* Basic Meta Tags */}
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={keywords} />
+      <meta name="description" content={resolvedDescription} />
+      <meta name="keywords" content={keywordContent} />
       <link rel="canonical" href={fullCanonical} />
 
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={resolvedDescription} />
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={fullCanonical} />
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={resolvedOgImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="en_IN" />
-      <meta property="og:site_name" content="New Life Wellness Centre" />
+      <meta property="og:site_name" content={baseSEO.siteName} />
 
       {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:description" content={resolvedDescription} />
+      <meta name="twitter:image" content={resolvedOgImage} />
       <meta name="twitter:site" content="@newlifewellness" />
 
       {/* Additional Meta Tags */}
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-      <meta name="author" content="New Life Wellness Centre" />
+      <meta name="author" content={baseSEO.siteName} />
       <meta name="geo.region" content="IN-TN" />
       <meta name="geo.placename" content="Kolathur, Chennai, Villivakkam" />
       <meta name="geo.position" content="13.1025;80.2000" />
@@ -163,12 +171,11 @@ const SEO = ({
       <meta name="business.contact_data.country_name" content="India" />
 
       {/* JSON-LD Schema */}
-      {schema && (
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
-      )}
-      {defaultLocalBusinessSchema && (
-        <script type="application/ld+json">{JSON.stringify(defaultLocalBusinessSchema)}</script>
-      )}
+      {structuredData.map((schemaObject, index) => (
+        <script key={index} type="application/ld+json">
+          {JSON.stringify(schemaObject)}
+        </script>
+      ))}
     </Helmet>
   );
 };

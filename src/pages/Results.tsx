@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import SEO from "@/components/SEO";
+import SEO from "@/components/SEOHelmet";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

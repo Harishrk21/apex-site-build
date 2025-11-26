@@ -1,5 +1,5 @@
     import { Link } from "react-router-dom";
-    import SEO from "@/components/SEO";
+    import SEO from "@/components/SEOHelmet";
     import { Card, CardContent } from "@/components/ui/card";
     import { Button } from "@/components/ui/button";
     import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";

@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { toast } from "sonner";
 
 interface CartProduct {
   id: string;
@@ -7,12 +6,14 @@ interface CartProduct {
   category?: string;
   size?: string;
   price?: number;
+  quantity?: number;
 }
 
 interface CartContextType {
   cart: CartProduct[];
-  addToCart: (product: CartProduct) => void;
+  addToCart: (product: CartProduct) => boolean;
   removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, newQuantity: number) => void;
   clearCart: () => void;
   cartCount: number;
 }
@@ -23,25 +24,38 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartProduct[]>([]);
 
   const addToCart = (product: CartProduct) => {
+    let wasAdded = false;
     setCart((prev) => {
       const exists = prev.find((item) => item.id === product.id);
       if (exists) {
-        toast.info("Product already in your list");
         return prev;
       }
-      toast.success("Added to your list!");
-      return [...prev, product];
+      wasAdded = true;
+      return [...prev, { ...product, quantity: product.quantity ?? 1 }];
     });
+    return wasAdded;
   };
 
   const removeFromCart = (productId: string) => {
     setCart((prev) => prev.filter((item) => item.id !== productId));
-    toast.success("Removed from list");
+  };
+
+  const updateQuantity = (productId: string, newQuantity: number) => {
+    setCart((prev) => {
+      if (newQuantity <= 0) {
+        return prev.filter((item) => item.id !== productId);
+      }
+      return prev.map((item) =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      );
+    });
   };
 
   const clearCart = () => {
     setCart([]);
   };
+
+  const cartCount = cart.reduce((total, item) => total + (item.quantity ?? 1), 0);
 
   return (
     <CartContext.Provider
@@ -49,8 +63,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         cart,
         addToCart,
         removeFromCart,
+        updateQuantity,
         clearCart,
-        cartCount: cart.length,
+        cartCount,
       }}
     >
       {children}

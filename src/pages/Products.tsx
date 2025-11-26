@@ -1,9 +1,31 @@
-import { useMemo, useState, useEffect } from "react";
-import SEO from "@/components/SEO";
+import { useMemo, useState, useEffect, FormEvent } from "react";
+import SEO from "@/components/SEOHelmet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, SlidersHorizontal, X, Trash2, ShoppingBag, Zap, ChevronLeft, ChevronRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  ShoppingCart,
+  SlidersHorizontal,
+  X,
+  Trash2,
+  ShoppingBag,
+  Zap,
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  Minus,
+  User,
+  Mail,
+  Phone,
+  Target,
+  MessageSquare,
+  Clock,
+  Calendar,
+} from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import productsHero from "@/assets/products-hero.jpg";
 import { toast } from "sonner";
@@ -34,6 +56,42 @@ type Product = {
   sizeNote?: string;
   image?: string;
 };
+
+type CustomerInfo = {
+  name: string;
+  email: string;
+  phone: string;
+  goal: string;
+  preferredTime: string;
+  preferredDate: string;
+  message: string;
+};
+
+const defaultCustomerInfo: CustomerInfo = {
+  name: "",
+  email: "",
+  phone: "",
+  goal: "",
+  preferredTime: "",
+  preferredDate: "",
+  message: "",
+};
+
+const CUSTOMER_GOALS = [
+  { value: "weight-loss", label: "Weight Loss" },
+  { value: "weight-gain", label: "Weight Gain / Muscle Building" },
+  { value: "skin-care", label: "Skin Health & Beauty" },
+  { value: "energy", label: "Energy & Vitality" },
+  { value: "general-wellness", label: "General Wellness" },
+  { value: "sports-nutrition", label: "Sports Nutrition" },
+];
+
+const PREFERRED_TIME_OPTIONS = [
+  { value: "morning", label: "Morning (9 AM - 12 PM)" },
+  { value: "afternoon", label: "Afternoon (12 PM - 4 PM)" },
+  { value: "evening", label: "Evening (4 PM - 7 PM)" },
+  { value: "weekend", label: "Weekend" },
+];
 
 const priceFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
@@ -727,18 +785,31 @@ const SORT_OPTIONS = [
 ];
 
 const Products = () => {
-  const { addToCart, cart, removeFromCart, clearCart, cartCount } = useCart();
+  const { addToCart, cart, removeFromCart, clearCart, cartCount, updateQuantity } = useCart();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedFlavours, setSelectedFlavours] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState<string>("featured");
   const [showFilters, setShowFilters] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [isBuyingNow, setIsBuyingNow] = useState<string | null>(null);
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"checkout" | "buy" | null>(null);
+  const [pendingProduct, setPendingProduct] = useState<Product | null>(null);
+  const [isSubmittingEnquiry, setIsSubmittingEnquiry] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState<CustomerInfo>(defaultCustomerInfo);
   
   // Pagination state for mobile
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6; // Show 6 products per page on mobile
+  const isCustomerInfoValid = useMemo(() => {
+    return (
+      customerInfo.name.trim() &&
+      customerInfo.email.trim() &&
+      customerInfo.phone.trim() &&
+      customerInfo.goal.trim() &&
+      customerInfo.preferredTime.trim() &&
+      customerInfo.preferredDate.trim()
+    );
+  }, [customerInfo]);
 
   const flavourOptions = useMemo(() => {
     // Only get flavors from Dinoshake, Formula 1, or Afresh products
@@ -834,35 +905,61 @@ const Products = () => {
     setSelectedFlavours([]);
   };
 
+  const handleCustomerInfoChange = (field: keyof CustomerInfo, value: string) => {
+    setCustomerInfo((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleRemoveFromCart = (productId: string) => {
+    removeFromCart(productId);
+    toast.success("Removed from your list");
+  };
+
   const handleAddToCart = (product: Product) => {
-    addToCart({
+    const added = addToCart({
       id: product.id,
       name: product.flavour ? `${product.name} - ${product.flavour}` : product.name,
       price: product.price,
       size: product.size,
     });
+    if (added) {
+      toast.success("Added to your list!", {
+        action: {
+          label: "View cart",
+          onClick: () => setIsCartOpen(true),
+        },
+      });
+    } else {
+      toast.info("Product already in your list");
+    }
   };
 
-  const handleBuyNow = async (product: Product) => {
-    setIsBuyingNow(product.id);
+  const appendCustomerInfo = (payload: FormData) => {
+    payload.append("name", customerInfo.name);
+    payload.append("email", customerInfo.email);
+    payload.append("phone", customerInfo.phone);
+    payload.append("goal", customerInfo.goal);
+    payload.append("preferredTime", customerInfo.preferredTime);
+    payload.append("preferredDate", customerInfo.preferredDate);
+    payload.append("message", customerInfo.message || "Not provided");
+  };
+
+  const submitBuyEnquiry = async (product: Product) => {
     try {
       const productName = product.flavour ? `${product.name} - ${product.flavour}` : product.name;
       
-      // Build FormData expected by FormSubmit
       const payload = new FormData();
       payload.append("_subject", "Product Enquiry - Buy Now");
       payload.append("_captcha", "false");
       payload.append("_template", "table");
-      
       payload.append("productName", productName);
       payload.append("productSize", product.size);
-      payload.append("message", `I'm interested in purchasing: ${productName} (${product.size})`);
+      payload.append("enquiryDetails", `I'm interested in purchasing: ${productName} (${product.size})`);
       payload.append("_formType", "Product Enquiry - Buy Now");
+      appendCustomerInfo(payload);
       
       if (typeof window !== "undefined") {
         payload.append("page_url", window.location.href);
       }
-      
       payload.append("_honey", "");
 
       const response = await fetch(FORM_SUBMIT_URL, {
@@ -872,64 +969,106 @@ const Products = () => {
 
       if (response.ok) {
         toast.success("Enquiry sent! We'll contact you shortly.");
-      } else {
-        throw new Error("Failed to send enquiry");
+        return true;
       }
+      throw new Error("Failed to send enquiry");
     } catch (error) {
       toast.error("Failed to send enquiry. Please try again.");
       console.error("Buy Now error:", error);
-    } finally {
-      setIsBuyingNow(null);
+      return false;
     }
   };
 
-  const handleCheckout = async () => {
-    if (cart.length === 0) {
-      toast.error("Your cart is empty");
-      return;
-    }
-
-    setIsCheckingOut(true);
+  const submitCheckoutEnquiry = async () => {
     try {
       const productsList = cart
-        .map((item) => `${item.name}${item.size ? ` (${item.size})` : ""}`)
+        .map(
+          (item, index) =>
+            `${index + 1}. ${item.name}${item.size ? ` (${item.size})` : ""} x${item.quantity ?? 1}`
+        )
         .join("\n");
 
-      // Build FormData expected by FormSubmit
       const payload = new FormData();
       payload.append("_subject", "Product Enquiry - Checkout");
       payload.append("_captcha", "false");
       payload.append("_template", "table");
-      
       payload.append("products", productsList);
-      payload.append("totalItems", cart.length.toString());
-      payload.append("message", `I'm interested in the following products:\n\n${productsList}`);
+      payload.append("totalItems", cartCount.toString());
+      payload.append("enquiryDetails", `I'm interested in the following products:\n\n${productsList}`);
       payload.append("_formType", "Product Enquiry - Checkout");
+      appendCustomerInfo(payload);
       
       if (typeof window !== "undefined") {
         payload.append("page_url", window.location.href);
       }
-      
       payload.append("_honey", "");
 
       const response = await fetch(FORM_SUBMIT_URL, {
         method: "POST",
         body: payload,
       });
-
+console.log(response)
       if (response.ok) {
         toast.success("Enquiry sent! We'll contact you shortly.");
         clearCart();
         setIsCartOpen(false);
-      } else {
-        throw new Error("Failed to send enquiry");
+        return true;
       }
+      throw new Error("Failed to send enquiry");
     } catch (error) {
       toast.error("Failed to send enquiry. Please try again.");
       console.error("Checkout error:", error);
-    } finally {
-      setIsCheckingOut(false);
+      return false;
     }
+  };
+
+  const openEnquiryModal = (action: "checkout" | "buy", product: Product | null = null) => {
+    setPendingAction(action);
+    setPendingProduct(product);
+    setIsEnquiryModalOpen(true);
+    setIsCartOpen(false);
+  };
+
+  const closeEnquiryModal = () => {
+    if (isSubmittingEnquiry) return;
+    setIsEnquiryModalOpen(false);
+    setPendingAction(null);
+    setPendingProduct(null);
+  };
+
+  const handleCheckoutClick = () => {
+    if (cart.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+    openEnquiryModal("checkout");
+  };
+
+  const handleBuyNowClick = (product: Product) => {
+    openEnquiryModal("buy", product);
+  };
+
+  const handleEnquirySubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!pendingAction || !isCustomerInfoValid) {
+      toast.error("Please fill all required fields before submitting.");
+      return;
+    }
+
+    setIsSubmittingEnquiry(true);
+    let success = false;
+    if (pendingAction === "buy" && pendingProduct) {
+      success = await submitBuyEnquiry(pendingProduct);
+    } else if (pendingAction === "checkout") {
+      success = await submitCheckoutEnquiry();
+    }
+
+    if (success) {
+      closeEnquiryModal();
+      setPendingProduct(null);
+      setPendingAction(null);
+    }
+    setIsSubmittingEnquiry(false);
   };
 
   // Pagination logic
@@ -1148,23 +1287,74 @@ const Products = () => {
 
                       {/* Actions */}
                       <div className="space-y-3 pt-2 border-t">
-                        <div className="grid grid-cols-2 gap-2">
-                          <button
-                            onClick={() => handleAddToCart(product)}
-                            className="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1.5"
-                          >
-                            <ShoppingCart className="h-3.5 w-3.5" />
-                            Add
-                          </button>
-                          <button
-                            onClick={() => handleBuyNow(product)}
-                            disabled={isBuyingNow === product.id}
-                            className="px-3 py-2 border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1.5 disabled:opacity-50"
-                          >
-                            <Zap className="h-3.5 w-3.5" />
-                            {isBuyingNow === product.id ? "Sending..." : "Buy"}
-                          </button>
-                        </div>
+                        {(() => {
+                          const cartItem = cart.find((item) => item.id === product.id);
+                          const quantity = cartItem?.quantity ?? 1;
+                          if (cartItem) {
+                            return (
+                              <>
+                                <div className="flex flex-col gap-2 rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
+                                  <p className="text-xs font-semibold text-emerald-700 flex items-center gap-1">
+                                    <ShoppingCart className="h-3.5 w-3.5" />
+                                    Added to cart
+                                  </p>
+                                  <div className="flex items-center gap-2">
+                                    <button
+                                      onClick={() => updateQuantity(product.id, Math.max(1, quantity - 1))}
+                                      disabled={quantity <= 1}
+                                      className="p-1.5 rounded-full border border-emerald-200 text-emerald-700 hover:bg-white disabled:opacity-50"
+                                    >
+                                      <Minus className="h-3.5 w-3.5" />
+                                    </button>
+                                    <span className="text-sm font-semibold text-emerald-700 min-w-[2ch] text-center">
+                                      {quantity}
+                                    </span>
+                                    <button
+                                      onClick={() => updateQuantity(product.id, quantity + 1)}
+                                      className="p-1.5 rounded-full border border-emerald-200 text-emerald-700 hover:bg-white"
+                                    >
+                                      <Plus className="h-3.5 w-3.5" />
+                                    </button>
+                                  </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-2">
+                                  <button
+                                    onClick={() => handleRemoveFromCart(product.id)}
+                                    className="px-3 py-2 border-2 border-red-100 text-red-600 hover:bg-red-50 rounded-lg text-xs sm:text-sm font-medium transition-colors"
+                                  >
+                                    Remove
+                                  </button>
+                                  <button
+                                    onClick={() => handleBuyNowClick(product)}
+                                    className="px-3 py-2 border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1.5"
+                                  >
+                                    <Zap className="h-3.5 w-3.5" />
+                                    Buy
+                                  </button>
+                                </div>
+                              </>
+                            );
+                          }
+
+                          return (
+                            <div className="grid grid-cols-2 gap-2">
+                              <button
+                                onClick={() => handleAddToCart(product)}
+                                className="px-3 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1.5"
+                              >
+                                <ShoppingCart className="h-3.5 w-3.5" />
+                                Add
+                              </button>
+                              <button
+                                onClick={() => handleBuyNowClick(product)}
+                                className="px-3 py-2 border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 rounded-lg text-xs sm:text-sm font-medium transition-colors flex items-center justify-center gap-1.5"
+                              >
+                                <Zap className="h-3.5 w-3.5" />
+                                Buy
+                              </button>
+                            </div>
+                          );
+                        })()}
                       </div>
                     </CardContent>
                   </Card>
@@ -1232,7 +1422,7 @@ const Products = () => {
                   </button>
                 </div>
                 <p className="text-sm text-gray-600 mt-1">
-                  {cart.length} {cart.length === 1 ? "item" : "items"} in your cart
+                  {cartCount} {cartCount === 1 ? "item" : "items"} in your cart
                 </p>
               </div>
 
@@ -1245,49 +1435,253 @@ const Products = () => {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {cart.map((item, index) => (
-                      <div key={`${item.id}-${index}`} className="bg-gray-50 rounded-lg p-3 sm:p-4">
-                        <div className="flex justify-between gap-3">
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-sm sm:text-base leading-tight break-words">
-                              {item.name}
-                            </h4>
-                            <p className="text-xs text-gray-600 mt-1">Size: {item.size}</p>
+                    {cart.map((item, index) => {
+                      const quantity = item.quantity ?? 1;
+                      return (
+                        <div key={`${item.id}-${index}`} className="bg-gray-50 rounded-lg p-3 sm:p-4 space-y-3">
+                          <div className="flex justify-between gap-3">
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-sm sm:text-base leading-tight break-words">
+                                {item.name}
+                              </h4>
+                              <p className="text-xs text-gray-600 mt-1">Size: {item.size}</p>
+                            </div>
+                            <button
+                              onClick={() => handleRemoveFromCart(item.id)}
+                              className="flex-shrink-0 p-2 hover:bg-red-50 rounded-lg transition-colors self-start"
+                            >
+                              <Trash2 className="h-4 w-4 text-red-500" />
+                            </button>
                           </div>
-                          <button
-                            onClick={() => removeFromCart(item.id)}
-                            className="flex-shrink-0 p-2 hover:bg-red-50 rounded-lg transition-colors self-start"
-                          >
-                            <Trash2 className="h-4 w-4 text-red-500" />
-                          </button>
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-gray-500">Quantity</span>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => updateQuantity(item.id, Math.max(1, quantity - 1))}
+                                disabled={quantity <= 1}
+                                className="p-1.5 rounded-full border border-gray-200 text-gray-700 hover:bg-white disabled:opacity-50"
+                              >
+                                <Minus className="h-3.5 w-3.5" />
+                              </button>
+                              <span className="text-sm font-semibold text-gray-700 min-w-[2ch] text-center">
+                                {quantity}
+                              </span>
+                              <button
+                                onClick={() => updateQuantity(item.id, quantity + 1)}
+                                className="p-1.5 rounded-full border border-gray-200 text-gray-700 hover:bg-white"
+                              >
+                                <Plus className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
 
               {cart.length > 0 && (
                 <div className="border-t p-4 sm:p-6 bg-white space-y-4">
-                  <div className="space-y-2">
-                    <button
-                      onClick={handleCheckout}
-                      disabled={isCheckingOut}
-                      className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 shadow-lg disabled:opacity-50"
-                    >
-                      <ShoppingBag className="h-5 w-5" />
-                      {isCheckingOut ? "Sending Enquiry..." : "Checkout & Send Enquiry"}
-                    </button>
-                    
-                    <button
-                      onClick={clearCart}
-                      className="w-full py-2.5 border-2 border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-medium transition-colors"
-                    >
-                      Clear Cart
-                    </button>
+                  <div className="space-y-1">
+                    <p className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                      <User className="h-4 w-4 text-emerald-600" />
+                      Ready to checkout?
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Tap below to review or enter your contact information in a quick pop-up and send the enquiry.
+                    </p>
                   </div>
+
+                  <button
+                    onClick={handleCheckoutClick}
+                    className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 shadow-lg"
+                  >
+                    <ShoppingBag className="h-5 w-5" />
+                    Checkout &amp; Send Enquiry
+                  </button>
+
+                  <button
+                    onClick={clearCart}
+                    className="w-full py-2.5 border-2 border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-medium transition-colors"
+                  >
+                    Clear Cart
+                  </button>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* Enquiry Modal */}
+        {isEnquiryModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8">
+            <div className="absolute inset-0 bg-black/60" onClick={closeEnquiryModal} />
+            <div className="relative z-10 w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden">
+              <div className="flex items-center justify-between px-6 py-4 border-b">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-emerald-600 font-semibold">
+                    {pendingAction === "checkout" ? "Cart enquiry" : "Quick buy enquiry"}
+                  </p>
+                  <h3 className="text-xl font-bold text-gray-900">
+                    {pendingAction === "checkout" ? "Share your details" : pendingProduct?.name}
+                  </h3>
+                </div>
+                <button
+                  onClick={closeEnquiryModal}
+                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                  disabled={isSubmittingEnquiry}
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              <form onSubmit={handleEnquirySubmit} className="px-6 py-6 space-y-5 max-h-[75vh] overflow-y-auto">
+                <div className="rounded-2xl bg-emerald-50 border border-emerald-100 p-4 text-sm text-emerald-900">
+                  {pendingAction === "checkout" ? (
+                    <p>
+                      We’ll send us an enquiry with the items currently in your cart. Share your contact details so our
+                      nutrition team can reach you with the next steps.
+                    </p>
+                  ) : (
+                    <p>
+                      Tell us how to reach you and we’ll follow up about{" "}
+                      <span className="font-semibold">{pendingProduct?.name}</span>.
+                    </p>
+                  )}
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-1">
+                    <Label htmlFor="modal-name" className="text-xs font-semibold text-gray-600 flex items-center gap-1">
+                      <User className="h-3.5 w-3.5 text-emerald-600" />
+                      Full Name *
+                    </Label>
+                    <Input
+                      id="modal-name"
+                      value={customerInfo.name}
+                      onChange={(e) => handleCustomerInfoChange("name", e.target.value)}
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="modal-phone" className="text-xs font-semibold text-gray-600 flex items-center gap-1">
+                      <Phone className="h-3.5 w-3.5 text-emerald-600" />
+                      Phone *
+                    </Label>
+                    <Input
+                      id="modal-phone"
+                      type="tel"
+                      value={customerInfo.phone}
+                      onChange={(e) => handleCustomerInfoChange("phone", e.target.value)}
+                      placeholder="+91 90000 00000"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="modal-email" className="text-xs font-semibold text-gray-600 flex items-center gap-1">
+                      <Mail className="h-3.5 w-3.5 text-emerald-600" />
+                      Email *
+                    </Label>
+                    <Input
+                      id="modal-email"
+                      type="email"
+                      value={customerInfo.email}
+                      onChange={(e) => handleCustomerInfoChange("email", e.target.value)}
+                      placeholder="your@email.com"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <Label className="text-xs font-semibold text-gray-600 flex items-center gap-1">
+                      <Target className="h-3.5 w-3.5 text-emerald-600" />
+                      Primary Goal *
+                    </Label>
+                    <Select value={customerInfo.goal} onValueChange={(value) => handleCustomerInfoChange("goal", value)}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your goal" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {CUSTOMER_GOALS.map((goal) => (
+                          <SelectItem key={goal.value} value={goal.value}>
+                            {goal.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-1">
+                    <Label className="text-xs font-semibold text-gray-600 flex items-center gap-1">
+                      <Clock className="h-3.5 w-3.5 text-emerald-600" />
+                      Preferred Time *
+                    </Label>
+                    <Select
+                      value={customerInfo.preferredTime}
+                      onValueChange={(value) => handleCustomerInfoChange("preferredTime", value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a time slot" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {PREFERRED_TIME_OPTIONS.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-1">
+                    <Label htmlFor="modal-date" className="text-xs font-semibold text-gray-600 flex items-center gap-1">
+                      <Calendar className="h-3.5 w-3.5 text-emerald-600" />
+                      Preferred Date *
+                    </Label>
+                    <Input
+                      id="modal-date"
+                      type="date"
+                      value={customerInfo.preferredDate}
+                      onChange={(e) => handleCustomerInfoChange("preferredDate", e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <Label htmlFor="modal-message" className="text-xs font-semibold text-gray-600 flex items-center gap-1">
+                    <MessageSquare className="h-3.5 w-3.5 text-emerald-600" />
+                    Additional Notes
+                  </Label>
+                  <Textarea
+                    id="modal-message"
+                    rows={4}
+                    value={customerInfo.message}
+                    onChange={(e) => handleCustomerInfoChange("message", e.target.value)}
+                    placeholder="Share your preferences or questions..."
+                  />
+                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+                  <button
+                    type="button"
+                    onClick={closeEnquiryModal}
+                    disabled={isSubmittingEnquiry}
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingEnquiry || !isCustomerInfoValid}
+                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  >
+                    {isSubmittingEnquiry ? "Sending..." : "Submit Enquiry"}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

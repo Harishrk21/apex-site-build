@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SEO from "@/components/SEO";
+import SEO from "@/components/SEOHelmet";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Target, Eye, Award, Users, CheckCircle2, FileText, Heart, TrendingUp, Building2, Newspaper, Calendar, MessageCircle, Sparkles, Trophy, Star } from "lucide-react";
@@ -24,8 +24,8 @@ const About = () => {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Newlife Wellness Centre",
-      "url": "https://newlifewellnesscentre.com",
-      "logo": "https://newlifewellnesscentre.com/logo.png",
+      "url": "https://www.kolathurwellnesscentre.com",
+      "logo": "https://www.kolathurwellnesscentre.com/mylogo.png",
       "description": "Certified Herbalife nutrition center in Kolathur, Chennai providing personalized wellness coaching",
       "address": {
         "@type": "PostalAddress",

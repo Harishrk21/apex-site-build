@@ -1,4 +1,4 @@
-import SEO from "@/components/SEO";
+import SEO from "@/components/SEOHelmet";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, TrendingDown, TrendingUp, Sparkles } from "lucide-react";

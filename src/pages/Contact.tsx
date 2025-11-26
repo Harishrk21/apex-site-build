@@ -1,4 +1,7 @@
 import React, { useRef, useState } from "react";
+import SEO from "@/components/SEOHelmet";
+import { baseSEO, seoPages } from "@/config/seoConfig";
+import { organizationSchema, generateBreadcrumbSchema } from "@/lib/structuredData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,6 +28,12 @@ import {
 
 const RECIPIENT_EMAIL = "info@kolathurwellnesscentre.com"; // ← change if you want another mail
 const FORM_SUBMIT_URL = `https://formsubmit.co/${RECIPIENT_EMAIL}`;
+
+const contactSEO = seoPages.contact;
+const contactBreadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Home", url: `${baseSEO.baseUrl}/` },
+  { name: "Contact", url: `${baseSEO.baseUrl}/contact` },
+]);
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -185,6 +194,14 @@ const Contact: React.FC = () => {
   );
 
   return (
+    <>
+      <SEO
+        title={contactSEO.title}
+        description={contactSEO.description}
+        keywords={contactSEO.keywords}
+        canonical="/contact"
+        schema={[organizationSchema, contactBreadcrumbSchema]}
+      />
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-yellow-50 to-lime-50 font-sans">
       {submissionStatus === "success" && <SuccessModal />}
 
@@ -514,6 +531,7 @@ const Contact: React.FC = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

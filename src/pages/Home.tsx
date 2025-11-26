@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import SEO from "@/components/SEOHelmet";
+import { baseSEO, seoPages } from "@/config/seoConfig";
+import { organizationSchema, generateBreadcrumbSchema } from "@/lib/structuredData";
 import { ArrowRight, Heart, Users, Target, Star, Phone, MessageCircle, MapPin, Award, TrendingUp, Shield, ChevronLeft, ChevronRight, Check, Sparkles, Zap, Calendar, ClipboardCheck, Menu, X } from 'lucide-react';
 import heros from '/heros.png';
+
+const homeSEO = seoPages.home;
+const homeBreadcrumbSchema = generateBreadcrumbSchema([
+  { name: "Home", url: `${baseSEO.baseUrl}/` },
+]);
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentTransform, setCurrentTransform] = useState(0);
@@ -108,7 +116,15 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-white overflow-hidden">
+    <>
+      <SEO
+        title={homeSEO.title}
+        description={homeSEO.description}
+        keywords={homeSEO.keywords}
+        canonical="/"
+        schema={[organizationSchema, homeBreadcrumbSchema]}
+      />
+      <div className="bg-white overflow-hidden">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-green-600 via-emerald-700 to-teal-800 overflow-hidden">
         <div className="absolute inset-0">
@@ -679,6 +695,7 @@ const Home = () => {
         }
       `}</style>
     </div>
+    </>
   );
 };
 
