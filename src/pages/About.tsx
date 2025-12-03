@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Target, Eye, Award, Users, CheckCircle2, FileText, Heart, TrendingUp, Building2, Newspaper, Calendar, MessageCircle, Sparkles, Trophy, Star } from "lucide-react";
 import aboutHero from "@/assets/about-hero.jpg";
 import GalleryLightbox from "@/components/GalleryLightbox";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const About = () => {
   const galleryImages = [
@@ -261,6 +263,111 @@ const About = () => {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Mentor Transformations */}
+      <section className="py-24 bg-gradient-to-b from-white via-primary/5 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-primary/10 px-6 py-2 rounded-full mb-6">
+              <Trophy className="w-5 h-5 text-primary" />
+              <span className="text-sm font-bold text-primary">Our Personal Transformations</span>
+            </div>
+            <h2 className="text-5xl font-extrabold mb-4 bg-gradient-to-r from-primary to-green-600 bg-clip-text text-transparent">
+              Real Results, Real Stories
+            </h2>
+            <p className="text-xl text-muted-foreground">See how we transformed our own lives with Herbalife Nutrition</p>
+          </div>
+
+          {/* Transformation Stories */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Avinash's Story */}
+            <Card className="border-2 border-primary/20 shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-[1.02] bg-gradient-to-br from-white to-primary/5">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-green-600 flex items-center justify-center text-white font-bold text-lg">
+                    A
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-foreground">Avinash's Journey</h3>
+                    <p className="text-sm text-muted-foreground">Certified Herbalife Wellness Coach</p>
+                  </div>
+                </div>
+                <p className="text-lg text-foreground font-semibold leading-relaxed mb-4">
+                  Myself Lost 18kgs of My Weight & Recovered From Skin Problem Within 6 Months
+                </p>
+                <div className="flex items-center gap-2 text-primary">
+                  <TrendingUp className="w-5 h-5" />
+                  <span className="text-sm font-medium">6 Months Transformation</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Mahak's Story */}
+            <Card className="border-2 border-primary/20 shadow-2xl hover:shadow-primary/30 transition-all duration-300 hover:scale-[1.02] bg-gradient-to-br from-white to-primary/5">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-600 to-primary flex items-center justify-center text-white font-bold text-lg">
+                    M
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-foreground">Mahak's Journey</h3>
+                    <p className="text-sm text-muted-foreground">Certified Herbalife Wellness Coach</p>
+                  </div>
+                </div>
+                <p className="text-lg text-foreground font-semibold leading-relaxed mb-4">
+                  My Wife ( Mahak ) Gained Total 13 kgs of Weight & Recovered From PCOD & Dry Skin Issues.
+                </p>
+                <div className="flex items-center gap-2 text-primary">
+                  <Heart className="w-5 h-5" />
+                  <span className="text-sm font-medium">Complete Wellness Recovery</span>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Rolling Image Carousel */}
+          <div className="relative">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                  stopOnInteraction: false,
+                  stopOnMouseEnter: true,
+                }),
+              ]}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {Array.from({ length: 6 }).map((_, index) => (
+                  <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                    <div className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                      <div className="aspect-[4/5] overflow-hidden">
+                        <img
+                          src={`/mentor_results/mentor${index + 1}.jpeg`}
+                          alt={`Transformation result ${index + 1}`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                          <p className="text-sm font-semibold">Transformation Result</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2 md:left-4" />
+              <CarouselNext className="right-2 md:right-4" />
+            </Carousel>
+          </div>
         </div>
       </section>
 
