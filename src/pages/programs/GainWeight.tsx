@@ -8,6 +8,7 @@ import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
 import aboutHero from "@/assets/about-hero.jpg";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const GainWeight = () => {
   const dailyPlan = [
@@ -121,12 +122,11 @@ const GainWeight = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Gain Weight Program - Personalized Nutrition Plan",
-    "description": "Comprehensive weight gain program with personalized nutrition plans, Herbalife products, and expert coaching for healthy muscle building"
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Gain Weight Program - Personalized Nutrition Plan",
+    description: "Comprehensive weight gain program with personalized nutrition plans, Herbalife products, and expert coaching for healthy muscle building",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

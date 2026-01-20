@@ -7,6 +7,7 @@ import { CheckCircle2, Calendar, Download, FileText, Target, Heart, Clock, Users
 import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const WomensWellness = () => {
   const dailyPlan = [
@@ -121,12 +122,11 @@ const WomensWellness = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Women's Wellness Program - Complete Health Plan for Women",
-    "description": "Comprehensive women's wellness program with personalized nutrition plans, Herbalife products, and expert coaching for optimal women's health"
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Women's Wellness Program - Complete Health Plan for Women",
+    description: "Comprehensive women's wellness program with personalized nutrition plans, Herbalife products, and expert coaching for optimal women's health",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

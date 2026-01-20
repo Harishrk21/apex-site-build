@@ -7,6 +7,7 @@ import { CheckCircle2, Calendar, Download, FileText, Target, Shield, Clock, User
 import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const ImmunitySupport = () => {
   const dailyPlan = [
@@ -120,12 +121,11 @@ const ImmunitySupport = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Immunity Support Program - Immune System Health Plan",
-    "description": "Comprehensive immunity support program with personalized nutrition plans, Herbalife products, and expert coaching for optimal immune health"
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Immunity Support Program - Immune System Health Plan",
+    description: "Comprehensive immunity support program with personalized nutrition plans, Herbalife products, and expert coaching for optimal immune health",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

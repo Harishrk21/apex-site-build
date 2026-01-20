@@ -7,6 +7,7 @@ import { CheckCircle2, Calendar, Download, FileText, Target, Sparkles, Clock, Us
 import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const CompleteWellness = () => {
   const dailyPlan = [
@@ -121,12 +122,11 @@ const CompleteWellness = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Complete Wellness Program - Comprehensive Health Plan",
-    "description": "Comprehensive complete wellness program with personalized nutrition plans, Herbalife products, and expert coaching for optimal health in all areas of life"
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Complete Wellness Program - Comprehensive Health Plan",
+    description: "Comprehensive complete wellness program with personalized nutrition plans, Herbalife products, and expert coaching for optimal health in all areas of life",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

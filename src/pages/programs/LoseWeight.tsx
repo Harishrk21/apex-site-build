@@ -8,6 +8,7 @@ import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
 import aboutHero from "@/assets/about-hero.jpg";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const LoseWeight = () => {
   const dailyPlan = [
@@ -116,17 +117,11 @@ const LoseWeight = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Lose Weight Program - Personalized Nutrition Plan",
-    "description": "Comprehensive weight loss program with personalized nutrition plans, Herbalife products, and expert coaching",
-    "offers": {
-      "@type": "Offer",
-      "availability": "https://schema.org/InStock",
-      "priceCurrency": "INR"
-    }
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Lose Weight Program - Personalized Nutrition Plan",
+    description: "Comprehensive weight loss program with personalized nutrition plans, Herbalife products, and expert coaching",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

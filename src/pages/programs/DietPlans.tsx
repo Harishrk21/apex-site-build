@@ -7,6 +7,7 @@ import { CheckCircle2, Calendar, Download, FileText, Target, UtensilsCrossed, Cl
 import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const DietPlans = () => {
   const dailyPlan = [
@@ -117,12 +118,11 @@ const DietPlans = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Personalized Diet Plans - Custom Nutrition Program",
-    "description": "Comprehensive personalized diet plan program with custom meal plans, Herbalife products, and expert nutrition coaching"
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Personalized Diet Plans - Custom Nutrition Program",
+    description: "Comprehensive personalized diet plan program with custom meal plans, Herbalife products, and expert nutrition coaching",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

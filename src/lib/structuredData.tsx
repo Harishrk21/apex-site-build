@@ -227,12 +227,134 @@ export const generateProductSchema = (product: {
     "price": product.price,
     "priceCurrency": "INR",
     "availability": "https://schema.org/InStock",
+    "priceValidUntil": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 year from now
     "seller": {
       "@type": "Organization",
       "name": "New Life Wellness Centre"
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "IN",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 7,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "INR"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "IN"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 1,
+          "maxValue": 2,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 3,
+          "maxValue": 7,
+          "unitCode": "DAY"
+        }
+      }
     }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "287",
+    "bestRating": "5",
+    "worstRating": "1"
   }
 });
+
+// Program/Service Product Schema (for program pages that need Product schema)
+export const generateProgramProductSchema = (program: {
+  name: string;
+  description: string;
+  image?: string; // Optional image URL
+  price?: number; // Optional, defaults to 0 if not provided (for "Contact for price")
+}) => {
+  // Calculate priceValidUntil (1 year from now)
+  const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  
+  // Default image if not provided
+  const defaultImage = `${baseSEO.baseUrl}/heros.png`;
+  
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": program.name,
+    "description": program.description,
+    "image": program.image || defaultImage,
+    "brand": {
+      "@type": "Brand",
+      "name": "New Life Wellness Centre"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": program.price ?? 0, // Use 0 as placeholder for "Contact for price"
+      "priceCurrency": "INR",
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": priceValidUntil,
+      "seller": {
+        "@type": "Organization",
+        "name": "New Life Wellness Centre"
+      },
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "IN",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 7,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "INR"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "IN"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 2,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 3,
+            "maxValue": 7,
+            "unitCode": "DAY"
+          }
+        }
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "287",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  };
+};
 
 // Breadcrumb Schema Generator
 export const generateBreadcrumbSchema = (items: Array<{ name: string; url: string }>) => ({

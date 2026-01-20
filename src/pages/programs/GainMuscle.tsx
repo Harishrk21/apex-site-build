@@ -7,6 +7,7 @@ import { CheckCircle2, Calendar, Download, FileText, Target, TrendingUp, Clock, 
 import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const GainMuscle = () => {
   const dailyPlan = [
@@ -128,12 +129,11 @@ const GainMuscle = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Gain Muscle Program - Muscle Building Nutrition Plan",
-    "description": "Comprehensive muscle building program with personalized nutrition plans, Herbalife products, and expert coaching for lean muscle gain"
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Gain Muscle Program - Muscle Building Nutrition Plan",
+    description: "Comprehensive muscle building program with personalized nutrition plans, Herbalife products, and expert coaching for lean muscle gain",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

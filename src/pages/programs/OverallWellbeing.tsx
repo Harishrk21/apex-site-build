@@ -7,6 +7,7 @@ import { CheckCircle2, Calendar, Download, FileText, Target, Heart, Clock, Users
 import ProgramHero from "@/components/ProgramHero";
 import PlanAccordion from "@/components/PlanAccordion";
 import PricingTable from "@/components/PricingTable";
+import { generateProgramProductSchema } from "@/lib/structuredData";
 
 const OverallWellbeing = () => {
   const dailyPlan = [
@@ -121,12 +122,11 @@ const OverallWellbeing = () => {
     }
   ];
 
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Overall Wellbeing Program - Holistic Health Plan",
-    "description": "Comprehensive overall wellbeing program with personalized nutrition plans, Herbalife products, and expert coaching for optimal health and vitality"
-  };
+  const productSchema = generateProgramProductSchema({
+    name: "Overall Wellbeing Program - Holistic Health Plan",
+    description: "Comprehensive overall wellbeing program with personalized nutrition plans, Herbalife products, and expert coaching for optimal health and vitality",
+    image: "https://herbalnutri.co.in/wp-content/uploads/2025/08/Herbalife-Nutrition-Products-for-Wellness-scaled.jpg"
+  });
 
   const faqSchema = {
     "@context": "https://schema.org",

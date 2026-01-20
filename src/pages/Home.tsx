@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SEO from "@/components/SEOHelmet";
 import { baseSEO, seoPages } from "@/config/seoConfig";
-import { organizationSchema, generateBreadcrumbSchema } from "@/lib/structuredData";
+import { organizationSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/structuredData";
 import { ArrowRight, Heart, Users, Target, Star, Phone, MessageCircle, MapPin, Award, TrendingUp, Shield, ChevronLeft, ChevronRight, Check, Sparkles, Zap, Calendar, ClipboardCheck, Menu, X } from 'lucide-react';
 import heros from '/heros.png';
 
@@ -9,6 +9,32 @@ const homeSEO = seoPages.home;
 const homeBreadcrumbSchema = generateBreadcrumbSchema([
   { name: "Home", url: `${baseSEO.baseUrl}/` },
 ]);
+
+// Home page FAQ items
+const homeFAQItems = [
+  {
+    question: "What services does New Life Wellness Centre offer?",
+    answer: "We offer weight loss programs, Herbalife nutrition plans, personalized wellness coaching, body transformation guidance, and complete lifestyle improvement programs."
+  },
+  {
+    question: "Where is New Life Wellness Centre located?",
+    answer: "We are located at No.22, Subramaniyapuram 1st Street, Kolathur, Chennai – 600099, Tamil Nadu."
+  },
+  {
+    question: "Do you provide personalized weight loss programs?",
+    answer: "Yes, we provide fully personalized weight loss plans based on body type, lifestyle, and nutritional needs using Herbalife science-backed nutrition."
+  },
+  {
+    question: "Is a consultation required before starting Herbalife nutrition?",
+    answer: "Yes, we provide a free consultation to check your current health condition, lifestyle, and goal before recommending a Herbalife nutrition plan."
+  },
+  {
+    question: "Do you offer wellness coaching for Villivakkam and nearby areas?",
+    answer: "Yes, we serve Kolathur, Villivakkam, Lakshmipuram, Peravallur, and all surrounding Chennai areas."
+  }
+];
+
+const homeFAQSchema = generateFAQSchema(homeFAQItems);
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentTransform, setCurrentTransform] = useState(0);
@@ -122,7 +148,7 @@ const Home = () => {
         description={homeSEO.description}
         keywords={homeSEO.keywords}
         canonical="/"
-        schema={[organizationSchema, homeBreadcrumbSchema]}
+        schema={[organizationSchema, homeBreadcrumbSchema, homeFAQSchema]}
       />
       <div className="bg-white overflow-hidden">
       {/* Hero Section */}
